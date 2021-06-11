@@ -1,0 +1,1 @@
+ADDITIONAL_OBJCFLAGS += -std=c11 -fno-gnu89-inline
