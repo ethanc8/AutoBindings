@@ -1,3 +1,4 @@
 obj/AutoBindings
 obj
-example_outputs
+userData/out
+.gitignore

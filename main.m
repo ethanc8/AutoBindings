@@ -7,6 +7,8 @@
 #import <stdarg.h>
 #import "GlobalConvenienceMacros.h"
 
+#import "userData/Config.h"
+
 /*
 
 id objc_lookUpClass(const char *name);
@@ -25,21 +27,45 @@ SEL sel_getUid(const char *selName);
 
 */
 
-@interface NSString (ECStdio) 
+@interface NSString (ECGeneral) 
     - (BOOL) print;
+    - (BOOL) printLine;
     - (BOOL) printError;
+    - (BOOL) printErrorLine;
     - (NSString*) plus: (NSString*) aString;
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2;
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3;
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4;
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 plus: (NSString*) str5;
 @end
 
-@implementation NSString (ECStdio)
+@implementation NSString (ECGeneral)
     - (BOOL) print {
         return [self writeToFile: @"/dev/stdout" atomically: NO];
     }
     - (BOOL) printError {
         return [self writeToFile: @"/dev/stderr" atomically: NO];
     }
+    - (BOOL) printLine {
+        return [[self plus: @"\n"] writeToFile: @"/dev/stdout" atomically: NO];
+    }
+    - (BOOL) printErrorLine {
+        return [[self plus: @"\n"] writeToFile: @"/dev/stderr" atomically: NO];
+    }
     - (NSString*) plus: (NSString*) aString {
         return [self stringByAppendingString: aString];
+    }
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 {
+        return [[self stringByAppendingString: str1] stringByAppendingString: str2];
+    }
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 {
+        return [[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3];
+    }
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 {
+        return [[[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3] stringByAppendingString: str4];
+    }
+    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 plus: (NSString*) str5 {
+        return [[[[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3] stringByAppendingString: str4] stringByAppendingString: str5];
     }
 @end
 
@@ -143,7 +169,7 @@ NSString* interpretType(char* encodedType) {
         }
         // Unknowns
         else {
-            return [@"union " plus: randomIdentifier()];
+            return randomIdentifier();
         }
 }
 
@@ -168,7 +194,7 @@ NSString* handleTypeSpecifier(char* encodedType) {
     if (encodedType[1] == '^') {
         return [interpretType(&(encodedType[2])) plus: [@"* " plus: specifier]];
     } else {
-        return [[specifier plus: @" "] plus: interpretType(&(encodedType[1]))];
+        return [specifier plus: @" " plus: interpretType(&(encodedType[1]))];
     }
 }
 
@@ -190,10 +216,10 @@ NSString* constructObjCPrototype(BOOL isClassMethod, Method requestedMethod) {
             i < amtArguments;
             i++
         ) {
-            prototype = [[prototype plus: [methodName objectAtIndex: i - 2]] plus: @":"];
+            prototype = [prototype plus: [methodName objectAtIndex: i - 2] plus: @":"];
             NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
-            prototype = [[prototype plus: argumentPrototype] plus: @" "];
+            prototype = [prototype plus: argumentPrototype plus: @" "];
         }
     } else {
         prototype = [prototype plus: methodNameString];
@@ -213,7 +239,7 @@ NSString* constructWrapperCPrototype(BOOL isClassMethod, Method requestedMethod)
         NSString* methodName = [[
             methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
             substringToIndex: [methodNameString length] - 1];
-        prototype = [[prototype plus: methodName] plus: @"("];
+        prototype = [prototype plus: methodName plus: @"("];
         for (
             unsigned int i = 2;
             i < amtArguments;
@@ -221,11 +247,11 @@ NSString* constructWrapperCPrototype(BOOL isClassMethod, Method requestedMethod)
         ) {
             NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @"%@ arg%u", argumentType, i];
-            prototype = [[prototype plus: argumentPrototype] plus: @", "];
+            prototype = [prototype plus: argumentPrototype plus: @", "];
         }
         prototype = [prototype plus: @"id self)"];
     } else {
-        prototype = [[prototype plus: methodNameString] plus: @"(id self)"];
+        prototype = [prototype plus: methodNameString plus: @"(id self)"];
     }
     return prototype;
 }
@@ -247,10 +273,10 @@ NSString* constructWrapper(BOOL isClassMethod, Method requestedMethod) {
             i < amtArguments;
             i++
         ) {
-            wrapper = [[wrapper plus: [methodName objectAtIndex: i - 2]] plus: @":"];
+            wrapper = [wrapper plus: [methodName objectAtIndex: i - 2] plus: @":"];
             NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
-            wrapper = [[wrapper plus: argumentWrapper] plus: @" "];
+            wrapper = [wrapper plus: argumentWrapper plus: @" "];
         }
     } else {
         wrapper = [wrapper plus: methodNameString];
@@ -272,7 +298,7 @@ NSString* constructOriginalCPrototype(BOOL isClassMethod, Method requestedMethod
         NSString* methodName = [[
             methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
             substringToIndex: [methodNameString length] - 1];
-        prototype = [[prototype plus: methodName] plus: @"(id self, SEL _cmd"];
+        prototype = [prototype plus: methodName plus: @"(id self, SEL _cmd"];
         for (
             unsigned int i = 2;
             i < amtArguments;
@@ -280,13 +306,39 @@ NSString* constructOriginalCPrototype(BOOL isClassMethod, Method requestedMethod
         ) {
             NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @", %@ arg%u", argumentType, i];
-            prototype = [[prototype plus: argumentPrototype] plus: @""];
+            prototype = [prototype plus: argumentPrototype];
         }
         prototype = [prototype plus: @")"];
     } else {
-        prototype = [[prototype plus: methodNameString] plus: @"(id self, SEL _cmd)"];
+        prototype = [prototype plus: methodNameString plus: @"(id self, SEL _cmd)"];
     }
     return prototype;
+}
+
+typedef NSString* (* Constructor)(BOOL isClassMethod, Method requestedMethod);
+
+NSString* constructWrapper (
+    Constructor constructor,
+    NSString* beginAll, // Accepts %@ -- the name of the class
+    NSString* beginLine,
+    NSString* endLine,
+    NSString* endAll // Accepts %@ -- the name of the class
+) {
+    NSString* returnStr;
+    returnStr = [returnStr plus: [NSString stringWithFormat: beginAll, className] plus: @"\n"]
+
+    for (int i = 0; i < instanceMethods_count; i++) {
+        returnStr = [returnStr plus: beginLine plus: constructor(NO, instanceMethods[i]) plus: endLine plus: @"\n"];
+    }
+
+    returnStr = [returnStr plus: @"\n"];
+
+    for (int i = 0; i < classMethods_count; i++) {
+        returnStr = [returnStr plus: beginLine plus: constructor(NO, instanceMethods[i]) plus: endLine plus: @"\n"];
+    }
+
+    returnStr = [returnStr plus: [NSString stringWithFormat: endAll, className] plus: @"\n"];
+    return returnStr;
 }
 
 int main (int argc, char* argv[]) {
@@ -338,7 +390,7 @@ int main (int argc, char* argv[]) {
         unsigned int classMethods_count;
         Method* classMethods = class_copyMethodList(object_getClass(requestedClass), &classMethods_count);
 
-        NSString* (* constructor)(BOOL isClassMethod, Method requestedMethod);
+        Constructor constructor;
         NSString* beginAll; // Accepts %@ -- the name of the class
         NSString* beginLine;
         NSString* endLine;
@@ -364,25 +416,7 @@ int main (int argc, char* argv[]) {
             endAll = @"@end // %@";
         }
 
-        ECPrint(beginAll, className);
-        ECPrint(@"\n");
-
-        for (int i = 0; i < instanceMethods_count; i++) {
-            ECPrint(@"%@", beginLine);
-            ECPrint(@"%@", constructor(NO, instanceMethods[i]));
-            ECPrint(@"%@\n", endLine);
-        }
-
-        ECPrint(@"\n");
-
-        for (int i = 0; i < classMethods_count; i++) {
-            ECPrint(@"%@", beginLine);
-            ECPrint(@"%@", constructor(YES, classMethods[i]));
-            ECPrint(@"%@\n", endLine);
-        }
-
-        ECPrint(endAll, className);
-        ECPrint(@"\n");
+        [constructWrapper() print];
 
     } else if (argc == 2) {
         ECPrint(@"%@\n", interpretType(argv[1]));
@@ -402,6 +436,16 @@ int main (int argc, char* argv[]) {
         testEncoding(__typeof(*[NSString string]));
         testEncoding(__typeof([NSObject class]));
 #       undef testEncoding
+
+        unsigned int allClasses_length = objc_getClassList(NULL, 0);
+        Class allClasses [allClasses_length];
+        objc_getClassList(allClasses, allClasses_length);
+        const char* className;
+
+        for (int i; i < allClasses_length; i++) {
+            className = class_getName(allClasses[i]);
+            ECPrint(@"%s\n", className);
+        }
     }
     [pool release];
 }
