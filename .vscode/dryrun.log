@@ -1,0 +1,91 @@
+make AutoBindings --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/pi/Projects/GNUstep/AutoBindings'
+ 
+This is gnustep-make 2.7.0. Type 'make print-gnustep-make-help' for help.
+Running in gnustep-make version 2 strict mode.
+ 
+(cd .; \
+/usr/share/GNUstep/Makefiles/mkinstalldirs ./obj)
+(make -f GNUmakefile --no-print-directory --no-keep-going AutoBindings.all.tool.variables)
+ 
+( \
+ 
+instance=AutoBindings; \
+ 
+operation=all; \
+ 
+type=tool; \
+ 
+abs_build_dir="."; \
+if [ "" != "" ]; then \
+  echo "Making $operation in subprojects of $type $instance..."; \
+  for f in  __done; do \
+    if [ $f != __done ]; then       \
+      if [ "${abs_build_dir}" = "." ]; then \
+        gsbuild="."; \
+      else \
+        gsbuild="${abs_build_dir}/$f"; \
+      fi; \
+      if [ "" = "" ]; then \
+        if [ "$type" = "framework" ]; then \
+          if [ "yes" = "yes" ]; then \
+            framework_version=""; \
+            if [ "$framework_version" = "" ]; then \
+              framework_version=""; \
+              if [ "$framework_version" = "" ]; then \
+                framework_version=""; \
+                if [ "$framework_version" = "" ]; then \
+                  framework_version="0"; \
+                fi; \
+              fi; \
+            fi; \
+            owning_project_header_dir="../${instance}.framework/Versions/${framework_version}/Headers"; \
+          else \
+            owning_project_header_dir="../${instance}.framework/Headers"; \
+          fi; \
+       else owning_project_header_dir=""; \
+       fi; \
+      else \
+        owning_project_header_dir="../"; \
+      fi; \
+      if make -C $f -f GNUmakefile --no-print-directory --no-keep-going $operation \
+          OWNING_PROJECT_HEADER_DIR_NAME="${owning_project_header_dir}" \
+          DERIVED_SOURCES="../derived_src" \
+          GNUSTEP_BUILD_DIR="$gsbuild" \
+  _GNUSTEP_MAKE_PARALLEL=no \
+        ; then \
+        :; \
+      else exit $?; \
+      fi; \
+    fi; \
+  done; \
+fi; \
+echo "Making $operation for $type $instance..."; \
+make -f GNUmakefile --no-print-directory --no-keep-going \
+    internal-${type}-$operation \
+    GNUSTEP_TYPE=$type \
+    GNUSTEP_INSTANCE=$instance \
+    GNUSTEP_OPERATION=$operation \
+    GNUSTEP_BUILD_DIR="${abs_build_dir}" \
+    _GNUSTEP_MAKE_PARALLEL=no)
+ 
+Making all for tool AutoBindings...
+ 
+(cd .; \
+/usr/share/GNUstep/Makefiles/mkinstalldirs ./obj/AutoBindings.obj/)
+(make -f GNUmakefile --no-print-directory --no-keep-going \
+internal-tool-compile \
+GNUSTEP_TYPE=tool \
+GNUSTEP_INSTANCE=AutoBindings \
+GNUSTEP_OPERATION=compile \
+GNUSTEP_BUILD_DIR="." \
+_GNUSTEP_MAKE_PARALLEL=yes)
+ 
+(echo " Compiling file main.m ...";gcc main.m -c \
+      -MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -Wall -DGSWARN -DGSDIAGNOSE -Wno-import -g -O2 -fgnu-runtime -std=c11 -fno-gnu89-inline -fconstant-string-class=NSConstantString -I. -I/home/pi/GNUstep/Library/Headers -I/usr/local/include/GNUstep -I/usr/include/GNUstep \
+       -o obj/AutoBindings.obj/main.m.o)
+(echo " Linking tool AutoBindings ...";gcc  -rdynamic     -shared-libgcc  -pthread  -fexceptions -fgnu-runtime -o obj/AutoBindings \
+	./obj/AutoBindings.obj/main.m.o \
+	     -L/home/pi/GNUstep/Library/Libraries -L/usr/local/lib -L/usr/lib     -lgnustep-base    -lobjc   -lm)
+make: Leaving directory '/home/pi/Projects/GNUstep/AutoBindings'
+ 

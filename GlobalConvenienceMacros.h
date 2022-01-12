@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TypeNames.h"
-#import <stdio.h>
+#import <string.h>
 
 #define iif(...) (__VA_ARGS__) ?
 #define ielse :
@@ -26,14 +26,20 @@ inline NSConstantString* NSConstantStringWithCString(char* theString) {
 }
 */
 
+typedef size_t Size;
+
 static inline BOOL CStringsAreEqual(char* firstString, char* secondString) {
-    UInt32 lengthOfFirstString = strlen(firstString);
-    UInt32 lengthOfSecondString = strlen(secondString);
-    UInt32 comparisonLength;
-    if (lengthOfFirstString >= lengthOfSecondString) {
-        comparisonLength = lengthOfSecondString;
+    if (strcmp(firstString, secondString) == 0) {
+        return YES;
     } else {
-        comparisonLength = lengthOfFirstString;
+        return NO;
     }
-    return (strncmp(firstString, secondString, comparisonLength) == 0);
+}
+
+static inline BOOL PartialCStringsAreEqual(char* firstString, char* secondString, Size count) {
+    if (strncmp(firstString, secondString, count) == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }

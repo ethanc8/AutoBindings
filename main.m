@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 
 #import <stdlib.h>
+#import <string.h>
 #import <stdio.h>
 #import <ctype.h>
 #import <stdarg.h>
@@ -103,74 +104,77 @@ NSString* getTypeSpecifierName(char* encodedType);
 
 /// Returns the normal C type of a type. Returns NSError on error.
 NSString* interpretType(char* encodedType) {
-        if (CStringsAreEqual(encodedType, @encode(va_list))) {
-            return @"va_list";
-        }
-        caseReturnStr('B', @"_Bool")
-        caseReturnStr('c', @"signed char")
-        caseReturnStr('C', @"unsigned char")
-        caseReturnStr('s', @"signed short")
-        caseReturnStr('S', @"unsigned short")
-        caseReturnStr('i', @"signed int")
-        caseReturnStr('I', @"unsigned int")
-        caseReturnStr('l', @"signed long")
-        caseReturnStr('L', @"unsigned long")
-        caseReturnStr('q', @"signed long long")
-        caseReturnStr('Q', @"unsigned long long")
-        caseReturnStr('f', @"float")
-        caseReturnStr('d', @"double")
-        caseReturnStr('D', @"long double") // On Apple systems, "long double" is 'd'
-        caseReturnStr('v', @"void")
-        caseReturnStr('@', @"id")
-        caseReturnStr('#', @"Class")
-        caseReturnStr(':', @"SEL")
-        caseReturnStr('*', @"char*")
-        // _Complex
-        else if (encodedType[0] == 'j') {
-            return [@"_Complex " plus: interpretType(&(encodedType[1]))];
-        } 
-        // Pointers
-        else if (encodedType[0] == '^') {
-            return [interpretType(&(encodedType[1])) plus: @"*"];
-        }
-        // Bitfields
-        else if (encodedType[0] == 'b') {
-            // Example: b128i3 is int:3
-            int i = 2;
-            for (i = 2; isdigit(encodedType);) {i++;}
-            return [[
-                interpretType(&(encodedType[i])) plus: @":"]
-                plus: interpretType(&(encodedType[i+1])) ];
-        } 
-        // Structs and Unions
-        else if ((encodedType[0] == '{') || (encodedType[0] == '(')) {
-            NSString* typeName = iif(encodedType[0] == '{') @"struct " ielse @"union ";
-            if (encodedType[1] != '?') {
-                for (unsigned int i = 1; encodedType[i] != '='; i++) {
-                    NSString* currentCharacter = [NSString stringWithUTF8String: (char[]){encodedType[i], '\0'}];
-                    typeName = [typeName plus: currentCharacter];
-                }
-            } else {
-                typeName = [typeName plus: randomIdentifier()];
+    // va_list
+    if ( PartialCStringsAreEqual(
+            encodedType, @encode(va_list), 
+            strlen(@encode(va_list)) ) ) {
+        return @"va_list"; // On Raspbian 10, this matches {?=^v} and {?=^v}12
+    }
+    caseReturnStr('B', @"_Bool")
+    caseReturnStr('c', @"signed char")
+    caseReturnStr('C', @"unsigned char")
+    caseReturnStr('s', @"signed short")
+    caseReturnStr('S', @"unsigned short")
+    caseReturnStr('i', @"signed int")
+    caseReturnStr('I', @"unsigned int")
+    caseReturnStr('l', @"signed long")
+    caseReturnStr('L', @"unsigned long")
+    caseReturnStr('q', @"signed long long")
+    caseReturnStr('Q', @"unsigned long long")
+    caseReturnStr('f', @"float")
+    caseReturnStr('d', @"double")
+    caseReturnStr('D', @"long double") // On Apple systems, "long double" is 'd'
+    caseReturnStr('v', @"void")
+    caseReturnStr('@', @"id")
+    caseReturnStr('#', @"Class")
+    caseReturnStr(':', @"SEL")
+    caseReturnStr('*', @"char*")
+    // _Complex
+    else if (encodedType[0] == 'j') {
+        return [@"_Complex " plus: interpretType(&(encodedType[1]))];
+    } 
+    // Pointers
+    else if (encodedType[0] == '^') {
+        return [interpretType(&(encodedType[1])) plus: @"*"];
+    }
+    // Bitfields
+    else if (encodedType[0] == 'b') {
+        // Example: b128i3 is int:3
+        int i = 2;
+        for (i = 2; isdigit(encodedType);) {i++;}
+        return [[
+            interpretType(&(encodedType[i])) plus: @":"]
+            plus: interpretType(&(encodedType[i+1])) ];
+    } 
+    // Structs and Unions
+    else if ((encodedType[0] == '{') || (encodedType[0] == '(')) {
+        NSString* typeName = iif(encodedType[0] == '{') @"struct " ielse @"union ";
+        if (encodedType[1] != '?') {
+            for (unsigned int i = 1; encodedType[i] != '='; i++) {
+                NSString* currentCharacter = [NSString stringWithUTF8String: (char[]){encodedType[i], '\0'}];
+                typeName = [typeName plus: currentCharacter];
             }
-            return typeName;
+        } else {
+            typeName = [typeName plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
         }
-        // Type specifiers
-        else if (
-            (encodedType[0] == 'r') ||
-            (encodedType[0] == 'n') ||
-            (encodedType[0] == 'N') ||
-            (encodedType[0] == 'o') ||
-            (encodedType[0] == 'O') ||
-            (encodedType[0] == 'R') ||
-            (encodedType[0] == 'V')
-        ) {
-            return handleTypeSpecifier(encodedType);
-        }
-        // Unknowns
-        else {
-            return randomIdentifier();
-        }
+        return typeName;
+    }
+    // Type specifiers
+    else if (
+        (encodedType[0] == 'r') ||
+        (encodedType[0] == 'n') ||
+        (encodedType[0] == 'N') ||
+        (encodedType[0] == 'o') ||
+        (encodedType[0] == 'O') ||
+        (encodedType[0] == 'R') ||
+        (encodedType[0] == 'V')
+    ) {
+        return handleTypeSpecifier(encodedType);
+    }
+    // Unknowns
+    else {
+        return [randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+    }
 }
 
 NSString* getTypeSpecifierName(char* encodedType) {
@@ -317,15 +321,22 @@ NSString* constructOriginalCPrototype(BOOL isClassMethod, Method requestedMethod
 
 typedef NSString* (* Constructor)(BOOL isClassMethod, Method requestedMethod);
 
-NSString* constructWrapper (
+NSString* constructFile (
+    unsigned int instanceMethods_count,
+    Method* instanceMethods,
+    unsigned int classMethods_count,
+    Method* classMethods,
+
+    NSString* className,
+
     Constructor constructor,
     NSString* beginAll, // Accepts %@ -- the name of the class
     NSString* beginLine,
     NSString* endLine,
     NSString* endAll // Accepts %@ -- the name of the class
 ) {
-    NSString* returnStr;
-    returnStr = [returnStr plus: [NSString stringWithFormat: beginAll, className] plus: @"\n"]
+    NSString* returnStr = [NSString string];
+    returnStr = [returnStr plus: [NSString stringWithFormat: beginAll, className] plus: @"\n"];
 
     for (int i = 0; i < instanceMethods_count; i++) {
         returnStr = [returnStr plus: beginLine plus: constructor(NO, instanceMethods[i]) plus: endLine plus: @"\n"];
@@ -416,7 +427,20 @@ int main (int argc, char* argv[]) {
             endAll = @"@end // %@";
         }
 
-        [constructWrapper() print];
+        [constructFile (
+            instanceMethods_count,
+            instanceMethods,
+            classMethods_count,
+            classMethods,
+    
+            className,
+
+            constructor,
+            beginAll, // Accepts %@ -- the name of the class
+            beginLine,
+            endLine,
+            endAll )
+        print];
 
     } else if (argc == 2) {
         ECPrint(@"%@\n", interpretType(argv[1]));
@@ -442,7 +466,7 @@ int main (int argc, char* argv[]) {
         objc_getClassList(allClasses, allClasses_length);
         const char* className;
 
-        for (int i; i < allClasses_length; i++) {
+        for (unsigned int i = 0; i < allClasses_length; i++) {
             className = class_getName(allClasses[i]);
             ECPrint(@"%s\n", className);
         }

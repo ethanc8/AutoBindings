@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/pi/Projects/GNUstep/AutoBindings/obj",
+            "binaryPath": "/home/pi/Projects/GNUstep/AutoBindings/obj/AutoBindings",
+            "binaryArgs": []
+        }
+    ]
+}
