@@ -173,7 +173,7 @@ NSString* interpretType(char* encodedType) {
     }
     // Unknowns
     else {
-        return [randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+        return [@"union " plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
     }
 }
 
@@ -354,46 +354,56 @@ NSString* constructFile (
 
 int main (int argc, char* argv[]) {
     NSAutoreleasePool* pool = [NSAutoreleasePool new];
-    if (argc == 4) {
-        SEL SelectorOfRequestedMethod = sel_getUid(argv[3]);
-        Class requestedClass = objc_lookUpClass(argv[1]);
-        Method requestedMethod;
+    // 0                1    2      3 4        5
+    // ObjectiveAutogen info method - NSString stringWithUTF8String:
+    if (CStringsAreEqual(argv[1], "info")) {
+        if (CStringsAreEqual(argv[2], "method")) {
+            SEL SelectorOfRequestedMethod = sel_getUid(argv[5]);
+            Class requestedClass = objc_lookUpClass(argv[4]);
+            Method requestedMethod;
 
-        BOOL isClassMethod;
-        if (CStringsAreEqual(argv[2], "c")) {
-            requestedMethod = class_getClassMethod(requestedClass, SelectorOfRequestedMethod);
-            isClassMethod = YES;
-        } else if (CStringsAreEqual(argv[2], "i")) {
-            requestedMethod = class_getInstanceMethod(requestedClass, SelectorOfRequestedMethod);
-            isClassMethod = NO;
+            BOOL isClassMethod;
+            if (CStringsAreEqual(argv[3], "+")) {
+                requestedMethod = class_getClassMethod(requestedClass, SelectorOfRequestedMethod);
+                isClassMethod = YES;
+            } else if (CStringsAreEqual(argv[3], "-")) {
+                requestedMethod = class_getInstanceMethod(requestedClass, SelectorOfRequestedMethod);
+                isClassMethod = NO;
+            } else {
+                ECPrint(@"Wrong arguments!\n");
+                return 1;
+            }
+            /*
+            NSString* methodName = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
+            NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+            unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
+
+            ECPrint(@"Name of method: %s\n", methodName);
+            ECPrint(@"Method's return type: %@\n", returnType);
+            ECPrint(@"Amount of arguments: %u\n", amtArguments);
+            
+            for (
+                unsigned int i = 0;
+                i < amtArguments;
+                i++
+            ) {
+                ECPrint(@"Type of argument %d: %@\n", i, interpretType(method_copyArgumentType(requestedMethod, i)));
+            }
+            */
+            
+            ECPrint(@"%@\n", constructObjCPrototype(isClassMethod, requestedMethod));
+            ECPrint(@"%@\n", constructOriginalCPrototype(isClassMethod, requestedMethod));
+            ECPrint(@"%@\n", constructWrapperCPrototype(isClassMethod, requestedMethod));
+            ECPrint(@"%@\n", constructWrapper(isClassMethod, requestedMethod));
         } else {
-            ECPrint(@"Wrong arguments!");
-            return 1;
+            ECPrint(@"Wrong arguments!\n");
         }
-        /*
-        NSString* methodName = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-        NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
-        unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
-
-        ECPrint(@"Name of method: %s\n", methodName);
-        ECPrint(@"Method's return type: %@\n", returnType);
-        ECPrint(@"Amount of arguments: %u\n", amtArguments);
         
-        for (
-            unsigned int i = 0;
-            i < amtArguments;
-            i++
-        ) {
-            ECPrint(@"Type of argument %d: %@\n", i, interpretType(method_copyArgumentType(requestedMethod, i)));
-        }
-        */
-        
-        ECPrint(@"%@\n", constructObjCPrototype(isClassMethod, requestedMethod));
-        ECPrint(@"%@\n", constructOriginalCPrototype(isClassMethod, requestedMethod));
-        ECPrint(@"%@\n", constructWrapperCPrototype(isClassMethod, requestedMethod));
-        ECPrint(@"%@\n", constructWrapper(isClassMethod, requestedMethod));
-    } else if (argc == 3) {
-        Class requestedClass = objc_lookUpClass(argv[1]);
+    // Generate interface file
+    // 0            1   2           3
+    // AutoBindings gen wrap-header NSObject
+    } else if (CStringsAreEqual(argv[1], "gen")) {
+        Class requestedClass = objc_lookUpClass(argv[3]);
         NSString* className = [NSString stringWithUTF8String: class_getName(requestedClass)];
         unsigned int instanceMethods_count;
         Method* instanceMethods = class_copyMethodList(requestedClass, &instanceMethods_count);
@@ -407,24 +417,27 @@ int main (int argc, char* argv[]) {
         NSString* endLine;
         NSString* endAll; // Accepts %@ -- the name of the class
 
-        if (CStringsAreEqual(argv[2], "wh")) {
+        if (CStringsAreEqual(argv[2], "wrap-header")) {
             constructor = &constructWrapperCPrototype;
             beginAll = @"// C interface for class %@";
             beginLine = @"";
             endLine = @";";
             endAll = @"// End interface for class %@";
-        } else if (CStringsAreEqual(argv[2], "wi")) {
+        } else if (CStringsAreEqual(argv[2], "wrap-implementation")) {
             constructor = &constructWrapper;
-            beginAll = @"// C bindings for class %@";
+            beginAll = @"#import <Foundation/Foundation.h>\n// C bindings for class %@";
             beginLine = @"\n";
             endLine = @";";
             endAll = @"// End bindings for class %@";
-        } else {
+        } else if (CStringsAreEqual(argv[2], "objc-header")) {
             constructor = &constructObjCPrototype;
             beginAll = @"@interface %@";
             beginLine = @"";
             endLine = @";";
             endAll = @"@end // %@";
+        } else {
+            ECPrint(@"Wrong arguments!");
+            return 1;
         }
 
         [constructFile (
@@ -442,9 +455,9 @@ int main (int argc, char* argv[]) {
             endAll )
         print];
 
-    } else if (argc == 2) {
-        ECPrint(@"%@\n", interpretType(argv[1]));
-    } else {
+    } else if (CStringsAreEqual(argv[1], "interpret-type")) {
+        ECPrint(@"%@\n", interpretType(argv[2]));
+    } else if (CStringsAreEqual(argv[1], "test")) {
 #       define testEncoding(...) ECPrint(@#__VA_ARGS__ @": %s\n", @encode(__VA_ARGS__))
         testEncoding(long double);
         testEncoding(_Complex double);
@@ -453,23 +466,30 @@ int main (int argc, char* argv[]) {
         testEncoding(const int* const);
         testEncoding(va_list);
         testEncoding(__builtin_va_list);
-        testEncoding(struct hello);
+        // testEncoding(struct hello);
         testEncoding(__typeof(*[NSObject new]));
         testEncoding(__typeof(*@"Hello World!"));
         testEncoding(__typeof(@"Hello World!"));
         testEncoding(__typeof(*[NSString string]));
         testEncoding(__typeof([NSObject class]));
+        // Block
+        testEncoding(__typeof(^{return @"Hello World!";}));
+        // Function pointer
+        testEncoding(__typeof(&main));
 #       undef testEncoding
 
-        unsigned int allClasses_length = objc_getClassList(NULL, 0);
-        Class allClasses [allClasses_length];
-        objc_getClassList(allClasses, allClasses_length);
-        const char* className;
+        // unsigned int allClasses_length = objc_getClassList(NULL, 0);
+        // Class allClasses [allClasses_length];
+        // objc_getClassList(allClasses, allClasses_length);
+        // const char* className;
 
-        for (unsigned int i = 0; i < allClasses_length; i++) {
-            className = class_getName(allClasses[i]);
-            ECPrint(@"%s\n", className);
-        }
+        // for (unsigned int i = 0; i < allClasses_length; i++) {
+        //     className = class_getName(allClasses[i]);
+        //     ECPrint(@"%s\n", className);
+        // }
+    } else {
+        ECPrint(@"Wrong arguments!");
+        return 1;
     }
     [pool release];
 }

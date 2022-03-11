@@ -131,4 +131,4 @@ char* listOfClasses[] = {
     "NSXMLNode",
     "NSXMLParser",
     "NXConstantString",
-NULL } // Must end with `NULL }` !
+NULL }; // Must end with `NULL }` !
