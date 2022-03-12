@@ -13,6 +13,11 @@
 #import "NSString+ECGeneral.h"
 #import "TypeID.h"
 
+#import "ECRuntimeClass.h"
+#import "ECRuntimeMethod.h"
+#import "ECType.h"
+#import "ECMethod+AutoBindings.h"
+
 /*
 
 id objc_lookUpClass(const char *name);
@@ -184,46 +189,50 @@ NSString* constructFile (
 int main (int argc, char* argv[]) {
     NSAutoreleasePool* pool = [NSAutoreleasePool new];
     // 0                1    2      3 4        5
-    // ObjectiveAutogen info method - NSString stringWithUTF8String:
+    // obj/AutoBindings info method - NSString stringWithUTF8String:
     if (CStringsAreEqual(argv[1], "info")) {
         if (CStringsAreEqual(argv[2], "method")) {
-            SEL SelectorOfRequestedMethod = sel_getUid(argv[5]);
-            Class requestedClass = objc_lookUpClass(argv[4]);
-            Method requestedMethod;
+
+            // ECPrint(@"info method\n");
+
+            ECRuntimeClass* requestedClass = [[ECRuntimeClass alloc] initWithName: [NSString stringWithUTF8String: argv[4] ]];
+            ECRuntimeMethod* requestedMethod;
+
+            // ECPrint(@"Got the class!\n");
 
             BOOL isClassMethod;
             if (CStringsAreEqual(argv[3], "+")) {
-                requestedMethod = class_getClassMethod(requestedClass, SelectorOfRequestedMethod);
+                // It's a class method.
+                requestedMethod = [requestedClass classMethodWithName: [NSString stringWithUTF8String: argv[5] ]];
                 isClassMethod = YES;
             } else if (CStringsAreEqual(argv[3], "-")) {
-                requestedMethod = class_getInstanceMethod(requestedClass, SelectorOfRequestedMethod);
+                // It's an instance method.
+                requestedMethod = [requestedClass instanceMethodWithName: [NSString stringWithUTF8String: argv[5] ]];
                 isClassMethod = NO;
             } else {
                 ECPrint(@"Wrong arguments!\n");
                 return 1;
             }
-            /*
-            NSString* methodName = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-            NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
-            unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
-
-            ECPrint(@"Name of method: %s\n", methodName);
-            ECPrint(@"Method's return type: %@\n", returnType);
-            ECPrint(@"Amount of arguments: %u\n", amtArguments);
             
+            // ECPrint(@"Got the method!\n");
+
+            ECPrint(@"Method %@\n", [requestedMethod name]);
+            ECPrint(@"  returns: %@\n", [[requestedMethod returnType] decode]);
+            ECPrint(@"  %u arguments:\n", [requestedMethod numberOfArguments]);
+            
+            // Iterate over arguments.
             for (
                 unsigned int i = 0;
-                i < amtArguments;
+                i < [requestedMethod numberOfArguments];
                 i++
             ) {
-                ECPrint(@"Type of argument %d: %@\n", i, ECInterpretType(method_copyArgumentType(requestedMethod, i)));
+                ECPrint(@"    %d: %@\n", i, [[requestedMethod typeOfArgumentAtIndex: i] decode]);
             }
-            */
             
-            ECPrint(@"%@\n", constructObjCPrototype(isClassMethod, requestedMethod));
-            ECPrint(@"%@\n", constructOriginalCPrototype(isClassMethod, requestedMethod));
-            ECPrint(@"%@\n", constructWrapperCPrototype(isClassMethod, requestedMethod));
-            ECPrint(@"%@\n", constructWrapper(isClassMethod, requestedMethod));
+            ECPrint(@"  IMP prototype:\n%@\n", [requestedMethod IMPPrototype]);
+            ECPrint(@"  Objective-C prototype:\n%@\n", [requestedMethod ObjCPrototype]);
+            ECPrint(@"  Wrapper prototype:\n%@\n", [requestedMethod CWrapperPrototype]);
+            ECPrint(@"  Wrapper implementation:\n%@\n", [requestedMethod CWrapperImplementation]);
         } else {
             ECPrint(@"Wrong arguments!\n");
         }
