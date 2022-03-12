@@ -9,9 +9,9 @@
     BOOL isClassMethod;
 }
 
-- (instancetype) initWithRawRuntimeMethod: (Method) rawMethod isClassMethod: (BOOL) isClassMethod;
+- (instancetype) initWithRawMethod: (Method) rawMethod isClassMethod: (BOOL) isClassMethod;
 
-- (Method) rawRuntimeMethod;
+- (Method) rawMethod;
 
 - (GS_GENERIC_CLASS(NSArray, ECRuntimeMethodArgument*)*) arguments;
 - (ECRuntimeMethodArgument*) argumentAtIndex: (unsigned int) index;

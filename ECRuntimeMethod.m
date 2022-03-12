@@ -5,14 +5,14 @@
 
 @implementation ECRuntimeMethod: ECMethod
 
-- (instancetype) initWithRawRuntimeMethod: (Method) rawMethod isClassMethod: (BOOL) isClassMethod {
+- (instancetype) initWithRawMethod: (Method) rawMethod isClassMethod: (BOOL) isClassMethod {
     [super init];
     self->rawMethod = rawMethod;
     self->isClassMethod = isClassMethod;
     return self;
 }
 
-- (Method) rawRuntimeMethod {
+- (Method) rawMethod {
     return self->rawMethod;
 }
 

@@ -5,16 +5,16 @@
 
 @implementation ECRuntimeClass: ECClass
 - (instancetype) initWithName: (NSString*) name {
-    return [self initWithRawRuntimeClass: objc_lookUpClass([name UTF8String])];
+    return [self initWithRawClass: objc_lookUpClass([name UTF8String])];
 }
 
-- (instancetype) initWithRawRuntimeClass: (Class) rawClass {
+- (instancetype) initWithRawClass: (Class) rawClass {
     [super init];
     self->rawClass = rawClass;
     return self;
 }
 
-- (Class) rawRuntimeClass {
+- (Class) rawClass {
     return self->rawClass;
 }
 
@@ -37,7 +37,7 @@
     SEL selector = sel_getUid([name UTF8String]);
     Method rawMethod = class_getClassMethod(self->rawClass, selector);
     return [[ECRuntimeMethod alloc]
-             initWithRawRuntimeMethod: rawMethod 
+             initWithRawMethod: rawMethod 
              isClassMethod: YES];
 }
 
@@ -45,7 +45,7 @@
     SEL selector = sel_getUid([name UTF8String]);
     Method rawMethod = class_getInstanceMethod(self->rawClass, selector);
     return [[ECRuntimeMethod alloc]
-             initWithRawRuntimeMethod: rawMethod
+             initWithRawMethod: rawMethod
              isClassMethod: NO];
 }
 @end

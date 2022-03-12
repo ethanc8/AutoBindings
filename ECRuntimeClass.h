@@ -10,8 +10,8 @@
 - (GS_GENERIC_CLASS(NSArray, ECMethod*)*) classMethods;
 - (GS_GENERIC_CLASS(NSArray, ECMethod*)*) instanceMethods;
 
-- (instancetype) initWithRawRuntimeClass: (Class) rawClass;
-- (Class) rawRuntimeClass;
+- (instancetype) initWithRawClass: (Class) rawClass;
+- (Class) rawClass;
 
 - (ECRuntimeMethod*) classMethodWithName: (NSString*) name;
 - (ECRuntimeMethod*) instanceMethodWithName: (NSString*) name;
