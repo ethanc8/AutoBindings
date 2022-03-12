@@ -6,9 +6,12 @@
 #import <stdio.h>
 #import <ctype.h>
 #import <stdarg.h>
-#import "GlobalConvenienceMacros.h"
 
 #import "userData/Config.h"
+
+#import "ECConvenienceFunctions.h"
+#import "NSString+ECGeneral.h"
+#import "TypeID.h"
 
 /*
 
@@ -28,185 +31,11 @@ SEL sel_getUid(const char *selName);
 
 */
 
-@interface NSString (ECGeneral) 
-    - (BOOL) print;
-    - (BOOL) printLine;
-    - (BOOL) printError;
-    - (BOOL) printErrorLine;
-    - (NSString*) plus: (NSString*) aString;
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2;
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3;
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4;
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 plus: (NSString*) str5;
-@end
-
-@implementation NSString (ECGeneral)
-    - (BOOL) print {
-        return [self writeToFile: @"/dev/stdout" atomically: NO];
-    }
-    - (BOOL) printError {
-        return [self writeToFile: @"/dev/stderr" atomically: NO];
-    }
-    - (BOOL) printLine {
-        return [[self plus: @"\n"] writeToFile: @"/dev/stdout" atomically: NO];
-    }
-    - (BOOL) printErrorLine {
-        return [[self plus: @"\n"] writeToFile: @"/dev/stderr" atomically: NO];
-    }
-    - (NSString*) plus: (NSString*) aString {
-        return [self stringByAppendingString: aString];
-    }
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 {
-        return [[self stringByAppendingString: str1] stringByAppendingString: str2];
-    }
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 {
-        return [[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3];
-    }
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 {
-        return [[[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3] stringByAppendingString: str4];
-    }
-    - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2 plus: (NSString*) str3 plus: (NSString*) str4 plus: (NSString*) str5 {
-        return [[[[[self stringByAppendingString: str1] stringByAppendingString: str2] stringByAppendingString: str3] stringByAppendingString: str4] stringByAppendingString: str5];
-    }
-@end
-
-/* Inspired by https://sveinbjorn.org/objectivec_stdout */
-
-void ECPrint(NSString* format, ...) {
-    va_list args;
-    va_start(args, format);
-    
-    [[[
-        NSString alloc]
-        initWithFormat: format arguments: args]
-        writeToFile: @"/dev/stdout" atomically: NO];
-    
-    va_end(args);
-}
-
-// Example:
-// ObjectiveAutogen NSObject i init;
-
-#define caseBreak(condition, ...) case _condition : __VA_ARGS__ break;
-#define caseReturnStr(condition, returnStr)\
-    else if (encodedType[0] == condition) { \
-        return returnStr; \
-    }
-
-NSString* randomIdentifier(void) {
-    srand(rand());
-    srand(rand());
-    return [NSString stringWithFormat: @"Unknown%d", rand()];
-}
-
-NSString* handleTypeSpecifier(char* encodedType);
-NSString* getTypeSpecifierName(char* encodedType);
-
-/// Returns the normal C type of a type. Returns NSError on error.
-NSString* interpretType(char* encodedType) {
-    // va_list
-    if ( PartialCStringsAreEqual(
-            encodedType, @encode(va_list), 
-            strlen(@encode(va_list)) ) ) {
-        return @"va_list"; // On Raspbian 10, this matches {?=^v} and {?=^v}12
-    }
-    caseReturnStr('B', @"_Bool")
-    caseReturnStr('c', @"signed char")
-    caseReturnStr('C', @"unsigned char")
-    caseReturnStr('s', @"signed short")
-    caseReturnStr('S', @"unsigned short")
-    caseReturnStr('i', @"signed int")
-    caseReturnStr('I', @"unsigned int")
-    caseReturnStr('l', @"signed long")
-    caseReturnStr('L', @"unsigned long")
-    caseReturnStr('q', @"signed long long")
-    caseReturnStr('Q', @"unsigned long long")
-    caseReturnStr('f', @"float")
-    caseReturnStr('d', @"double")
-    caseReturnStr('D', @"long double") // On Apple systems, "long double" is 'd'
-    caseReturnStr('v', @"void")
-    caseReturnStr('@', @"id")
-    caseReturnStr('#', @"Class")
-    caseReturnStr(':', @"SEL")
-    caseReturnStr('*', @"char*")
-    // _Complex
-    else if (encodedType[0] == 'j') {
-        return [@"_Complex " plus: interpretType(&(encodedType[1]))];
-    } 
-    // Pointers
-    else if (encodedType[0] == '^') {
-        return [interpretType(&(encodedType[1])) plus: @"*"];
-    }
-    // Bitfields
-    else if (encodedType[0] == 'b') {
-        // Example: b128i3 is int:3
-        int i = 2;
-        for (i = 2; isdigit(encodedType);) {i++;}
-        return [[
-            interpretType(&(encodedType[i])) plus: @":"]
-            plus: interpretType(&(encodedType[i+1])) ];
-    } 
-    // Structs and Unions
-    else if ((encodedType[0] == '{') || (encodedType[0] == '(')) {
-        NSString* typeName = iif(encodedType[0] == '{') @"struct " ielse @"union ";
-        if (encodedType[1] != '?') {
-            for (unsigned int i = 1; encodedType[i] != '='; i++) {
-                NSString* currentCharacter = [NSString stringWithUTF8String: (char[]){encodedType[i], '\0'}];
-                typeName = [typeName plus: currentCharacter];
-            }
-        } else {
-            typeName = [typeName plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
-        }
-        return typeName;
-    }
-    // Type specifiers
-    else if (
-        (encodedType[0] == 'r') ||
-        (encodedType[0] == 'n') ||
-        (encodedType[0] == 'N') ||
-        (encodedType[0] == 'o') ||
-        (encodedType[0] == 'O') ||
-        (encodedType[0] == 'R') ||
-        (encodedType[0] == 'V')
-    ) {
-        return handleTypeSpecifier(encodedType);
-    }
-    // Unknowns
-    else {
-        return [@"union " plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
-    }
-}
-
-NSString* getTypeSpecifierName(char* encodedType) {
-    if (encodedType[0] == '\0') {
-            return @"";
-    }
-    caseReturnStr('r', @"const")
-    caseReturnStr('n', @"in")
-    caseReturnStr('N', @"inout")
-    caseReturnStr('o', @"out")
-    caseReturnStr('O', @"bycopy")
-    caseReturnStr('R', @"byref")
-    caseReturnStr('V', @"oneway")
-    else {
-        return @"";
-    }
-}
-
-NSString* handleTypeSpecifier(char* encodedType) {
-    NSString* specifier = getTypeSpecifierName(encodedType);
-    if (encodedType[1] == '^') {
-        return [interpretType(&(encodedType[2])) plus: [@"* " plus: specifier]];
-    } else {
-        return [specifier plus: @" " plus: interpretType(&(encodedType[1]))];
-    }
-}
-
 
 
 NSString* constructObjCPrototype(BOOL isClassMethod, Method requestedMethod) {
     NSString* methodNameString = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-    NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+    NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
     unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
     NSString* methodType = isClassMethod ? @"+" : @"-";
 
@@ -221,7 +50,7 @@ NSString* constructObjCPrototype(BOOL isClassMethod, Method requestedMethod) {
             i++
         ) {
             prototype = [prototype plus: [methodName objectAtIndex: i - 2] plus: @":"];
-            NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
+            NSString* argumentType = ECInterpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
             prototype = [prototype plus: argumentPrototype plus: @" "];
         }
@@ -233,7 +62,7 @@ NSString* constructObjCPrototype(BOOL isClassMethod, Method requestedMethod) {
 
 NSString* constructWrapperCPrototype(BOOL isClassMethod, Method requestedMethod) {
     NSString* methodNameString = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-    NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+    NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
     unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
     NSString* methodType = isClassMethod ? @"cls" : @"inst";
 
@@ -249,7 +78,7 @@ NSString* constructWrapperCPrototype(BOOL isClassMethod, Method requestedMethod)
             i < amtArguments;
             i++
         ) {
-            NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
+            NSString* argumentType = ECInterpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @"%@ arg%u", argumentType, i];
             prototype = [prototype plus: argumentPrototype plus: @", "];
         }
@@ -262,7 +91,7 @@ NSString* constructWrapperCPrototype(BOOL isClassMethod, Method requestedMethod)
 
 NSString* constructWrapper(BOOL isClassMethod, Method requestedMethod) {
     NSString* methodNameString = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-    NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+    NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
     unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
 
     NSString* wrapper =  [NSString stringWithFormat: 
@@ -278,7 +107,7 @@ NSString* constructWrapper(BOOL isClassMethod, Method requestedMethod) {
             i++
         ) {
             wrapper = [wrapper plus: [methodName objectAtIndex: i - 2] plus: @":"];
-            NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
+            NSString* argumentType = ECInterpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
             wrapper = [wrapper plus: argumentWrapper plus: @" "];
         }
@@ -292,7 +121,7 @@ NSString* constructWrapper(BOOL isClassMethod, Method requestedMethod) {
 
 NSString* constructOriginalCPrototype(BOOL isClassMethod, Method requestedMethod) {
     NSString* methodNameString = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-    NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+    NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
     unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
     NSString* methodType = isClassMethod ? @"cls" : @"inst";
 
@@ -308,7 +137,7 @@ NSString* constructOriginalCPrototype(BOOL isClassMethod, Method requestedMethod
             i < amtArguments;
             i++
         ) {
-            NSString* argumentType = interpretType(method_copyArgumentType(requestedMethod, i));
+            NSString* argumentType = ECInterpretType(method_copyArgumentType(requestedMethod, i));
             NSString* argumentPrototype = [NSString stringWithFormat: @", %@ arg%u", argumentType, i];
             prototype = [prototype plus: argumentPrototype];
         }
@@ -375,7 +204,7 @@ int main (int argc, char* argv[]) {
             }
             /*
             NSString* methodName = [NSString stringWithUTF8String: sel_getName(method_getName(requestedMethod))];
-            NSString* returnType = interpretType(method_copyReturnType(requestedMethod));
+            NSString* returnType = ECInterpretType(method_copyReturnType(requestedMethod));
             unsigned int amtArguments = method_getNumberOfArguments(requestedMethod);
 
             ECPrint(@"Name of method: %s\n", methodName);
@@ -387,7 +216,7 @@ int main (int argc, char* argv[]) {
                 i < amtArguments;
                 i++
             ) {
-                ECPrint(@"Type of argument %d: %@\n", i, interpretType(method_copyArgumentType(requestedMethod, i)));
+                ECPrint(@"Type of argument %d: %@\n", i, ECInterpretType(method_copyArgumentType(requestedMethod, i)));
             }
             */
             
@@ -456,7 +285,7 @@ int main (int argc, char* argv[]) {
         print];
 
     } else if (CStringsAreEqual(argv[1], "interpret-type")) {
-        ECPrint(@"%@\n", interpretType(argv[2]));
+        ECPrint(@"%@\n", ECInterpretType(argv[2]));
     } else if (CStringsAreEqual(argv[1], "test")) {
 #       define testEncoding(...) ECPrint(@#__VA_ARGS__ @": %s\n", @encode(__VA_ARGS__))
         testEncoding(long double);

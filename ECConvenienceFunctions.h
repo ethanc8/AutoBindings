@@ -43,3 +43,17 @@ static inline BOOL PartialCStringsAreEqual(char* firstString, char* secondString
         return NO;
     }
 }
+
+static inline /* Inspired by https://sveinbjorn.org/objectivec_stdout */
+
+void ECPrint(NSString* format, ...) {
+    va_list args;
+    va_start(args, format);
+    
+    [[[
+        NSString alloc]
+        initWithFormat: format arguments: args]
+        writeToFile: @"/dev/stdout" atomically: NO];
+    
+    va_end(args);
+}
