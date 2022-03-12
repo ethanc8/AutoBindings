@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "ECClass.h"
+#import "ECRuntimeMethod.h"
 #import <objc/runtime.h>
 
 @interface ECRuntimeClass: ECClass

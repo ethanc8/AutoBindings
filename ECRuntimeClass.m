@@ -22,15 +22,21 @@
     unsigned int instanceMethods_count;
     Method* instanceMethods = class_copyMethodList(
         self->rawClass, &instanceMethods_count);
-    return [NSArray arrayWithObjects: instanceMethods
-                               count: (NSUInteger) instanceMethods_count];
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < instanceMethods_count; i++) {
+        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: instanceMethods[i] isClassMethod: YES]];
+    }
+    return array;
 }
 - (GS_GENERIC_CLASS(NSArray, ECMethod*)*) instanceMethods {
     unsigned int classMethods_count;
     Method* classMethods = class_copyMethodList(
         object_getClass(self->rawClass), &classMethods_count);
-    return [NSArray arrayWithObjects: classMethods
-                               count: (NSUInteger) classMethods_count];
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < classMethods_count; i++) {
+        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: classMethods[i] isClassMethod: NO]];
+    }
+    return array;
 }
 
 - (ECRuntimeMethod*) classMethodWithName: (NSString*) name {

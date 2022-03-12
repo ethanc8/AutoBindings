@@ -3,6 +3,8 @@
 #import "ECRuntimeMethodArgument.h"
 #import <objc/runtime.h>
 
+@class ECRuntimeMethodArgument;
+
 @interface ECRuntimeMethod: ECMethod
 {
     Method rawMethod;
