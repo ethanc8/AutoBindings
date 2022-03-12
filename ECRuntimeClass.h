@@ -7,11 +7,12 @@
     Class rawClass;
 }
 
-- (instancetype) initWithRawRuntimeClass: (Class) rawClass;
+- (GS_GENERIC_CLASS(NSArray, ECMethod*)*) classMethods;
+- (GS_GENERIC_CLASS(NSArray, ECMethod*)*) instanceMethods;
 
+- (instancetype) initWithRawRuntimeClass: (Class) rawClass;
 - (Class) rawRuntimeClass;
 
-// - (instancetype) initWithName: (NSString*) name;
-
-// - (ECMethod*) methodWithName: (NSString*) name;
+- (ECRuntimeMethod*) classMethodWithName: (NSString*) name;
+- (ECRuntimeMethod*) instanceMethodWithName: (NSString*) name;
 @end

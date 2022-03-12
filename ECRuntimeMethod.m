@@ -34,14 +34,14 @@
                        method_copyReturnType(self->rawMethod)];
 }
 
-- (GS_GENERIC_CLASS(NSArray, ECMethodArgument*)*) arguments {
+- (GS_GENERIC_CLASS(NSArray, ECRuntimeMethodArgument*)*) arguments {
     NSMutableArray* array = [[NSMutableArray alloc] init];
     for (NSInteger index = 0; index < 20; index++) {
         [array addObject: [self argumentAtIndex: index]];
     }
     return array;
 }
-- (ECMethodArgument*) argumentAtIndex: (unsigned int) index {
+- (ECRuntimeMethodArgument*) argumentAtIndex: (unsigned int) index {
     return [[ECRuntimeMethodArgument alloc]
              initWithMethod: self
               argumentIndex: index];

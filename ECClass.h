@@ -5,9 +5,8 @@
 @interface ECClass: NSObject
 - (instancetype) initWithName: (NSString*) name;
 
-// There is no way to tell between class methods and instace methods using the
-// runtime functions.
-// - (NSArray*) methodList;
+- (GS_GENERIC_CLASS(NSArray, ECMethod*)*) classMethods;
+- (GS_GENERIC_CLASS(NSArray, ECMethod*)*) instanceMethods;
 
 - (ECMethod*) classMethodWithName: (NSString*) name;
 - (ECMethod*) instanceMethodWithName: (NSString*) name;

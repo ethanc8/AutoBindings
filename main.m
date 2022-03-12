@@ -274,7 +274,7 @@ int main (int argc, char* argv[]) {
             endLine = @";";
             endAll = @"@end // %@";
         } else {
-            ECPrint(@"Wrong arguments!");
+            ECPrint(@"Wrong arguments!\n");
             return 1;
         }
 
@@ -326,7 +326,7 @@ int main (int argc, char* argv[]) {
         //     ECPrint(@"%s\n", className);
         // }
     } else {
-        ECPrint(@"Wrong arguments!");
+        ECPrint(@"Wrong arguments!\n");
         return 1;
     }
     [pool release];
