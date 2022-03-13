@@ -1,5 +1,5 @@
 #import "ECType.h"
-#import "TypeID.h"
+#import "ECType_ECInterpretType.h"
 
 @implementation ECType: NSObject
 - (instancetype) initWithEncoding: (NSString*) encoding {
