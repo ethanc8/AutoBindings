@@ -1,6 +1,7 @@
 #import "ECClass+AutoBindings.h"
-#import "ECMethod.h"
+#import "ECRuntimeMethod.h"
 #import "NSString+ECGeneral.h"
+#import "ECConvenienceFunctions.h"
 
 @implementation ECClass(AutoBindings)
 
@@ -37,16 +38,23 @@
                                  beginLine: (NSString*) beginLine
                                     endAll: (NSString*) endAll // Accepts %@ - name of class
                                    endLine: (NSString*) endLine {
+    // DEBUG
+    // ECPrint(@"Constructing a file...\n");
+    // ECPrint(@"The name of this class is %@\n", [self name]);
+
     NSString* returnStr = [NSString string];
     returnStr = [returnStr plus:
                     [NSString stringWithFormat: beginAll, [self name]]
                            plus: @"\n"];
 
-    IMP constructorFunc = [ECMethod instanceMethodForSelector: constructor];
+    
+    
+    // DEBUG
+    // ECPrint(@"Got constructor func!\n");
 
     for (ECMethod* method in [self instanceMethods]) {
         returnStr = [returnStr plus: beginLine
-                               plus: constructorFunc(method, constructor)
+                               plus: [method performSelector: constructor]
                                plus: endLine
                                plus: @"\n"];
     }
@@ -55,7 +63,7 @@
 
     for (ECMethod* method in [self classMethods]) {
         returnStr = [returnStr plus: beginLine
-                               plus: constructorFunc(method, constructor)
+                               plus: [method performSelector: constructor]
                                plus: endLine
                                plus: @"\n"];
     }

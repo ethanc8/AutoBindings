@@ -1,1 +1,2 @@
 ADDITIONAL_OBJCFLAGS += -std=c11 -fno-gnu89-inline -fblocks -Wno-shadow-ivar
+ADDITIONAL_LDFLAGS += -lgcc_s

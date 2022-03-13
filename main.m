@@ -17,7 +17,7 @@
 #import "ECRuntimeMethod.h"
 #import "ECType.h"
 #import "ECMethod+AutoBindings.h"
-
+#import "ECClass+AutoBindings.h"
 /*
 
 id objc_lookUpClass(const char *name);
@@ -241,57 +241,85 @@ int main (int argc, char* argv[]) {
     // 0            1   2           3
     // AutoBindings gen wrap-header NSObject
     } else if (CStringsAreEqual(argv[1], "gen")) {
-        Class requestedClass = objc_lookUpClass(argv[3]);
-        NSString* className = [NSString stringWithUTF8String: class_getName(requestedClass)];
-        unsigned int instanceMethods_count;
-        Method* instanceMethods = class_copyMethodList(requestedClass, &instanceMethods_count);
+        ECRuntimeClass* requestedClass = [[ECRuntimeClass alloc] initWithName: 
+            [NSString stringWithUTF8String: argv[3]]];
+        
+        // ECPrint(@"Got class!\n");
 
-        unsigned int classMethods_count;
-        Method* classMethods = class_copyMethodList(object_getClass(requestedClass), &classMethods_count);
+        //  - (NSString*) ObjCPrototype;
+        // - (NSString*) ObjCInterface;
 
-        Constructor constructor;
-        NSString* beginAll; // Accepts %@ -- the name of the class
-        NSString* beginLine;
-        NSString* endLine;
-        NSString* endAll; // Accepts %@ -- the name of the class
+        // // C wrapper
+        // - (NSString*) CWrapperInterface;
+        // - (NSString*) CWrapperImplementation;
+
+        NSString* generatedHeader;
 
         if (CStringsAreEqual(argv[2], "wrap-header")) {
-            constructor = &constructWrapperCPrototype;
-            beginAll = @"// C interface for class %@";
-            beginLine = @"";
-            endLine = @";";
-            endAll = @"// End interface for class %@";
+            generatedHeader = [requestedClass CWrapperInterface];
         } else if (CStringsAreEqual(argv[2], "wrap-implementation")) {
-            constructor = &constructWrapper;
-            beginAll = @"#import <Foundation/Foundation.h>\n// C bindings for class %@";
-            beginLine = @"\n";
-            endLine = @";";
-            endAll = @"// End bindings for class %@";
+            generatedHeader = [requestedClass CWrapperImplementation];
         } else if (CStringsAreEqual(argv[2], "objc-header")) {
-            constructor = &constructObjCPrototype;
-            beginAll = @"@interface %@";
-            beginLine = @"";
-            endLine = @";";
-            endAll = @"@end // %@";
+            generatedHeader = [requestedClass ObjCInterface];
         } else {
             ECPrint(@"Wrong arguments!\n");
             return 1;
         }
 
-        [constructFile (
-            instanceMethods_count,
-            instanceMethods,
-            classMethods_count,
-            classMethods,
-    
-            className,
+        [generatedHeader print];
+        return 0;
 
-            constructor,
-            beginAll, // Accepts %@ -- the name of the class
-            beginLine,
-            endLine,
-            endAll )
-        print];
+        // Class requestedClass = objc_lookUpClass(argv[3]);
+        // NSString* className = [NSString stringWithUTF8String: class_getName(requestedClass)];
+        // unsigned int instanceMethods_count;
+        // Method* instanceMethods = class_copyMethodList(requestedClass, &instanceMethods_count);
+
+        // unsigned int classMethods_count;
+        // Method* classMethods = class_copyMethodList(object_getClass(requestedClass), &classMethods_count);
+
+        // Constructor constructor;
+        // NSString* beginAll; // Accepts %@ -- the name of the class
+        // NSString* beginLine;
+        // NSString* endLine;
+        // NSString* endAll; // Accepts %@ -- the name of the class
+
+        // if (CStringsAreEqual(argv[2], "wrap-header")) {
+        //     constructor = &constructWrapperCPrototype;
+        //     beginAll = @"// C interface for class %@";
+        //     beginLine = @"";
+        //     endLine = @";";
+        //     endAll = @"// End interface for class %@";
+        // } else if (CStringsAreEqual(argv[2], "wrap-implementation")) {
+        //     constructor = &constructWrapper;
+        //     beginAll = @"#import <Foundation/Foundation.h>\n// C bindings for class %@";
+        //     beginLine = @"\n";
+        //     endLine = @";";
+        //     endAll = @"// End bindings for class %@";
+        // } else if (CStringsAreEqual(argv[2], "objc-header")) {
+        //     constructor = &constructObjCPrototype;
+        //     beginAll = @"@interface %@";
+        //     beginLine = @"";
+        //     endLine = @";";
+        //     endAll = @"@end // %@";
+        // } else {
+        //     ECPrint(@"Wrong arguments!\n");
+        //     return 1;
+        // }
+
+        // [constructFile (
+        //     instanceMethods_count,
+        //     instanceMethods,
+        //     classMethods_count,
+        //     classMethods,
+    
+        //     className,
+
+        //     constructor,
+        //     beginAll, // Accepts %@ -- the name of the class
+        //     beginLine,
+        //     endLine,
+        //     endAll )
+        // print];
 
     } else if (CStringsAreEqual(argv[1], "interpret-type")) {
         ECPrint(@"%@\n", ECInterpretType(argv[2]));
