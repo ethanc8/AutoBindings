@@ -2,3 +2,4 @@ obj/AutoBindings
 obj
 userData/out
 .gitignore
+.cache

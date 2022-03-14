@@ -11,4 +11,5 @@ AutoBindings creates a C binding, parsing the code using the compiler and Object
 * [ ] Improve the CLI
 * [ ] Improve binding and header generation
     * [ ] Detect method superclasses
+    * [ ] Prevent duplicate definitions by prefixing with class name.
 * [ ] Allow generating bindings from DocC, GSDoc, and parsing headers using libclang.

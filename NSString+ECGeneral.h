@@ -3,11 +3,11 @@
 @interface NSString (ECGeneral) 
     /// Print the string to stdout
     - (BOOL) print;
-    /// Print the string + '\n' to stdout
+    /// Print the string + `\n` to stdout
     - (BOOL) printLine;
     /// Print the string to stderr
     - (BOOL) printError;
-    /// Print the string + '\n' to stderr
+    /// Print the string + `\n` to stderr
     - (BOOL) printErrorLine;
     - (NSString*) plus: (NSString*) aString;
     - (NSString*) plus: (NSString*) str1 plus: (NSString*) str2;

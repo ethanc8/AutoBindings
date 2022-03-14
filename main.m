@@ -11,7 +11,7 @@
 
 #import "ECConvenienceFunctions.h"
 #import "NSString+ECGeneral.h"
-#import "TypeID.h"
+#import "ECType_ECInterpretType.h"
 
 #import "ECRuntimeClass.h"
 #import "ECRuntimeMethod.h"

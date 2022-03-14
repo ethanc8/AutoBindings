@@ -11,7 +11,7 @@
     unsigned int amtArguments = [self numberOfArguments];
     NSString* methodType = [self isClassMethod] ? @"cls" : @"inst";
 
-    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_", returnType, methodType];
+    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self class] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
         NSString* methodName = [[
@@ -68,7 +68,7 @@
     unsigned int amtArguments = [self numberOfArguments];
     NSString* methodType = [self isClassMethod] ? @"cls" : @"inst";
 
-    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_", returnType, methodType];
+    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self class] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
         NSString* methodName = [[

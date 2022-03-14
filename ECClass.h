@@ -2,6 +2,11 @@
 
 #import "ECMethod.h"
 
+/**
+Represents a class.
+
+This is a stub, and must be subclassed.
+*/
 @interface ECClass: NSObject
 - (instancetype) initWithName: (NSString*) name;
 
