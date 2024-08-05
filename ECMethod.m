@@ -4,6 +4,8 @@
 
 #define CLASS_NAME "ECMethod"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wincomplete-implementation"
 // This is a stub!
 @implementation ECMethod: NSObject
 
@@ -20,5 +22,7 @@
     );
     [super doesNotRecognizeSelector:aSelector];
 }
+#pragma GCC diagnostic pop // -Wincomplete-implementation
+
 
 @end

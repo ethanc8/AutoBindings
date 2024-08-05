@@ -64,7 +64,7 @@ NSString* ECInterpretType(char* encodedType) {
     else if (encodedType[0] == 'b') {
         // Example: b128i3 is int:3
         int i = 2;
-        for (i = 2; isdigit(encodedType);) {i++;}
+        for (i = 2; isdigit(encodedType[i]);) {i++;}
         return [[
             ECInterpretType(&(encodedType[i])) plus: @":"]
             plus: ECInterpretType(&(encodedType[i+1])) ];

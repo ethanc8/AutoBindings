@@ -7,7 +7,10 @@
 
 - (instancetype) initWithRawMethod: (Method) rawMethod
                      isClassMethod: (BOOL) isClassMethod {
-    return [self initWithRawMethod: rawMethod isClassMethod: isClassMethod];
+    [super init];
+    self->rawMethod = rawMethod;
+    self->isClassMethod = isClassMethod;
+    return self;
 }
 
 - (instancetype) initWithRawMethod: (Method) rawMethod

@@ -22,7 +22,7 @@
     return [NSString stringWithUTF8String: class_getName(self->rawClass)];
 }
 
-- (GS_GENERIC_CLASS(NSArray, ECRuntimeMethod*)*) classMethods {
+- (GS_GENERIC_CLASS(NSArray, ECRuntimeMethod*)*) instanceMethods {
     unsigned int instanceMethods_count;
     Method* instanceMethods = class_copyMethodList(
         self->rawClass, &instanceMethods_count);
@@ -32,7 +32,7 @@
     }
     return array;
 }
-- (GS_GENERIC_CLASS(NSArray, ECRuntimeMethod*)*) instanceMethods {
+- (GS_GENERIC_CLASS(NSArray, ECRuntimeMethod*)*) classMethods {
     unsigned int classMethods_count;
     Method* classMethods = class_copyMethodList(
         object_getClass(self->rawClass), &classMethods_count);

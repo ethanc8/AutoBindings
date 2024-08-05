@@ -6,7 +6,7 @@
     return [self initWithRawEncoding: [encoding UTF8String]];
 }
 
-- (instancetype) initWithRawEncoding: (char*) encoding {
+- (instancetype) initWithRawEncoding: (char const*) encoding {
     [super init];
     self->encoding = encoding;
     return self;

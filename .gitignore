@@ -1,5 +1,4 @@
-obj/AutoBindings
-obj
+**/obj
 userData/out
-.gitignore
-.cache
+**/.cache
+**/compile_commands.json
