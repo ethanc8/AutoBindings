@@ -116,7 +116,7 @@
 
     NSString* wrapper =  [NSString stringWithFormat: 
         @"%@ {\n"
-        @"    return (%@)[self ", [self CWrapperPrototype], returnType];
+        @"    return (%@)[(%@*)self ", [self CWrapperPrototype], returnType, [[self methodClass] name]];
 
     if ([methodNameString containsString: @":"]) {
         NSArray* methodName = [methodNameString componentsSeparatedByString: @":"];

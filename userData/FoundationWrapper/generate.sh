@@ -8,8 +8,8 @@ export PATH=../../obj:$PATH
 function wrap {
     alias AutoBindings="../../obj/AutoBindings"
     PATH=../../obj:$PATH
-    AutoBindings $1 wi > out/$1.wrap.m
-    AutoBindings $1 wh > out/$1.wrap.h
+    AutoBindings gen wrap-implementation $1 > out/$1.wrap.m
+    AutoBindings gen wrap-header $1 > out/$1.wrap.h
 }
 
 wrap NSObject
