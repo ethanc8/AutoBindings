@@ -119,29 +119,29 @@ NSString* ECInterpretTypeSwift(char* encodedType) {
     caseReturnStr('B', @"CBool")
     caseReturnStr('c', @"CSignedChar")
     caseReturnStr('C', @"CUnsignedChar")
-    caseReturnStr('s', @"CSignedShort")
+    caseReturnStr('s', @"CShort")
     caseReturnStr('S', @"CUnsignedShort")
-    caseReturnStr('i', @"CSignedInt")
+    caseReturnStr('i', @"CInt")
     caseReturnStr('I', @"CUnsignedInt")
-    caseReturnStr('l', @"CSignedLong")
+    caseReturnStr('l', @"CLong")
     caseReturnStr('L', @"CUnsignedLong")
-    caseReturnStr('q', @"CSignedLongLong")
+    caseReturnStr('q', @"CLongLong")
     caseReturnStr('Q', @"CUnsignedLongLong")
     caseReturnStr('f', @"CFloat")
     caseReturnStr('d', @"CDouble")
     caseReturnStr('D', @"CLongDouble") // On Apple systems, "long double" is 'd'
-    caseReturnStr('v', @"void")
+    caseReturnStr('v', @"Void")
     caseReturnStr('@', @"UnsafeMutableRawPointer")
     caseReturnStr('#', @"UnsafeMutablePointer<objc_class>")
-    caseReturnStr(':', @"objc_selector")
+    caseReturnStr(':', @"UnsafeMutablePointer<objc_selector>")
     caseReturnStr('*', @"UnsafeMutablePointer<CChar>")
     // _Complex
     else if (encodedType[0] == 'j') {
-        return [@"_Complex " plus: ECInterpretType(&(encodedType[1]))];
+        return [@"Complex<" plus: ECInterpretTypeSwift(&(encodedType[1])) plus: @">"];
     } 
     // Pointers
     else if (encodedType[0] == '^') {
-        return [@"UnsafeMutablePointer<" plus: ECInterpretType(&(encodedType[1])) plus: @">"];
+        return [@"UnsafeMutablePointer<" plus: ECInterpretTypeSwift(&(encodedType[1])) plus: @">"];
     }
     // Bitfields
     else if (encodedType[0] == 'b') {
@@ -149,12 +149,12 @@ NSString* ECInterpretTypeSwift(char* encodedType) {
         int i = 2;
         for (i = 2; isdigit(encodedType[i]);) {i++;}
         return [[
-            ECInterpretType(&(encodedType[i])) plus: @":"]
-            plus: ECInterpretType(&(encodedType[i+1])) ];
+            ECInterpretTypeSwift(&(encodedType[i])) plus: @":"]
+            plus: ECInterpretTypeSwift(&(encodedType[i+1])) ];
     } 
     // Structs and Unions
     else if ((encodedType[0] == '{') || (encodedType[0] == '(')) {
-        NSString* typeName = iif(encodedType[0] == '{') @"struct " ielse @"union ";
+        NSString* typeName = iif(encodedType[0] == '{') @"" ielse @"";
         if (encodedType[1] != '?') {
             for (unsigned int i = 1; encodedType[i] != '='; i++) {
                 NSString* currentCharacter = [NSString stringWithUTF8String: (char[]){encodedType[i], '\0'}];
@@ -179,7 +179,7 @@ NSString* ECInterpretTypeSwift(char* encodedType) {
     }
     // Unknowns
     else {
-        return [randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+        return [@"AutoBindingsUnknown" plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
     }
 }
 
@@ -245,6 +245,9 @@ static NSString* handleTypeSpecifierSwift(char* encodedType) {
         return @"UnsafeRawPointer";
     }
     else if (encodedType[1] == '^' && encodedType[2] == 'v') {
+        return @"UnsafeMutableRawPointer";
+    }
+    else if (encodedType[1] == '@') {
         return @"UnsafeMutableRawPointer";
     }
     else if (encodedType[1] == '^') {

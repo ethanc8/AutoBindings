@@ -71,9 +71,9 @@
     NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self methodClass] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
-        NSString* methodName = [[
-            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
-            substringToIndex: [methodNameString length] - 1];
+        NSString* methodName = [
+            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] ;
+            // substringToIndex: [methodNameString length] - 1];
         prototype = [prototype plus: methodName plus: @"("];
         for (
             unsigned int i = 2;
@@ -86,7 +86,7 @@
         }
         prototype = [prototype plus: @"id self)"];
     } else {
-        prototype = [prototype plus: methodNameString plus: @"(id self)"];
+        prototype = [prototype plus: methodNameString plus: @"_noarg(id self)"];
     }
     return prototype;
 }
@@ -100,10 +100,12 @@
     NSString* prototype =  [NSString stringWithFormat: @"%@_%@_", [[self methodClass] name], methodType];
 
     if ([methodNameString containsString: @":"]) {
-        NSString* methodName = [[
-            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
-            substringToIndex: [methodNameString length] - 1];
+        NSString* methodName = [
+            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"];
+            // substringToIndex: [methodNameString length] - 1];
         prototype = [prototype plus: methodName];
+    } else {
+        prototype = [prototype plus: methodNameString];
     }
 
     return prototype;
@@ -168,7 +170,6 @@
     } else {
         prototype = [prototype plus: methodNameString plus: @"()"];
     }
-
     prototype = [prototype plus: @" -> " plus: returnType];
     return prototype;
 }

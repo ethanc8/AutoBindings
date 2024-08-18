@@ -9,6 +9,7 @@ function wrap {
     alias AutoBindings="../../obj/AutoBindings"
     PATH=../../obj:$PATH
     AutoBindings gen wrap-implementation $1 > out/$1.wrap.m
+    AutoBindings gen swift-wrap-implementation $1 > out/$1.wrap.swift
     AutoBindings gen wrap-header $1 > out/$1.wrap.h
 }
 

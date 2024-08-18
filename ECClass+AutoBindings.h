@@ -11,6 +11,10 @@
 // C wrapper
 - (NSString*) CWrapperInterface;
 - (NSString*) CWrapperImplementation;
+- (NSString*) CWrapperImplementation;
+
+// Swift wrapper
+- (NSString*) SwiftWrapperImplementation;
 
 // Internal use - replaces `constructFile()`
 

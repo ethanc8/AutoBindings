@@ -36,9 +36,11 @@
 // Swift wrapper
 - (NSString*) SwiftWrapperImplementation {
     return [self constructFileWithConstructor: @selector(SwiftWrapperImplementation)
-                                     beginAll: @"// Swift bindings to class %@"
+                                     beginAll: @"// Swift bindings to class %@\n"
+                                               @"class %1$@ {"
                                     beginLine: @"\n"
-                                       endAll: @"// End Swift bindings to class %@"
+                                       endAll: @"}\n"
+                                               @"// End Swift bindings to class %@"
                                       endLine: @""];
 }
 
