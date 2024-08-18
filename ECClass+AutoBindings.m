@@ -33,6 +33,15 @@
                                       endLine: @""];
 }
 
+// Swift wrapper
+- (NSString*) SwiftWrapperImplementation {
+    return [self constructFileWithConstructor: @selector(SwiftWrapperImplementation)
+                                     beginAll: @"// Swift bindings to class %@"
+                                    beginLine: @"\n"
+                                       endAll: @"// End Swift bindings to class %@"
+                                      endLine: @""];
+}
+
 - (NSString*) constructFileWithConstructor: (SEL) constructor // A method of ECMethod(AutoBindings)
                                   beginAll: (NSString*) beginAll // Accepts %@ - name of class
                                  beginLine: (NSString*) beginLine

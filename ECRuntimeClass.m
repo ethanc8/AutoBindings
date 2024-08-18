@@ -28,7 +28,7 @@
         self->rawClass, &instanceMethods_count);
     NSMutableArray* array = [[NSMutableArray alloc] init];
     for (int i = 0; i < instanceMethods_count; i++) {
-        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: instanceMethods[i] isClassMethod: YES]];
+        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: instanceMethods[i] isClassMethod: YES class: self]];
     }
     return array;
 }
@@ -38,7 +38,7 @@
         object_getClass(self->rawClass), &classMethods_count);
     NSMutableArray* array = [[NSMutableArray alloc] init];
     for (int i = 0; i < classMethods_count; i++) {
-        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: classMethods[i] isClassMethod: NO]];
+        [array addObject: [[ECRuntimeMethod alloc] initWithRawMethod: classMethods[i] isClassMethod: NO class: self]];
     }
     return array;
 }
@@ -48,7 +48,8 @@
     Method rawMethod = class_getClassMethod(self->rawClass, selector);
     return [[ECRuntimeMethod alloc]
              initWithRawMethod: rawMethod 
-             isClassMethod: YES];
+             isClassMethod: YES
+                     class: self];
 }
 
 - (ECRuntimeMethod*) instanceMethodWithName: (NSString*) name {
@@ -56,6 +57,7 @@
     Method rawMethod = class_getInstanceMethod(self->rawClass, selector);
     return [[ECRuntimeMethod alloc]
              initWithRawMethod: rawMethod
-             isClassMethod: NO];
+             isClassMethod: NO
+                     class: self];
 }
 @end

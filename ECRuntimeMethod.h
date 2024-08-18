@@ -10,7 +10,7 @@
 {
     Method rawMethod;
     BOOL isClassMethod;
-    ECClass* class;
+    ECClass* methodClass;
 }
 
 - (instancetype) initWithRawMethod: (Method) rawMethod
@@ -27,7 +27,7 @@ Class of the method.
 If the method is of a protocol, returns nil.
 If the method is of a category, returns the class the category is declared upon.
 */
-- (ECRuntimeClass*) class;
+- (ECRuntimeClass*) methodClass;
 
 - (GS_GENERIC_CLASS(NSArray, ECRuntimeMethodArgument*)*) arguments;
 - (ECRuntimeMethodArgument*) argumentAtIndex: (unsigned int) index;

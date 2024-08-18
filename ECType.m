@@ -16,6 +16,10 @@
     return ECInterpretType(self->encoding);
 }
 
+- (NSString*) decodeSwift {
+    return ECInterpretTypeSwift(self->encoding);
+}
+
 - (char*) decodeToCString {
     return [[self decode] UTF8String];
 }

@@ -11,7 +11,7 @@
     unsigned int amtArguments = [self numberOfArguments];
     NSString* methodType = [self isClassMethod] ? @"cls" : @"inst";
 
-    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self class] name],methodType];
+    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self methodClass] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
         NSString* methodName = [[
@@ -68,7 +68,7 @@
     unsigned int amtArguments = [self numberOfArguments];
     NSString* methodType = [self isClassMethod] ? @"cls" : @"inst";
 
-    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self class] name],methodType];
+    NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self methodClass] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
         NSString* methodName = [[
@@ -90,6 +90,25 @@
     }
     return prototype;
 }
+
+- (NSString*) CWrapperFunctionName {
+    NSString* methodNameString = [self name];
+    NSString* returnType = [[self returnType] decode];
+    unsigned int amtArguments = [self numberOfArguments];
+    NSString* methodType = [self isClassMethod] ? @"cls" : @"inst";
+
+    NSString* prototype =  [NSString stringWithFormat: @"%@_%@_", [[self methodClass] name], methodType];
+
+    if ([methodNameString containsString: @":"]) {
+        NSString* methodName = [[
+            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
+            substringToIndex: [methodNameString length] - 1];
+        prototype = [prototype plus: methodName];
+    }
+
+    return prototype;
+}
+
 - (NSString*) CWrapperImplementation {
     NSString* methodNameString = [self name];
     NSString* returnType = [[self returnType] decode];
@@ -117,6 +136,67 @@
     }
     return [wrapper plus:
         @"];\n"
+        @"}"];
+}
+
+// Swift wrapper
+- (NSString*) SwiftWrapperPrototype {
+    NSString* methodNameString = [self name];
+    NSString* returnType = [[self returnType] decodeSwift];
+    unsigned int amtArguments = [self numberOfArguments];
+    NSString* methodType = [self isClassMethod] ? @"class func" : @"func";
+
+    NSString* prototype = [methodType plus: @" "];
+
+    if ([methodNameString containsString: @":"]) {
+        NSMutableArray<NSString*>* argumentNames = [[methodNameString componentsSeparatedByString: @":"] mutableCopy];
+        prototype = [prototype plus: argumentNames[0] plus: @"("];
+        argumentNames[0] = @"_";
+        for (
+            unsigned int i = 2;
+            i < amtArguments;
+            i++
+        ) {
+            NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
+            NSString* argumentPrototype = [NSString stringWithFormat: @"%@ arg%u: %@", argumentNames[i-2], i, argumentType];
+            if(i + 1 < amtArguments) {
+                prototype = [prototype plus: argumentPrototype plus: @", "];
+            } else {
+                prototype = [prototype plus: argumentPrototype plus: @")"];
+            }
+        }
+    } else {
+        prototype = [prototype plus: methodNameString plus: @"()"];
+    }
+
+    prototype = [prototype plus: @" -> " plus: returnType];
+    return prototype;
+}
+- (NSString*) SwiftWrapperImplementation {
+    NSString* methodNameString = [self name];
+    NSString* returnType = [[self returnType] decodeSwift];
+    unsigned int amtArguments = [self numberOfArguments];
+
+    NSString* wrapper =  [NSString stringWithFormat: 
+        @"%@ {\n"
+        @"    return %@(", [self SwiftWrapperPrototype], [self CWrapperFunctionName]];
+
+    if ([methodNameString containsString: @":"]) {
+        NSArray<NSString*>* argumentNames = [methodNameString componentsSeparatedByString: @":"];
+
+        for (
+            unsigned int i = 2;
+            i < amtArguments;
+            i++
+        ) {
+            // wrapper = [wrapper plus: argumentNames[i-2] plus: @": "];
+            // NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
+            NSString* argumentWrapper = [NSString stringWithFormat: @"arg%u", i];
+            wrapper = [wrapper plus: argumentWrapper plus: @", "];
+        }
+    }
+    return [wrapper plus:
+        @"self._objc_self);\n"
         @"}"];
 }
 

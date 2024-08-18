@@ -19,7 +19,7 @@
     [super init];
     self->rawMethod = rawMethod;
     self->isClassMethod = isClassMethod;
-    self->class = class;
+    self->methodClass = class;
     return self;
 }
 
@@ -43,6 +43,10 @@
 - (ECType*) returnType {
     return [[ECType alloc] initWithRawEncoding:
                        method_copyReturnType(self->rawMethod)];
+}
+
+- (ECClass*) methodClass {
+    return self->methodClass;
 }
 
 - (GS_GENERIC_CLASS(NSArray, ECRuntimeMethodArgument*)*) arguments {

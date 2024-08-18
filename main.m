@@ -111,6 +111,8 @@ int main (int argc, char* argv[]) {
             generatedHeader = [requestedClass CWrapperImplementation];
         } else if (CStringsAreEqual(argv[2], "objc-header")) {
             generatedHeader = [requestedClass ObjCInterface];
+        } else if (CStringsAreEqual(argv[2], "swift-wrap-implementation")) {
+            generatedHeader = [requestedClass SwiftWrapperImplementation];
         } else {
             ECPrint(@"Wrong arguments!\n");
             return 1;
