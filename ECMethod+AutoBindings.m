@@ -86,7 +86,7 @@
         }
         prototype = [prototype plus: @"id self)"];
     } else {
-        prototype = [prototype plus: methodNameString plus: @"_noarg(id self)"];
+        prototype = [prototype plus: methodNameString plus: @"(id self)"];
     }
     return prototype;
 }
@@ -116,10 +116,16 @@
     NSString* returnType = [[self returnType] decode];
     unsigned int amtArguments = [self numberOfArguments];
 
-    NSString* wrapper =  [NSString stringWithFormat: 
-        @"%@ {\n"
-        @"    return (%@)[(%@*)self ", [self CWrapperPrototype], returnType, [[self methodClass] name]];
-
+    NSString* wrapper;
+    if([self isClassMethod]) {
+        wrapper =  [NSString stringWithFormat: 
+            @"%@ {\n"
+            @"    return (%@)[(Class)self ", [self CWrapperPrototype], returnType];
+    } else {
+        wrapper =  [NSString stringWithFormat: 
+            @"%@ {\n"
+            @"    return (%@)[(%@*)self ", [self CWrapperPrototype], returnType, [[self methodClass] name]];
+    }
     if ([methodNameString containsString: @":"]) {
         NSArray* methodName = [methodNameString componentsSeparatedByString: @":"];
 

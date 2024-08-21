@@ -373,7 +373,7 @@ class func conformsTo(_ arg2: UnsafeMutableRawPointer) -> CUnsignedChar {
     return NSObject_cls_conformsTo_(arg2, self._objc_self);
 }
 
-class func methodFor(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown2079 /* ? */> {
+class func methodFor(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown /* ? */> {
     return NSObject_cls_methodFor_(arg2, self._objc_self);
 }
 
@@ -661,7 +661,7 @@ class func conformsToProtocol(_ arg2: UnsafeMutableRawPointer) -> CUnsignedChar 
     return NSObject_cls_conformsToProtocol_(arg2, self._objc_self);
 }
 
-class func methodForSelector(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown2079 /* ? */> {
+class func methodForSelector(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown /* ? */> {
     return NSObject_cls_methodForSelector_(arg2, self._objc_self);
 }
 
@@ -862,7 +862,7 @@ func conformsTo(_ arg2: UnsafeMutableRawPointer) -> CUnsignedChar {
     return NSObject_inst_conformsTo_(arg2, self._objc_self);
 }
 
-func instanceMethodFor(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown2079 /* ? */> {
+func instanceMethodFor(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown /* ? */> {
     return NSObject_inst_instanceMethodFor_(arg2, self._objc_self);
 }
 
@@ -958,7 +958,7 @@ func conformsToProtocol(_ arg2: UnsafeMutableRawPointer) -> CUnsignedChar {
     return NSObject_inst_conformsToProtocol_(arg2, self._objc_self);
 }
 
-func instanceMethodForSelector(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown2079 /* ? */> {
+func instanceMethodForSelector(_ arg2: UnsafeMutablePointer<objc_selector>) -> UnsafeMutablePointer<AutoBindingsUnknown /* ? */> {
     return NSObject_inst_instanceMethodForSelector_(arg2, self._objc_self);
 }
 

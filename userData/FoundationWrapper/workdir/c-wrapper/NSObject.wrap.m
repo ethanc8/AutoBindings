@@ -1,3 +1,5 @@
+#import "FoundationWrapperC.h"
+#import "NSObject.autogen.h"
 // C bindings to class NSObject
 
 signed long long NSObject_cls_compare_(id arg2, id self) {

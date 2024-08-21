@@ -86,7 +86,7 @@ NSString* ECInterpretType(char* encodedType) {
                 typeName = [typeName plus: currentCharacter];
             }
         } else {
-            typeName = [typeName plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+            typeName = [NSString stringWithFormat: @"struct AutoBindingsUnknown%llu /* %@ */", (unsigned long long)[[NSString stringWithUTF8String: encodedType] hash], [NSString stringWithUTF8String: encodedType]];
         }
         return typeName;
     }
@@ -104,7 +104,7 @@ NSString* ECInterpretType(char* encodedType) {
     }
     // Unknowns
     else {
-        return [@"union " plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+        return [NSString stringWithFormat: @"union AutoBindingsUnknown%llu /* %@ */", (unsigned long long)[[NSString stringWithUTF8String: encodedType] hash], [NSString stringWithUTF8String: encodedType]];
     }
 }
 
@@ -161,7 +161,7 @@ NSString* ECInterpretTypeSwift(char* encodedType) {
                 typeName = [typeName plus: currentCharacter];
             }
         } else {
-            typeName = [typeName plus: randomIdentifier() plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+            typeName = [NSString stringWithFormat: @"union AutoBindingsUnknown%llu /* %@ */", (unsigned long long)[[NSString stringWithUTF8String: encodedType] hash], [NSString stringWithUTF8String: encodedType]];
         }
         return typeName;
     }
@@ -179,7 +179,7 @@ NSString* ECInterpretTypeSwift(char* encodedType) {
     }
     // Unknowns
     else {
-        return [@"AutoBindingsUnknown" plus: @" /* " plus: [NSString stringWithUTF8String: encodedType] plus: @" */"];
+        return [NSString stringWithFormat: @"AutoBindingsUnknown%llu /* %@ */", (unsigned long long)[[NSString stringWithUTF8String: encodedType] hash], [NSString stringWithUTF8String: encodedType]];
     }
 }
 
