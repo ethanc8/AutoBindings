@@ -1,27 +1,28 @@
 #import "ECType.h"
-#import "ECType_ECInterpretType.h"
+#import "ECConvenienceFunctions.h"
+#import <objc/runtime.h>
 
+#define CLASS_NAME "ECType"
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wincomplete-implementation"
+// This is a stub!
 @implementation ECType: NSObject
-- (instancetype) initWithEncoding: (NSString*) encoding {
-    return [self initWithRawEncoding: [encoding UTF8String]];
+
+- (void)doesNotRecognizeSelector:(SEL)aSelector {
+    ECPrint(@ CLASS_NAME "is a stub. You cannot call -[" CLASS_NAME "%s]",
+        sel_getName(aSelector)
+    );
+    [super doesNotRecognizeSelector:aSelector];
 }
 
-- (instancetype) initWithRawEncoding: (char const*) encoding {
-    [super init];
-    self->encoding = encoding;
-    return self;
++ (void)doesNotRecognizeSelector:(SEL)aSelector {
+    ECPrint(@ CLASS_NAME "is a stub. You cannot call +[" CLASS_NAME "%s]",
+        sel_getName(aSelector)
+    );
+    [super doesNotRecognizeSelector:aSelector];
 }
+#pragma GCC diagnostic pop // -Wincomplete-implementation
 
-- (NSString*) decode {
-    return ECInterpretType(self->encoding);
-}
-
-- (NSString*) decodeSwift {
-    return ECInterpretTypeSwift(self->encoding);
-}
-
-- (char*) decodeToCString {
-    return [[self decode] UTF8String];
-}
 
 @end

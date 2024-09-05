@@ -45,6 +45,9 @@
     if ([methodNameString containsString: @":"]) {
         NSArray* methodName = [methodNameString componentsSeparatedByString: @":"];
 
+        NSLog(@"amtArguments: %u\n", amtArguments);
+        NSLog(@"methodName: %@\n", methodName);
+
         for (
             unsigned int i = 2;
             i < amtArguments;

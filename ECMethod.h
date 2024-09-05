@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "ECType.h"
+#import "ECRuntimeType.h"
 
 @class ECMethodArgument;
 #import "ECMethodArgument.h"

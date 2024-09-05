@@ -40,8 +40,8 @@
     return method_getName(self->rawMethod);
 }
 
-- (ECType*) returnType {
-    return [[ECType alloc] initWithRawEncoding:
+- (ECRuntimeType*) returnType {
+    return [[ECRuntimeType alloc] initWithRawEncoding:
                        method_copyReturnType(self->rawMethod)];
 }
 
@@ -61,8 +61,8 @@
              initWithMethod: self
               argumentIndex: index];
 }
-- (ECType*) typeOfArgumentAtIndex: (unsigned int) index {
-    return [[ECType alloc] initWithRawEncoding:
+- (ECRuntimeType*) typeOfArgumentAtIndex: (unsigned int) index {
+    return [[ECRuntimeType alloc] initWithRawEncoding:
                        method_copyArgumentType(self->rawMethod, index)];
 }
 - (unsigned int) numberOfArguments {

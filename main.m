@@ -1,5 +1,6 @@
 #import <objc/objc.h>
 #import <Foundation/Foundation.h>
+#import <GNUstepBase/GSXML.h>
 
 #import <stdlib.h>
 #import <string.h>
@@ -11,13 +12,17 @@
 
 #import "ECConvenienceFunctions.h"
 #import "NSString+ECGeneral.h"
-#import "ECType_ECInterpretType.h"
+#import "ECRuntimeType_ECInterpretType.h"
 
 #import "ECRuntimeClass.h"
 #import "ECRuntimeMethod.h"
-#import "ECType.h"
+#import "ECRuntimeType.h"
 #import "ECMethod+AutoBindings.h"
 #import "ECClass+AutoBindings.h"
+
+#import "ECGSDocDocument.h"
+#import "ECGSDocClass.h"
+
 /*
 
 id objc_lookUpClass(const char *name);
@@ -102,6 +107,44 @@ int main (int argc, char* argv[]) {
         // // C wrapper
         // - (NSString*) CWrapperInterface;
         // - (NSString*) CWrapperImplementation;
+
+        NSString* generatedHeader;
+
+        if (CStringsAreEqual(argv[2], "wrap-header")) {
+            generatedHeader = [requestedClass CWrapperInterface];
+        } else if (CStringsAreEqual(argv[2], "wrap-implementation")) {
+            generatedHeader = [requestedClass CWrapperImplementation];
+        } else if (CStringsAreEqual(argv[2], "objc-header")) {
+            generatedHeader = [requestedClass ObjCInterface];
+        } else if (CStringsAreEqual(argv[2], "swift-wrap-implementation")) {
+            generatedHeader = [requestedClass SwiftWrapperImplementation];
+        } else {
+            ECPrint(@"Wrong arguments!\n");
+            return 1;
+        }
+
+        [generatedHeader print];
+        return 0;
+
+    }
+    // Generate interface file
+    // 0            1         2           3        4
+    // AutoBindings gen-gsdoc wrap-header NSString ~/sources/libs-base/Documentation/Base/NSString.gsdoc
+    else if (CStringsAreEqual(argv[1], "gen-gsdoc")) {
+        GSXMLParser* parser = [GSXMLParser parserWithContentsOfFile: [NSString stringWithUTF8String: argv[4]]];
+        if(![parser parse]) {
+            fprintf(stderr, "Error: parsing %s failed.\n", argv[4]);
+            return 1;
+        }
+        ECGSDocDocument* document = [[ECGSDocDocument alloc]
+            initWithXMLDocument: parser.document];
+        ECGSDocClass* requestedClass = [document classNamed: [NSString stringWithUTF8String: argv[3]]];
+
+        if(!requestedClass) {
+            GSPrintf(stderr, @"Error: finding class %s in GSDoc document %s failed.\n", argv[3], argv[4]);
+            GSPrintf(stderr, @"Classes found: %@\n", document.classes);
+            return 1;
+        }
 
         NSString* generatedHeader;
 

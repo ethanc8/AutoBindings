@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
+#import "ECType.h"
 
-@interface ECType: NSObject
+@interface ECTypenameType: ECType
+- (instancetype) initWithTypename: (NSString*) typename;
 - (NSString*) decode;
 - (NSString*) decodeSwift;
 - (char const*) decodeToCString;
