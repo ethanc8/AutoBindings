@@ -8,4 +8,8 @@
     self->argumentIndex = argumentIndex;
     return self;
 }
+
+- (NSString*) name {
+    return [NSString stringWithFormat: @"arg%u", self->argumentIndex];
+}
 @end

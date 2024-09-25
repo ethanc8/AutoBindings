@@ -14,9 +14,8 @@
     NSString* prototype =  [NSString stringWithFormat: @"%@ %@_%@_", returnType, [[self methodClass] name],methodType];
 
     if ([methodNameString containsString: @":"]) {
-        NSString* methodName = [[
-            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] 
-            substringToIndex: [methodNameString length] - 1];
+        NSString* methodName = [
+            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"];
         prototype = [prototype plus: methodName plus: @"(id self, SEL _cmd"];
         for (
             unsigned int i = 2;
@@ -24,7 +23,7 @@
             i++
         ) {
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decode];
-            NSString* argumentPrototype = [NSString stringWithFormat: @", %@ arg%u", argumentType, i];
+            NSString* argumentPrototype = [NSString stringWithFormat: @", %@ %@", argumentType, [self argumentAtIndex: i].name];
             prototype = [prototype plus: argumentPrototype];
         }
         prototype = [prototype plus: @")"];
@@ -45,8 +44,8 @@
     if ([methodNameString containsString: @":"]) {
         NSArray* methodName = [methodNameString componentsSeparatedByString: @":"];
 
-        NSLog(@"amtArguments: %u\n", amtArguments);
-        NSLog(@"methodName: %@\n", methodName);
+        // NSLog(@"amtArguments: %u\n", amtArguments);
+        // NSLog(@"methodName: %@\n", methodName);
 
         for (
             unsigned int i = 2;
@@ -55,7 +54,7 @@
         ) {
             prototype = [prototype plus: [methodName objectAtIndex: i - 2] plus: @":"];
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decode];
-            NSString* argumentPrototype = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
+            NSString* argumentPrototype = [NSString stringWithFormat: @" (%@) %@", argumentType, [self argumentAtIndex: i].name];
             prototype = [prototype plus: argumentPrototype plus: @" "];
         }
     } else {
@@ -75,19 +74,18 @@
 
     if ([methodNameString containsString: @":"]) {
         NSString* methodName = [
-            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"] ;
-            // substringToIndex: [methodNameString length] - 1];
-        prototype = [prototype plus: methodName plus: @"("];
+            methodNameString stringByReplacingOccurrencesOfString: @":" withString: @"_"];
+        prototype = [prototype plus: methodName plus: @"(id self"];
         for (
             unsigned int i = 2;
             i < amtArguments;
             i++
         ) {
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decode];
-            NSString* argumentPrototype = [NSString stringWithFormat: @"%@ arg%u", argumentType, i];
-            prototype = [prototype plus: argumentPrototype plus: @", "];
+            NSString* argumentPrototype = [NSString stringWithFormat: @", %@ %@", argumentType, [self argumentAtIndex: i].name];
+            prototype = [prototype plus: argumentPrototype];
         }
-        prototype = [prototype plus: @"id self)"];
+        prototype = [prototype plus: @")"];
     } else {
         prototype = [prototype plus: methodNameString plus: @"(id self)"];
     }
@@ -139,7 +137,7 @@
         ) {
             wrapper = [wrapper plus: [methodName objectAtIndex: i - 2] plus: @":"];
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decode];
-            NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) arg%u", argumentType, i];
+            NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) %@", argumentType, [self argumentAtIndex: i].name];
             wrapper = [wrapper plus: argumentWrapper plus: @" "];
         }
     } else {
@@ -169,7 +167,7 @@
             i++
         ) {
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
-            NSString* argumentPrototype = [NSString stringWithFormat: @"%@ arg%u: %@", argumentNames[i-2], i, argumentType];
+            NSString* argumentPrototype = [NSString stringWithFormat: @"%@ %@: %@", argumentNames[i-2], [self argumentAtIndex: i].name, argumentType];
             if(i + 1 < amtArguments) {
                 prototype = [prototype plus: argumentPrototype plus: @", "];
             } else {
@@ -189,7 +187,7 @@
 
     NSString* wrapper =  [NSString stringWithFormat: 
         @"%@ {\n"
-        @"    return %@(", [self SwiftWrapperPrototype], [self CWrapperFunctionName]];
+        @"    return %@(self._objc_self", [self SwiftWrapperPrototype], [self CWrapperFunctionName]];
 
     if ([methodNameString containsString: @":"]) {
         NSArray<NSString*>* argumentNames = [methodNameString componentsSeparatedByString: @":"];
@@ -201,12 +199,12 @@
         ) {
             // wrapper = [wrapper plus: argumentNames[i-2] plus: @": "];
             // NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
-            NSString* argumentWrapper = [NSString stringWithFormat: @"arg%u", i];
-            wrapper = [wrapper plus: argumentWrapper plus: @", "];
+            NSString* argumentWrapper = [self argumentAtIndex: i].name;
+            wrapper = [wrapper plus: @", " plus: argumentWrapper];
         }
     }
     return [wrapper plus:
-        @"self._objc_self);\n"
+        @");\n"
         @"}"];
 }
 
