@@ -22,6 +22,10 @@
     return [NSString stringWithUTF8String: class_getName(self->rawClass)];
 }
 
+- (NSString*) superclassName {
+    return [NSString stringWithUTF8String: class_getName(class_getSuperclass(self->rawClass))];
+}
+
 - (GS_GENERIC_CLASS(NSArray, ECRuntimeMethod*)*) instanceMethods {
     unsigned int instanceMethods_count;
     Method* instanceMethods = class_copyMethodList(

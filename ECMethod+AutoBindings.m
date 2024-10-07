@@ -137,7 +137,9 @@
         ) {
             wrapper = [wrapper plus: [methodName objectAtIndex: i - 2] plus: @":"];
             NSString* argumentType = [[self typeOfArgumentAtIndex: i] decode];
-            NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) %@", argumentType, [self argumentAtIndex: i].name];
+            // We cannot cast to the argument type as that fails with va_list
+            // NSString* argumentWrapper = [NSString stringWithFormat: @" (%@) %@", argumentType, [self argumentAtIndex: i].name];
+            NSString* argumentWrapper = [NSString stringWithFormat: @"%@", [self argumentAtIndex: i].name];
             wrapper = [wrapper plus: argumentWrapper plus: @" "];
         }
     } else {

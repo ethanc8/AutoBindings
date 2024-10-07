@@ -17,6 +17,7 @@ This is a stub, and must be subclassed.
 - (ECMethod*) instanceMethodWithName: (NSString*) name;
 
 - (NSString*) name;
+- (NSString*) superclassName;
 - (char*) nameAsCString;
 
 @end

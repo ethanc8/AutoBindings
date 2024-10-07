@@ -25,6 +25,10 @@
     return [self->root objectForKey: @"name"];
 }
 
+- (NSString*) superclassName {
+    return [self->root objectForKey: @"super"];
+}
+
 - (void) parse {
     GSXMLNode* element = self->root.firstChildElement;
     while((element = [element next])) {

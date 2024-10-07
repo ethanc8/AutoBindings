@@ -10,11 +10,20 @@
     return [@"@interface " plus: [self name]];
 }
 - (NSString*) ObjCInterface {
+if([self superclassName])
     return [self constructFileWithConstructor: @selector(ObjCPrototype)
                                      beginAll: @"#import \"common.autogen.h\"\n"
-                                               @"@interface %@"
+                                               @"#import \"%2$@.autogen.h\"\n"
+                                               @"@interface %1$@: %2$@"
                                     beginLine: @""
-                                       endAll: @"@end // %@"
+                                       endAll: @"@end // %1$@"
+                                      endLine: @";"];
+else
+    return [self constructFileWithConstructor: @selector(ObjCPrototype)
+                                     beginAll: @"#import \"common.autogen.h\"\n"
+                                               @"@interface %1$@"
+                                    beginLine: @""
+                                       endAll: @"@end // %1$@"
                                       endLine: @";"];
 }
 
@@ -59,7 +68,7 @@
 
     NSString* returnStr = [NSString string];
     returnStr = [returnStr plus:
-                    [NSString stringWithFormat: beginAll, [self name]]
+                    [NSString stringWithFormat: beginAll, [self name], [self superclassName]]
                            plus: @"\n"];
 
     
@@ -84,7 +93,7 @@
     }
 
     returnStr = [returnStr plus:
-                    [NSString stringWithFormat: endAll, [self name]]
+                    [NSString stringWithFormat: endAll, [self name], [self superclassName]]
                            plus: @"\n"];
     return returnStr;
 }
