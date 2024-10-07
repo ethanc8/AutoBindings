@@ -9,4 +9,11 @@
 - (NSString*) CWrapperPrototype;
 - (NSString*) CWrapperImplementation;
 
+// Swift wrapper
+- (NSString*) SwiftWrapperPrototype;
+- (NSString*) SwiftWrapperImplementation;
+
+- (NSString*) SwiftInitWrapperPrototype;
+- (NSString*) SwiftInitWrapperImplementation;
+
 @end

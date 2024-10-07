@@ -1,5 +1,5 @@
-// Swift bindings to class NSString
-class NSString {
+class NSString : NSObject {
+    static let _objc_class = objc_lookUpClass("NSString")
 
 func stringByReplacingOccurrencesOfString(_ replace: AutoBindingsUnknown144151490, withString by: AutoBindingsUnknown144151490, options opts: AutoBindingsUnknown57556523, range searchRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown144151490 {
     return NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(self._objc_self, replace, by, opts, searchRange);
@@ -17,8 +17,8 @@ func intValue() -> AutoBindingsUnknown86641323 {
     return NSString_inst_intValue(self._objc_self);
 }
 
-func initWithCString(_ byteString: AutoBindingsUnknown199096431, encoding encoding: AutoBindingsUnknown29686751) -> Self {
-    return NSString_inst_initWithCString_encoding_(self._objc_self, byteString, encoding);
+init(cString byteString: AutoBindingsUnknown199096431, encoding encoding: AutoBindingsUnknown29686751) {
+    self._objc_self = NSString_inst_initWithCString_encoding_(NSObject_alloc(Self._objc_class), byteString, encoding);
 }
 
 func doubleValue() -> AutoBindingsUnknown244352411 {
@@ -33,8 +33,8 @@ func maximumLengthOfBytesUsingEncoding(_ encoding: AutoBindingsUnknown29686751) 
     return NSString_inst_maximumLengthOfBytesUsingEncoding_(self._objc_self, encoding);
 }
 
-func initWithData(_ data: AutoBindingsUnknown50637477, encoding encoding: AutoBindingsUnknown29686751) -> Self {
-    return NSString_inst_initWithData_encoding_(self._objc_self, data, encoding);
+init(data data: AutoBindingsUnknown50637477, encoding encoding: AutoBindingsUnknown29686751) {
+    self._objc_self = NSString_inst_initWithData_encoding_(NSObject_alloc(Self._objc_class), data, encoding);
 }
 
 func description() -> AutoBindingsUnknown144151490 {
@@ -69,8 +69,8 @@ func stringByRemovingPercentEncoding() -> AutoBindingsUnknown144151490 {
     return NSString_inst_stringByRemovingPercentEncoding(self._objc_self);
 }
 
-func initWithCharacters(_ chars: AutoBindingsUnknown229063035, length length: AutoBindingsUnknown199417348) -> Self {
-    return NSString_inst_initWithCharacters_length_(self._objc_self, chars, length);
+init(characters chars: AutoBindingsUnknown229063035, length length: AutoBindingsUnknown199417348) {
+    self._objc_self = NSString_inst_initWithCharacters_length_(NSObject_alloc(Self._objc_class), chars, length);
 }
 
 func caseInsensitiveCompare(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
@@ -85,16 +85,16 @@ func rangeOfString(_ aString: AutoBindingsUnknown144151490, options mask: AutoBi
     return NSString_inst_rangeOfString_options_range_locale_(self._objc_self, aString, mask, searchRange, locale);
 }
 
-func initWithCharactersNoCopy(_ chars: AutoBindingsUnknown185329812, length length: AutoBindingsUnknown199417348, freeWhenDone flag: AutoBindingsUnknown23840620) -> Self {
-    return NSString_inst_initWithCharactersNoCopy_length_freeWhenDone_(self._objc_self, chars, length, flag);
+init(charactersNoCopy chars: AutoBindingsUnknown185329812, length length: AutoBindingsUnknown199417348, freeWhenDone flag: AutoBindingsUnknown23840620) {
+    self._objc_self = NSString_inst_initWithCharactersNoCopy_length_freeWhenDone_(NSObject_alloc(Self._objc_class), chars, length, flag);
 }
 
-func initWithContentsOfURL(_ url: AutoBindingsUnknown182445502, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> Self {
-    return NSString_inst_initWithContentsOfURL_encoding_error_(self._objc_self, url, enc, error);
+init(contentsOfURL url: AutoBindingsUnknown182445502, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) {
+    self._objc_self = NSString_inst_initWithContentsOfURL_encoding_error_(NSObject_alloc(Self._objc_class), url, enc, error);
 }
 
-func initWithBytes(_ bytes: AutoBindingsUnknown18163651, length length: AutoBindingsUnknown199417348, encoding encoding: AutoBindingsUnknown29686751) -> Self {
-    return NSString_inst_initWithBytes_length_encoding_(self._objc_self, bytes, length, encoding);
+init(bytes bytes: AutoBindingsUnknown18163651, length length: AutoBindingsUnknown199417348, encoding encoding: AutoBindingsUnknown29686751) {
+    self._objc_self = NSString_inst_initWithBytes_length_encoding_(NSObject_alloc(Self._objc_class), bytes, length, encoding);
 }
 
 func rangeOfString(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown228391054 {
@@ -173,8 +173,8 @@ func getCString(_ buffer: AutoBindingsUnknown223840456, maxLength maxLength: Aut
     return NSString_inst_getCString_maxLength_(self._objc_self, buffer, maxLength);
 }
 
-func initWithCStringNoCopy(_ byteString: AutoBindingsUnknown223840456, length length: AutoBindingsUnknown199417348, freeWhenDone flag: AutoBindingsUnknown23840620) -> Self {
-    return NSString_inst_initWithCStringNoCopy_length_freeWhenDone_(self._objc_self, byteString, length, flag);
+init(cStringNoCopy byteString: AutoBindingsUnknown223840456, length length: AutoBindingsUnknown199417348, freeWhenDone flag: AutoBindingsUnknown23840620) {
+    self._objc_self = NSString_inst_initWithCStringNoCopy_length_freeWhenDone_(NSObject_alloc(Self._objc_class), byteString, length, flag);
 }
 
 func rangeOfString(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348, range aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown228391054 {
@@ -185,8 +185,8 @@ func getCharacters(_ buffer: AutoBindingsUnknown185329812, range aRange: AutoBin
     return NSString_inst_getCharacters_range_(self._objc_self, buffer, aRange);
 }
 
-func initWithCString(_ byteString: AutoBindingsUnknown199096431, length length: AutoBindingsUnknown199417348) -> Self {
-    return NSString_inst_initWithCString_length_(self._objc_self, byteString, length);
+init(cString byteString: AutoBindingsUnknown199096431, length length: AutoBindingsUnknown199417348) {
+    self._objc_self = NSString_inst_initWithCString_length_(NSObject_alloc(Self._objc_class), byteString, length);
 }
 
 func fastestEncoding() -> AutoBindingsUnknown29686751 {
@@ -201,16 +201,16 @@ func hasPrefix(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23
     return NSString_inst_hasPrefix_(self._objc_self, aString);
 }
 
-func initWithFormat(_ format: AutoBindingsUnknown144151490, arguments argList: AutoBindingsUnknown212821170) -> Self {
-    return NSString_inst_initWithFormat_arguments_(self._objc_self, format, argList);
+init(format format: AutoBindingsUnknown144151490, arguments argList: AutoBindingsUnknown212821170) {
+    self._objc_self = NSString_inst_initWithFormat_arguments_(NSObject_alloc(Self._objc_class), format, argList);
 }
 
-func initWithFormat(_ format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833) -> Self {
-    return NSString_inst_initWithFormat_locale_(self._objc_self, format, locale);
+init(format format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833) {
+    self._objc_self = NSString_inst_initWithFormat_locale_(NSObject_alloc(Self._objc_class), format, locale);
 }
 
-func initWithBytesNoCopy(_ bytes: AutoBindingsUnknown42907676, length length: AutoBindingsUnknown199417348, encoding encoding: AutoBindingsUnknown29686751, freeWhenDone flag: AutoBindingsUnknown23840620) -> Self {
-    return NSString_inst_initWithBytesNoCopy_length_encoding_freeWhenDone_(self._objc_self, bytes, length, encoding, flag);
+init(bytesNoCopy bytes: AutoBindingsUnknown42907676, length length: AutoBindingsUnknown199417348, encoding encoding: AutoBindingsUnknown29686751, freeWhenDone flag: AutoBindingsUnknown23840620) {
+    self._objc_self = NSString_inst_initWithBytesNoCopy_length_encoding_freeWhenDone_(NSObject_alloc(Self._objc_class), bytes, length, encoding, flag);
 }
 
 func writeToFile(_ filename: AutoBindingsUnknown144151490, atomically useAuxiliaryFile: AutoBindingsUnknown23840620) -> AutoBindingsUnknown23840620 {
@@ -229,8 +229,8 @@ func stringByAppendingFormat(_ format: AutoBindingsUnknown144151490) -> AutoBind
     return NSString_inst_stringByAppendingFormat_(self._objc_self, format);
 }
 
-func initWithContentsOfFile(_ path: AutoBindingsUnknown144151490, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) -> Self {
-    return NSString_inst_initWithContentsOfFile_usedEncoding_error_(self._objc_self, path, enc, error);
+init(contentsOfFile path: AutoBindingsUnknown144151490, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) {
+    self._objc_self = NSString_inst_initWithContentsOfFile_usedEncoding_error_(NSObject_alloc(Self._objc_class), path, enc, error);
 }
 
 func localizedCaseInsensitiveCompare(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
@@ -245,12 +245,12 @@ func hasSuffix(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23
     return NSString_inst_hasSuffix_(self._objc_self, aString);
 }
 
-func initWithContentsOfFile(_ path: AutoBindingsUnknown144151490) -> Self {
-    return NSString_inst_initWithContentsOfFile_(self._objc_self, path);
+init(contentsOfFile path: AutoBindingsUnknown144151490) {
+    self._objc_self = NSString_inst_initWithContentsOfFile_(NSObject_alloc(Self._objc_class), path);
 }
 
-func initWithContentsOfFile(_ path: AutoBindingsUnknown144151490, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> Self {
-    return NSString_inst_initWithContentsOfFile_encoding_error_(self._objc_self, path, enc, error);
+init(contentsOfFile path: AutoBindingsUnknown144151490, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) {
+    self._objc_self = NSString_inst_initWithContentsOfFile_encoding_error_(NSObject_alloc(Self._objc_class), path, enc, error);
 }
 
 func lengthOfBytesUsingEncoding(_ encoding: AutoBindingsUnknown29686751) -> AutoBindingsUnknown199417348 {
@@ -273,8 +273,8 @@ func containsString(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnkno
     return NSString_inst_containsString_(self._objc_self, string);
 }
 
-func initWithString(_ string: AutoBindingsUnknown144151490) -> Self {
-    return NSString_inst_initWithString_(self._objc_self, string);
+init(string string: AutoBindingsUnknown144151490) {
+    self._objc_self = NSString_inst_initWithString_(NSObject_alloc(Self._objc_class), string);
 }
 
 func _baseLength() -> AutoBindingsUnknown86641323 {
@@ -285,12 +285,12 @@ func stringByPaddingToLength(_ newLength: AutoBindingsUnknown199417348, withStri
     return NSString_inst_stringByPaddingToLength_withString_startingAtIndex_(self._objc_self, newLength, padString, padIndex);
 }
 
-func initWithCString(_ byteString: AutoBindingsUnknown199096431) -> Self {
-    return NSString_inst_initWithCString_(self._objc_self, byteString);
+init(cString byteString: AutoBindingsUnknown199096431) {
+    self._objc_self = NSString_inst_initWithCString_(NSObject_alloc(Self._objc_class), byteString);
 }
 
-func initWithFormat(_ format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833, arguments argList: AutoBindingsUnknown212821170) -> Self {
-    return NSString_inst_initWithFormat_locale_arguments_(self._objc_self, format, locale, argList);
+init(format format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833, arguments argList: AutoBindingsUnknown212821170) {
+    self._objc_self = NSString_inst_initWithFormat_locale_arguments_(NSObject_alloc(Self._objc_class), format, locale, argList);
 }
 
 func stringByAddingPercentEncodingWithAllowedCharacters(_ aSet: AutoBindingsUnknown15313412) -> AutoBindingsUnknown144151490 {
@@ -329,8 +329,8 @@ func stringByAddingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown29686751)
     return NSString_inst_stringByAddingPercentEscapesUsingEncoding_(self._objc_self, e);
 }
 
-func initWithUTF8String(_ bytes: AutoBindingsUnknown199096431) -> Self {
-    return NSString_inst_initWithUTF8String_(self._objc_self, bytes);
+init(uTF8String bytes: AutoBindingsUnknown199096431) {
+    self._objc_self = NSString_inst_initWithUTF8String_(NSObject_alloc(Self._objc_class), bytes);
 }
 
 func compare(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown69873819 {
@@ -357,8 +357,8 @@ func stringByReplacingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown296867
     return NSString_inst_stringByReplacingPercentEscapesUsingEncoding_(self._objc_self, e);
 }
 
-func initWithContentsOfURL(_ url: AutoBindingsUnknown182445502) -> Self {
-    return NSString_inst_initWithContentsOfURL_(self._objc_self, url);
+init(contentsOfURL url: AutoBindingsUnknown182445502) {
+    self._objc_self = NSString_inst_initWithContentsOfURL_(NSObject_alloc(Self._objc_class), url);
 }
 
 func getParagraphStart(_ startIndex: AutoBindingsUnknown1209454, end parEndIndex: AutoBindingsUnknown1209454, contentsEnd contentsEndIndex: AutoBindingsUnknown1209454, forRange range: AutoBindingsUnknown228391054) -> AutoBindingsUnknown159276594 {
@@ -381,20 +381,20 @@ func hash() -> AutoBindingsUnknown199417348 {
     return NSString_inst_hash(self._objc_self);
 }
 
-func init() -> Self {
-    return NSString_inst_init(self._objc_self);
+init() {
+    self._objc_self = NSString_inst_init(NSObject_alloc(Self._objc_class));
 }
 
-func initWithFormat(_ format: AutoBindingsUnknown144151490) -> Self {
-    return NSString_inst_initWithFormat_(self._objc_self, format);
+init(format format: AutoBindingsUnknown144151490) {
+    self._objc_self = NSString_inst_initWithFormat_(NSObject_alloc(Self._objc_class), format);
 }
 
 func compare(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
     return NSString_inst_compare_(self._objc_self, aString);
 }
 
-func initWithContentsOfURL(_ url: AutoBindingsUnknown182445502, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) -> Self {
-    return NSString_inst_initWithContentsOfURL_usedEncoding_error_(self._objc_self, url, enc, error);
+init(contentsOfURL url: AutoBindingsUnknown182445502, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) {
+    self._objc_self = NSString_inst_initWithContentsOfURL_usedEncoding_error_(NSObject_alloc(Self._objc_class), url, enc, error);
 }
 
 func getCharacters(_ buffer: AutoBindingsUnknown185329812) -> AutoBindingsUnknown159276594 {

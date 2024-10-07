@@ -1,5 +1,5 @@
-// Swift bindings to class NSObject
 class NSObject {
+    static let _objc_class = objc_lookUpClass("NSObject")
 
 func classForCoder() -> AutoBindingsUnknown218975734 {
     return NSObject_inst_classForCoder(self._objc_self);
@@ -49,8 +49,8 @@ func forwardingTargetForSelector(_ aSelector: AutoBindingsUnknown29494308) -> Au
     return NSObject_inst_forwardingTargetForSelector_(self._objc_self, aSelector);
 }
 
-func init() -> AutoBindingsUnknown3776685 {
-    return NSObject_inst_init(self._objc_self);
+init() {
+    self._objc_self = NSObject_inst_init(NSObject_alloc(Self._objc_class));
 }
 
 func methodForSelector(_ aSelector: AutoBindingsUnknown29494308) -> AutoBindingsUnknown175298918 {

@@ -24,5 +24,8 @@
 }
 #pragma GCC diagnostic pop // -Wincomplete-implementation
 
+- (BOOL) isInitMethod {
+    return [self.name hasPrefix: @"init"];
+}
 
 @end

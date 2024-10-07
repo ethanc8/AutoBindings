@@ -210,4 +210,80 @@
         @"}"];
 }
 
+- (NSString*) SwiftInitWrapperPrototype {
+    NSString* methodNameString = [self name];
+    NSString* returnType = [[self returnType] decodeSwift];
+    unsigned int amtArguments = [self numberOfArguments];
+
+    NSString* prototype = @"init(";
+
+    if ([methodNameString containsString: @":"]) {
+        NSMutableArray<NSString*>* argumentNames = [[methodNameString componentsSeparatedByString: @":"] mutableCopy];
+        NSMutableString* firstArgument = [argumentNames[0] mutableCopy];
+        if([firstArgument hasPrefix: @"initWith"]) {
+            [firstArgument deleteCharactersInRange: NSMakeRange(0, 8)]; // Delete the 'initWith'
+        } else {
+            [firstArgument deleteCharactersInRange: NSMakeRange(0, 4)]; // Delete the 'init'
+        }
+        // Lowercase the first character
+        [firstArgument replaceCharactersInRange: NSMakeRange(0, 1) withString: [[firstArgument substringToIndex: 1] lowercaseString]];
+        argumentNames[0] = firstArgument;
+        for (
+            unsigned int i = 2;
+            i < amtArguments;
+            i++
+        ) {
+            NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
+            NSString* argumentPrototype = [NSString stringWithFormat: @"%@ %@: %@", argumentNames[i-2], [self argumentAtIndex: i].name, argumentType];
+            if(i + 1 < amtArguments) {
+                prototype = [prototype plus: argumentPrototype plus: @", "];
+            } else {
+                prototype = [prototype plus: argumentPrototype plus: @")"];
+            }
+        }
+    } else if([methodNameString isEqual: @"init"]) {
+        prototype = [prototype plus: @")"];
+    } else {
+        NSMutableString* firstArgument = [methodNameString mutableCopy];
+        if([firstArgument hasPrefix: @"initWith"]) {
+            [firstArgument deleteCharactersInRange: NSMakeRange(0, 8)]; // Delete the 'initWith'
+        } else {
+            [firstArgument deleteCharactersInRange: NSMakeRange(0, 4)]; // Delete the 'init'
+        }
+        // Lowercase the first character
+        [firstArgument replaceCharactersInRange: NSMakeRange(0, 1) withString: [[firstArgument substringToIndex: 1] lowercaseString]];
+        prototype = [prototype plus: firstArgument plus: @": ())"];
+    }
+    // prototype = [prototype plus: @" -> " plus: returnType];
+    return prototype;
+}
+
+- (NSString*) SwiftInitWrapperImplementation {
+    NSString* methodNameString = [self name];
+    NSString* returnType = [[self returnType] decodeSwift];
+    unsigned int amtArguments = [self numberOfArguments];
+
+    NSString* wrapper =  [NSString stringWithFormat: 
+        @"%1$@ {\n"
+        @"    self._objc_self = %2$@(NSObject_alloc(Self._objc_class)", [self SwiftInitWrapperPrototype], [self CWrapperFunctionName]];
+
+    if ([methodNameString containsString: @":"]) {
+        NSArray<NSString*>* argumentNames = [methodNameString componentsSeparatedByString: @":"];
+
+        for (
+            unsigned int i = 2;
+            i < amtArguments;
+            i++
+        ) {
+            // wrapper = [wrapper plus: argumentNames[i-2] plus: @": "];
+            // NSString* argumentType = [[self typeOfArgumentAtIndex: i] decodeSwift];
+            NSString* argumentWrapper = [self argumentAtIndex: i].name;
+            wrapper = [wrapper plus: @", " plus: argumentWrapper];
+        }
+    }
+    return [wrapper plus:
+        @");\n"
+        @"}"];
+}
+
 @end

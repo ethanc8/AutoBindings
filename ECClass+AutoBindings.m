@@ -1,4 +1,5 @@
 #import "ECClass+AutoBindings.h"
+#import "ECMethod+AutoBindings.h"
 #import "ECRuntimeMethod.h"
 #import "NSString+ECGeneral.h"
 #import "ECConvenienceFunctions.h"
@@ -48,13 +49,56 @@ else
 
 // Swift wrapper
 - (NSString*) SwiftWrapperImplementation {
-    return [self constructFileWithConstructor: @selector(SwiftWrapperImplementation)
-                                     beginAll: @"// Swift bindings to class %@\n"
-                                               @"class %1$@ {"
-                                    beginLine: @"\n"
-                                       endAll: @"}\n"
-                                               @"// End Swift bindings to class %@"
-                                      endLine: @""];
+    // NSString* returnStr = [NSString string];
+    // returnStr = [returnStr plus:
+    //                 [NSString stringWithFormat:
+    //     [self superclassName] ? @"class %1$@ : %2$@ {" : @"class %1$@ {"
+    //     , [self name], [self superclassName]]
+    //                        plus: @"\n"];
+    
+    NSString* returnStr;
+    if([self superclassName]) {
+        returnStr = [NSString stringWithFormat:
+            @"class %1$@ : %2$@ {\n"
+            @"    static let _objc_class = objc_lookUpClass(\"%1$@\")\n"
+            , [self name], [self superclassName]
+            ];
+    } else {
+        returnStr = [NSString stringWithFormat:
+            @"class %1$@ {\n"
+            @"    static let _objc_class = objc_lookUpClass(\"%1$@\")\n"
+            , [self name]
+            ];
+    }
+
+    for (ECMethod* method in [self instanceMethods]) {
+        if([method isInitMethod]) {
+            NSLog(@"Init method found: +[%@ %@]", self.name, method.name);
+            returnStr = [returnStr plus: @"\n"
+                                   plus: [method SwiftInitWrapperImplementation]
+                                   plus: @"\n"];
+        } else {
+            returnStr = [returnStr plus: @"\n"
+                                   plus: [method SwiftWrapperImplementation]
+                                   plus: @"\n"];
+        }
+        
+    }
+
+    returnStr = [returnStr plus: @"\n"];
+
+    for (ECMethod* method in [self classMethods]) {
+        returnStr = [returnStr plus: @"\n"
+                               plus: [method SwiftWrapperImplementation]
+                               plus: @"\n"];
+    }
+
+    returnStr = [returnStr plus:
+                    [NSString stringWithFormat: @"}\n"
+                                                @"// End Swift bindings to class %@"
+                                                , [self name], [self superclassName]]
+                           plus: @"\n"];
+    return returnStr;
 }
 
 - (NSString*) constructFileWithConstructor: (SEL) constructor // A method of ECMethod(AutoBindings)

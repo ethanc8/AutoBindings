@@ -22,6 +22,7 @@ If the method is of a category, returns the class the category is declared upon.
 - (ECClass*) methodClass;
 
 - (BOOL) isClassMethod;
+- (BOOL) isInitMethod;
 
 - (ECType*) returnType;
 
