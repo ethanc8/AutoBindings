@@ -1,7 +1,7 @@
 #import "ECTypenameType.h"
 #import "ECConvenienceFunctions.h"
 
-@implementation ECTypenameType: ECType {
+@implementation ECTypenameType {
     NSString* typename;
 }
 
@@ -15,7 +15,11 @@
 }
 
 - (NSString*) decodeSwift {
-    return [@"AutoBindingsUnknown" plus: self->typename.hash];
+    if([self->typename isEqual: @"instancetype"]) {
+        return @"Self";
+    } else {
+        return [NSString stringWithFormat: @"AutoBindingsUnknown%llu", (unsigned long long)(self->typename.hash)];
+    }
 }
 
 - (char const*) decodeToCString {
