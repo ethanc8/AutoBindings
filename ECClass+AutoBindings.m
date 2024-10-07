@@ -11,7 +11,8 @@
 }
 - (NSString*) ObjCInterface {
     return [self constructFileWithConstructor: @selector(ObjCPrototype)
-                                     beginAll: @"@interface %@"
+                                     beginAll: @"#import \"common.autogen.h\"\n"
+                                               @"@interface %@"
                                     beginLine: @""
                                        endAll: @"@end // %@"
                                       endLine: @";"];
@@ -20,14 +21,17 @@
 // C wrapper
 - (NSString*) CWrapperInterface {
     return [self constructFileWithConstructor: @selector(CWrapperPrototype)
-                                     beginAll: @"// C interface to class %@"
+                                     beginAll: @"#import \"common.wrap.h\"\n"
+                                               @"// C interface to class %@"
                                     beginLine: @""
                                        endAll: @"// End C interface to class %@"
                                       endLine: @";"];
 }
 - (NSString*) CWrapperImplementation {
     return [self constructFileWithConstructor: @selector(CWrapperImplementation)
-                                     beginAll: @"// C bindings to class %@"
+                                     beginAll: @"#import \"%1$@.autogen.h\"\n"
+                                               @"#import \"common.wrap.m\"\n"
+                                               @"// C bindings to class %1$@"
                                     beginLine: @"\n"
                                        endAll: @"// End C bindings to class %@"
                                       endLine: @""];

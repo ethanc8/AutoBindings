@@ -1,3 +1,4 @@
+#import "common.wrap.m"
 // C bindings to class NSObject
 
 Class NSObject_inst_classForCoder(id self) {

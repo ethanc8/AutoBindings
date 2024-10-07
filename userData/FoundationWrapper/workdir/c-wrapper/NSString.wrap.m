@@ -1,739 +1,576 @@
-#import "FoundationWrapperC.h"
-#import "NSObject.autogen.h"
-#import "NSString.autogen.h"
-
+#import "common.wrap.m"
 // C bindings to class NSString
 
-unsigned char NSString_inst_print(id self) {
-    return (unsigned char)[(NSString*)self print];
+NSString* NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(id self, NSString* replace, NSString* by, NSStringCompareOptions opts, NSRange searchRange) {
+    return (NSString*)[(NSString*)self stringByReplacingOccurrencesOfString: (NSString*) replace withString: (NSString*) by options: (NSStringCompareOptions) opts range: (NSRange) searchRange ];
 }
 
-unsigned char NSString_inst_printError(id self) {
-    return (unsigned char)[(NSString*)self printError];
+NSComparisonResult NSString_inst_compare_options_range_locale_(id self, NSString* string, NSUInteger mask, NSRange compareRange, id locale) {
+    return (NSComparisonResult)[(NSString*)self compare: (NSString*) string options: (NSUInteger) mask range: (NSRange) compareRange locale: (id) locale ];
 }
 
-unsigned char NSString_inst_printLine(id self) {
-    return (unsigned char)[(NSString*)self printLine];
+unichar NSString_inst_characterAtIndex_(id self, NSUInteger index) {
+    return (unichar)[(NSString*)self characterAtIndex: (NSUInteger) index ];
 }
 
-unsigned char NSString_inst_printErrorLine(id self) {
-    return (unsigned char)[(NSString*)self printErrorLine];
+int NSString_inst_intValue(id self) {
+    return (int)[(NSString*)self intValue];
 }
 
-id NSString_inst_plus_(id arg2, id self) {
-    return (id)[(NSString*)self plus: (id) arg2 ];
+instancetype NSString_inst_initWithCString_encoding_(id self, const char* byteString, NSStringEncoding encoding) {
+    return (instancetype)[(NSString*)self initWithCString: (const char*) byteString encoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_plus_plus_(id arg2, id arg3, id self) {
-    return (id)[(NSString*)self plus: (id) arg2 plus: (id) arg3 ];
+double NSString_inst_doubleValue(id self) {
+    return (double)[(NSString*)self doubleValue];
 }
 
-id NSString_inst_plus_plus_plus_(id arg2, id arg3, id arg4, id self) {
-    return (id)[(NSString*)self plus: (id) arg2 plus: (id) arg3 plus: (id) arg4 ];
+NSInteger NSString_inst_integerValue(id self) {
+    return (NSInteger)[(NSString*)self integerValue];
 }
 
-id NSString_inst_plus_plus_plus_plus_(id arg2, id arg3, id arg4, id arg5, id self) {
-    return (id)[(NSString*)self plus: (id) arg2 plus: (id) arg3 plus: (id) arg4 plus: (id) arg5 ];
+NSUInteger NSString_inst_maximumLengthOfBytesUsingEncoding_(id self, NSStringEncoding encoding) {
+    return (NSUInteger)[(NSString*)self maximumLengthOfBytesUsingEncoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_plus_plus_plus_plus_plus_(id arg2, id arg3, id arg4, id arg5, id arg6, id self) {
-    return (id)[(NSString*)self plus: (id) arg2 plus: (id) arg3 plus: (id) arg4 plus: (id) arg5 plus: (id) arg6 ];
+instancetype NSString_inst_initWithData_encoding_(id self, NSData* data, NSStringEncoding encoding) {
+    return (instancetype)[(NSString*)self initWithData: (NSData*) data encoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_stringByDeletingPrefix_(id arg2, id self) {
-    return (id)[(NSString*)self stringByDeletingPrefix: (id) arg2 ];
+NSString* NSString_inst_description(id self) {
+    return (NSString*)[(NSString*)self description];
 }
 
-id NSString_inst_stringByDeletingSuffix_(id arg2, id self) {
-    return (id)[(NSString*)self stringByDeletingSuffix: (id) arg2 ];
+BOOL NSString_inst_isAbsolutePath(id self) {
+    return (BOOL)[(NSString*)self isAbsolutePath];
 }
 
-id NSString_inst_stringByTrimmingLeadSpaces(id self) {
-    return (id)[(NSString*)self stringByTrimmingLeadSpaces];
+NSString* NSString_inst_stringByAppendingPathExtension_(id self, NSString* aString) {
+    return (NSString*)[(NSString*)self stringByAppendingPathExtension: (NSString*) aString ];
 }
 
-id NSString_inst_stringByTrimmingTailSpaces(id self) {
-    return (id)[(NSString*)self stringByTrimmingTailSpaces];
+NSString* NSString_inst_capitalizedString(id self) {
+    return (NSString*)[(NSString*)self capitalizedString];
 }
 
-id NSString_inst_stringByTrimmingSpaces(id self) {
-    return (id)[(NSString*)self stringByTrimmingSpaces];
+NSUInteger NSString_inst_completePathIntoString_caseSensitive_matchesIntoArray_filterTypes_(id self, NSString** outputName, BOOL flag, NSArray** outputArray, NSArray* filterTypes) {
+    return (NSUInteger)[(NSString*)self completePathIntoString: (NSString**) outputName caseSensitive: (BOOL) flag matchesIntoArray: (NSArray**) outputArray filterTypes: (NSArray*) filterTypes ];
 }
 
-id NSString_inst_stringByReplacingString_withString_(id arg2, id arg3, id self) {
-    return (id)[(NSString*)self stringByReplacingString: (id) arg2 withString: (id) arg3 ];
+NSData* NSString_inst_dataUsingEncoding_allowLossyConversion_(id self, NSStringEncoding encoding, BOOL flag) {
+    return (NSData*)[(NSString*)self dataUsingEncoding: (NSStringEncoding) encoding allowLossyConversion: (BOOL) flag ];
 }
 
-id NSString_inst_substringFromRange_(struct _NSRange arg2, id self) {
-    return (id)[(NSString*)self substringFromRange: (struct _NSRange) arg2 ];
+NSString* NSString_inst_stringByDeletingLastPathComponent(id self) {
+    return (NSString*)[(NSString*)self stringByDeletingLastPathComponent];
 }
 
-void NSString_inst_appendToXMLRPC_indent_for_(id arg2, unsigned long long arg3, id arg4, id self) {
-    return (void)[(NSString*)self appendToXMLRPC: (id) arg2 indent: (unsigned long long) arg3 for: (id) arg4 ];
+NSString* NSString_inst_stringByRemovingPercentEncoding(id self) {
+    return (NSString*)[(NSString*)self stringByRemovingPercentEncoding];
 }
 
-id NSString_inst_stringByEscapingXML(id self) {
-    return (id)[(NSString*)self stringByEscapingXML];
+instancetype NSString_inst_initWithCharacters_length_(id self, const unichar* chars, NSUInteger length) {
+    return (instancetype)[(NSString*)self initWithCharacters: (const unichar*) chars length: (NSUInteger) length ];
 }
 
-id NSString_inst_stringByUnescapingXML(id self) {
-    return (id)[(NSString*)self stringByUnescapingXML];
+NSComparisonResult NSString_inst_caseInsensitiveCompare_(id self, NSString* aString) {
+    return (NSComparisonResult)[(NSString*)self caseInsensitiveCompare: (NSString*) aString ];
 }
 
-id NSString_inst__stringByExpandingXMLEntities(id self) {
-    return (id)[(NSString*)self _stringByExpandingXMLEntities];
+NSRange NSString_inst_paragraphRangeForRange_(id self, NSRange range) {
+    return (NSRange)[(NSString*)self paragraphRangeForRange: (NSRange) range ];
 }
 
-id NSString_inst_stringByRepeatingCurrentString_(unsigned long long arg2, id self) {
-    return (id)[(NSString*)self stringByRepeatingCurrentString: (unsigned long long) arg2 ];
+NSRange NSString_inst_rangeOfString_options_range_locale_(id self, NSString* aString, NSStringCompareOptions mask, NSRange searchRange, NSLocale* locale) {
+    return (NSRange)[(NSString*)self rangeOfString: (NSString*) aString options: (NSStringCompareOptions) mask range: (NSRange) searchRange locale: (NSLocale*) locale ];
 }
 
-const char* NSString_inst_gnutlsFileSystemRepresentation(id self) {
-    return (const char*)[(NSString*)self gnutlsFileSystemRepresentation];
+instancetype NSString_inst_initWithCharactersNoCopy_length_freeWhenDone_(id self, unichar* chars, NSUInteger length, BOOL flag) {
+    return (instancetype)[(NSString*)self initWithCharactersNoCopy: (unichar*) chars length: (NSUInteger) length freeWhenDone: (BOOL) flag ];
 }
 
-id NSString_inst__unicodeString(id self) {
-    return (id)[(NSString*)self _unicodeString];
+instancetype NSString_inst_initWithContentsOfURL_encoding_error_(id self, NSURL* url, NSStringEncoding enc, NSError** error) {
+    return (instancetype)[(NSString*)self initWithContentsOfURL: (NSURL*) url encoding: (NSStringEncoding) enc error: (NSError**) error ];
 }
 
-id NSString_inst__normalizedICUStringOfType_mode_(const char* arg2, signed int arg3, id self) {
-    return (id)[(NSString*)self _normalizedICUStringOfType: (const char*) arg2 mode: (signed int) arg3 ];
+instancetype NSString_inst_initWithBytes_length_encoding_(id self, const void* bytes, NSUInteger length, NSStringEncoding encoding) {
+    return (instancetype)[(NSString*)self initWithBytes: (const void*) bytes length: (NSUInteger) length encoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_init(id self) {
-    return (id)[(NSString*)self init];
+NSRange NSString_inst_rangeOfString_(id self, NSString* string) {
+    return (NSRange)[(NSString*)self rangeOfString: (NSString*) string ];
 }
 
-id NSString_inst_initWithBytes_length_encoding_(void* const arg2, unsigned long long arg3, signed int arg4, id self) {
-    return (id)[(NSString*)self initWithBytes: (void* const) arg2 length: (unsigned long long) arg3 encoding: (signed int) arg4 ];
+NSRange NSString_inst_rangeOfCharacterFromSet_options_range_(id self, NSCharacterSet* aSet, NSUInteger mask, NSRange aRange) {
+    return (NSRange)[(NSString*)self rangeOfCharacterFromSet: (NSCharacterSet*) aSet options: (NSUInteger) mask range: (NSRange) aRange ];
 }
 
-id NSString_inst_initWithBytesNoCopy_length_encoding_freeWhenDone_(void* arg2, unsigned long long arg3, signed int arg4, unsigned char arg5, id self) {
-    return (id)[(NSString*)self initWithBytesNoCopy: (void*) arg2 length: (unsigned long long) arg3 encoding: (signed int) arg4 freeWhenDone: (unsigned char) arg5 ];
+NSArray* NSString_inst_stringsByAppendingPaths_(id self, NSArray* paths) {
+    return (NSArray*)[(NSString*)self stringsByAppendingPaths: (NSArray*) paths ];
 }
 
-id NSString_inst_initWithCharactersNoCopy_length_freeWhenDone_(unsigned short* arg2, unsigned long long arg3, unsigned char arg4, id self) {
-    return (id)[(NSString*)self initWithCharactersNoCopy: (unsigned short*) arg2 length: (unsigned long long) arg3 freeWhenDone: (unsigned char) arg4 ];
+NSStringEncoding NSString_inst_smallestEncoding(id self) {
+    return (NSStringEncoding)[(NSString*)self smallestEncoding];
 }
 
-id NSString_inst_initWithCharacters_length_(unsigned short* const arg2, unsigned long long arg3, id self) {
-    return (id)[(NSString*)self initWithCharacters: (unsigned short* const) arg2 length: (unsigned long long) arg3 ];
+NSRange NSString_inst_rangeOfComposedCharacterSequencesForRange_(id self, NSRange range) {
+    return (NSRange)[(NSString*)self rangeOfComposedCharacterSequencesForRange: (NSRange) range ];
 }
 
-id NSString_inst_initWithCStringNoCopy_length_freeWhenDone_(char* arg2, unsigned long long arg3, unsigned char arg4, id self) {
-    return (id)[(NSString*)self initWithCStringNoCopy: (char*) arg2 length: (unsigned long long) arg3 freeWhenDone: (unsigned char) arg4 ];
+const char* NSString_inst_cStringUsingEncoding_(id self, NSStringEncoding encoding) {
+    return (const char*)[(NSString*)self cStringUsingEncoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_initWithCString_encoding_(const char* arg2, signed int arg3, id self) {
-    return (id)[(NSString*)self initWithCString: (const char*) arg2 encoding: (signed int) arg3 ];
+NSString* NSString_inst_commonPrefixWithString_options_(id self, NSString* aString, NSUInteger mask) {
+    return (NSString*)[(NSString*)self commonPrefixWithString: (NSString*) aString options: (NSUInteger) mask ];
 }
 
-id NSString_inst_initWithCString_length_(const char* arg2, unsigned long long arg3, id self) {
-    return (id)[(NSString*)self initWithCString: (const char*) arg2 length: (unsigned long long) arg3 ];
+NSString* NSString_inst_stringByAbbreviatingWithTildeInPath(id self) {
+    return (NSString*)[(NSString*)self stringByAbbreviatingWithTildeInPath];
 }
 
-id NSString_inst_initWithCString_(const char* arg2, id self) {
-    return (id)[(NSString*)self initWithCString: (const char*) arg2 ];
+BOOL NSString_inst_writeToFile_atomically_encoding_error_(id self, NSString* path, BOOL atomically, NSStringEncoding enc, NSError** error) {
+    return (BOOL)[(NSString*)self writeToFile: (NSString*) path atomically: (BOOL) atomically encoding: (NSStringEncoding) enc error: (NSError**) error ];
 }
 
-id NSString_inst_initWithString_(id arg2, id self) {
-    return (id)[(NSString*)self initWithString: (id) arg2 ];
+NSString* NSString_inst_stringByTrimmingCharactersInSet_(id self, NSCharacterSet* aSet) {
+    return (NSString*)[(NSString*)self stringByTrimmingCharactersInSet: (NSCharacterSet*) aSet ];
 }
 
-id NSString_inst_initWithUTF8String_(const char* arg2, id self) {
-    return (id)[(NSString*)self initWithUTF8String: (const char*) arg2 ];
+NSRange NSString_inst_rangeOfString_options_(id self, NSString* string, NSUInteger mask) {
+    return (NSRange)[(NSString*)self rangeOfString: (NSString*) string options: (NSUInteger) mask ];
 }
 
-id NSString_inst_initWithFormat_(id arg2, id self) {
-    return (id)[(NSString*)self initWithFormat: (id) arg2 ];
+NSString* NSString_inst_precomposedStringWithCompatibilityMapping(id self) {
+    return (NSString*)[(NSString*)self precomposedStringWithCompatibilityMapping];
 }
 
-id NSString_inst_initWithFormat_locale_(id arg2, id arg3, id self) {
-    return (id)[(NSString*)self initWithFormat: (id) arg2 locale: (id) arg3 ];
+NSDictionary* NSString_inst_propertyListFromStringsFileFormat(id self) {
+    return (NSDictionary*)[(NSString*)self propertyListFromStringsFileFormat];
 }
 
-// id NSString_inst_initWithFormat_arguments_(id arg2, va_list arg3, id self) {
-//     return (id)[(NSString*)self initWithFormat: (id) arg2 arguments: (va_list) arg3 ];
-// }
-
-// id NSString_inst_initWithFormat_locale_arguments_(id arg2, id arg3, va_list arg4, id self) {
-//     return (id)[(NSString*)self initWithFormat: (id) arg2 locale: (id) arg3 arguments: (va_list) arg4 ];
-// }
-
-id NSString_inst_initWithData_encoding_(id arg2, signed int arg3, id self) {
-    return (id)[(NSString*)self initWithData: (id) arg2 encoding: (signed int) arg3 ];
-}
-
-id NSString_inst_initWithContentsOfFile_(id arg2, id self) {
-    return (id)[(NSString*)self initWithContentsOfFile: (id) arg2 ];
-}
-
-id NSString_inst_initWithContentsOfFile_usedEncoding_error_(id arg2, signed int* arg3, id* arg4, id self) {
-    return (id)[(NSString*)self initWithContentsOfFile: (id) arg2 usedEncoding: (signed int*) arg3 error: (id*) arg4 ];
-}
-
-id NSString_inst_initWithContentsOfFile_encoding_error_(id arg2, signed int arg3, id* arg4, id self) {
-    return (id)[(NSString*)self initWithContentsOfFile: (id) arg2 encoding: (signed int) arg3 error: (id*) arg4 ];
-}
-
-id NSString_inst_initWithContentsOfURL_(id arg2, id self) {
-    return (id)[(NSString*)self initWithContentsOfURL: (id) arg2 ];
-}
-
-id NSString_inst_initWithContentsOfURL_usedEncoding_error_(id arg2, signed int* arg3, id* arg4, id self) {
-    return (id)[(NSString*)self initWithContentsOfURL: (id) arg2 usedEncoding: (signed int*) arg3 error: (id*) arg4 ];
-}
-
-id NSString_inst_initWithContentsOfURL_encoding_error_(id arg2, signed int arg3, id* arg4, id self) {
-    return (id)[(NSString*)self initWithContentsOfURL: (id) arg2 encoding: (signed int) arg3 error: (id*) arg4 ];
-}
-
-unsigned long long NSString_inst_length(id self) {
-    return (unsigned long long)[(NSString*)self length];
-}
-
-unsigned short NSString_inst_characterAtIndex_(unsigned long long arg2, id self) {
-    return (unsigned short)[(NSString*)self characterAtIndex: (unsigned long long) arg2 ];
-}
-
-id NSString_inst_decomposedStringWithCompatibilityMapping(id self) {
-    return (id)[(NSString*)self decomposedStringWithCompatibilityMapping];
-}
-
-id NSString_inst_decomposedStringWithCanonicalMapping(id self) {
-    return (id)[(NSString*)self decomposedStringWithCanonicalMapping];
-}
-
-void NSString_inst_getCharacters_(unsigned short* arg2, id self) {
-    return (void)[(NSString*)self getCharacters: (unsigned short*) arg2 ];
-}
-
-void NSString_inst_getCharacters_range_(unsigned short* arg2, struct _NSRange arg3, id self) {
-    return (void)[(NSString*)self getCharacters: (unsigned short*) arg2 range: (struct _NSRange) arg3 ];
-}
-
-id NSString_inst_stringByAddingPercentEncodingWithAllowedCharacters_(id arg2, id self) {
-    return (id)[(NSString*)self stringByAddingPercentEncodingWithAllowedCharacters: (id) arg2 ];
-}
-
-id NSString_inst_stringByRemovingPercentEncoding(id self) {
-    return (id)[(NSString*)self stringByRemovingPercentEncoding];
-}
-
-id NSString_inst_stringByAddingPercentEscapesUsingEncoding_(signed int arg2, id self) {
-    return (id)[(NSString*)self stringByAddingPercentEscapesUsingEncoding: (signed int) arg2 ];
-}
-
-id NSString_inst_stringByAppendingFormat_(id arg2, id self) {
-    return (id)[(NSString*)self stringByAppendingFormat: (id) arg2 ];
-}
-
-id NSString_inst_stringByAppendingString_(id arg2, id self) {
-    return (id)[(NSString*)self stringByAppendingString: (id) arg2 ];
-}
-
-id NSString_inst_componentsSeparatedByCharactersInSet_(id arg2, id self) {
-    return (id)[(NSString*)self componentsSeparatedByCharactersInSet: (id) arg2 ];
-}
-
-id NSString_inst_componentsSeparatedByString_(id arg2, id self) {
-    return (id)[(NSString*)self componentsSeparatedByString: (id) arg2 ];
-}
-
-id NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(id arg2, id arg3, unsigned long long arg4, struct _NSRange arg5, id self) {
-    return (id)[(NSString*)self stringByReplacingOccurrencesOfString: (id) arg2 withString: (id) arg3 options: (unsigned long long) arg4 range: (struct _NSRange) arg5 ];
-}
-
-id NSString_inst_stringByReplacingOccurrencesOfString_withString_(id arg2, id arg3, id self) {
-    return (id)[(NSString*)self stringByReplacingOccurrencesOfString: (id) arg2 withString: (id) arg3 ];
-}
-
-id NSString_inst_stringByReplacingCharactersInRange_withString_(struct _NSRange arg2, id arg3, id self) {
-    return (id)[(NSString*)self stringByReplacingCharactersInRange: (struct _NSRange) arg2 withString: (id) arg3 ];
-}
-
-id NSString_inst_substringFromIndex_(unsigned long long arg2, id self) {
-    return (id)[(NSString*)self substringFromIndex: (unsigned long long) arg2 ];
-}
-
-id NSString_inst_substringToIndex_(unsigned long long arg2, id self) {
-    return (id)[(NSString*)self substringToIndex: (unsigned long long) arg2 ];
-}
-
-// id NSString_inst_substringFromRange_(struct _NSRange arg2, id self) {
-//     return (id)[(NSString*)self substringFromRange: (struct _NSRange) arg2 ];
-// }
-
-id NSString_inst_substringWithRange_(struct _NSRange arg2, id self) {
-    return (id)[(NSString*)self substringWithRange: (struct _NSRange) arg2 ];
-}
-
-struct _NSRange NSString_inst_rangeOfCharacterFromSet_(id arg2, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfCharacterFromSet: (id) arg2 ];
-}
-
-struct _NSRange NSString_inst_rangeOfCharacterFromSet_options_(id arg2, unsigned long long arg3, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfCharacterFromSet: (id) arg2 options: (unsigned long long) arg3 ];
-}
-
-struct _NSRange NSString_inst_rangeOfCharacterFromSet_options_range_(id arg2, unsigned long long arg3, struct _NSRange arg4, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfCharacterFromSet: (id) arg2 options: (unsigned long long) arg3 range: (struct _NSRange) arg4 ];
-}
-
-struct _NSRange NSString_inst_rangeOfString_(id arg2, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfString: (id) arg2 ];
-}
-
-struct _NSRange NSString_inst_rangeOfString_options_(id arg2, unsigned long long arg3, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfString: (id) arg2 options: (unsigned long long) arg3 ];
-}
-
-struct _NSRange NSString_inst_rangeOfString_options_range_(id arg2, unsigned long long arg3, struct _NSRange arg4, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfString: (id) arg2 options: (unsigned long long) arg3 range: (struct _NSRange) arg4 ];
-}
-
-struct _NSRange NSString_inst_rangeOfString_options_range_locale_(id arg2, unsigned long long arg3, struct _NSRange arg4, id arg5, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfString: (id) arg2 options: (unsigned long long) arg3 range: (struct _NSRange) arg4 locale: (id) arg5 ];
-}
-
-unsigned long long NSString_inst_indexOfString_(id arg2, id self) {
-    return (unsigned long long)[(NSString*)self indexOfString: (id) arg2 ];
-}
-
-unsigned long long NSString_inst_indexOfString_fromIndex_(id arg2, unsigned long long arg3, id self) {
-    return (unsigned long long)[(NSString*)self indexOfString: (id) arg2 fromIndex: (unsigned long long) arg3 ];
-}
-
-struct _NSRange NSString_inst_rangeOfComposedCharacterSequenceAtIndex_(unsigned long long arg2, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfComposedCharacterSequenceAtIndex: (unsigned long long) arg2 ];
-}
-
-struct _NSRange NSString_inst_rangeOfComposedCharacterSequencesForRange_(struct _NSRange arg2, id self) {
-    return (struct _NSRange)[(NSString*)self rangeOfComposedCharacterSequencesForRange: (struct _NSRange) arg2 ];
-}
-
-signed long long NSString_inst_compare_(id arg2, id self) {
-    return (signed long long)[(NSString*)self compare: (id) arg2 ];
-}
-
-signed long long NSString_inst_compare_options_(id arg2, unsigned long long arg3, id self) {
-    return (signed long long)[(NSString*)self compare: (id) arg2 options: (unsigned long long) arg3 ];
-}
-
-signed long long NSString_inst_compare_options_range_(id arg2, unsigned long long arg3, struct _NSRange arg4, id self) {
-    return (signed long long)[(NSString*)self compare: (id) arg2 options: (unsigned long long) arg3 range: (struct _NSRange) arg4 ];
-}
-
-unsigned char NSString_inst_hasPrefix_(id arg2, id self) {
-    return (unsigned char)[(NSString*)self hasPrefix: (id) arg2 ];
-}
-
-unsigned char NSString_inst_hasSuffix_(id arg2, id self) {
-    return (unsigned char)[(NSString*)self hasSuffix: (id) arg2 ];
-}
-
-unsigned char NSString_inst_isEqual_(id arg2, id self) {
-    return (unsigned char)[(NSString*)self isEqual: (id) arg2 ];
-}
-
-unsigned char NSString_inst_isEqualToString_(id arg2, id self) {
-    return (unsigned char)[(NSString*)self isEqualToString: (id) arg2 ];
-}
-
-unsigned long long NSString_inst_hash(id self) {
-    return (unsigned long long)[(NSString*)self hash];
-}
-
-id NSString_inst_commonPrefixWithString_options_(id arg2, unsigned long long arg3, id self) {
-    return (id)[(NSString*)self commonPrefixWithString: (id) arg2 options: (unsigned long long) arg3 ];
-}
-
-struct _NSRange NSString_inst_lineRangeForRange_(struct _NSRange arg2, id self) {
-    return (struct _NSRange)[(NSString*)self lineRangeForRange: (struct _NSRange) arg2 ];
-}
-
-void NSString_inst__getStart_end_contentsEnd_forRange_lineSep_(unsigned long long* arg2, unsigned long long* arg3, unsigned long long* arg4, struct _NSRange arg5, unsigned char arg6, id self) {
-    return (void)[(NSString*)self _getStart: (unsigned long long*) arg2 end: (unsigned long long*) arg3 contentsEnd: (unsigned long long*) arg4 forRange: (struct _NSRange) arg5 lineSep: (unsigned char) arg6 ];
-}
-
-void NSString_inst_getLineStart_end_contentsEnd_forRange_(unsigned long long* arg2, unsigned long long* arg3, unsigned long long* arg4, struct _NSRange arg5, id self) {
-    return (void)[(NSString*)self getLineStart: (unsigned long long*) arg2 end: (unsigned long long*) arg3 contentsEnd: (unsigned long long*) arg4 forRange: (struct _NSRange) arg5 ];
+NSArray* NSString_inst_componentsSeparatedByCharactersInSet_(id self, NSCharacterSet* separator) {
+    return (NSArray*)[(NSString*)self componentsSeparatedByCharactersInSet: (NSCharacterSet*) separator ];
 }
 
-void NSString_inst_getParagraphStart_end_contentsEnd_forRange_(unsigned long long* arg2, unsigned long long* arg3, unsigned long long* arg4, struct _NSRange arg5, id self) {
-    return (void)[(NSString*)self getParagraphStart: (unsigned long long*) arg2 end: (unsigned long long*) arg3 contentsEnd: (unsigned long long*) arg4 forRange: (struct _NSRange) arg5 ];
+NSString* NSString_inst_lastPathComponent(id self) {
+    return (NSString*)[(NSString*)self lastPathComponent];
 }
 
-id NSString_inst_capitalizedString(id self) {
-    return (id)[(NSString*)self capitalizedString];
+NSUInteger NSString_inst_cStringLength(id self) {
+    return (NSUInteger)[(NSString*)self cStringLength];
 }
 
-id NSString_inst_lowercaseString(id self) {
-    return (id)[(NSString*)self lowercaseString];
+NSString* NSString_inst_substringWithRange_(id self, NSRange aRange) {
+    return (NSString*)[(NSString*)self substringWithRange: (NSRange) aRange ];
 }
 
-id NSString_inst_uppercaseString(id self) {
-    return (id)[(NSString*)self uppercaseString];
+NSString* NSString_inst_stringByAppendingString_(id self, NSString* aString) {
+    return (NSString*)[(NSString*)self stringByAppendingString: (NSString*) aString ];
 }
 
-id NSString_inst_description(id self) {
-    return (id)[(NSString*)self description];
+void NSString_inst_getCString_maxLength_(id self, char* buffer, NSUInteger maxLength) {
+    return (void)[(NSString*)self getCString: (char*) buffer maxLength: (NSUInteger) maxLength ];
 }
 
-unsigned short* const NSString_inst_unicharString(id self) {
-    return (unsigned short* const)[(NSString*)self unicharString];
+instancetype NSString_inst_initWithCStringNoCopy_length_freeWhenDone_(id self, char* byteString, NSUInteger length, BOOL flag) {
+    return (instancetype)[(NSString*)self initWithCStringNoCopy: (char*) byteString length: (NSUInteger) length freeWhenDone: (BOOL) flag ];
 }
 
-const char* NSString_inst_cString(id self) {
-    return (const char*)[(NSString*)self cString];
+NSRange NSString_inst_rangeOfString_options_range_(id self, NSString* aString, NSUInteger mask, NSRange aRange) {
+    return (NSRange)[(NSString*)self rangeOfString: (NSString*) aString options: (NSUInteger) mask range: (NSRange) aRange ];
 }
 
-const char* NSString_inst_cStringUsingEncoding_(signed int arg2, id self) {
-    return (const char*)[(NSString*)self cStringUsingEncoding: (signed int) arg2 ];
+void NSString_inst_getCharacters_range_(id self, unichar* buffer, NSRange aRange) {
+    return (void)[(NSString*)self getCharacters: (unichar*) buffer range: (NSRange) aRange ];
 }
 
-unsigned long long NSString_inst_lengthOfBytesUsingEncoding_(signed int arg2, id self) {
-    return (unsigned long long)[(NSString*)self lengthOfBytesUsingEncoding: (signed int) arg2 ];
+instancetype NSString_inst_initWithCString_length_(id self, const char* byteString, NSUInteger length) {
+    return (instancetype)[(NSString*)self initWithCString: (const char*) byteString length: (NSUInteger) length ];
 }
 
-unsigned long long NSString_inst_maximumLengthOfBytesUsingEncoding_(signed int arg2, id self) {
-    return (unsigned long long)[(NSString*)self maximumLengthOfBytesUsingEncoding: (signed int) arg2 ];
+NSStringEncoding NSString_inst_fastestEncoding(id self) {
+    return (NSStringEncoding)[(NSString*)self fastestEncoding];
 }
 
 const char* NSString_inst_lossyCString(id self) {
     return (const char*)[(NSString*)self lossyCString];
 }
 
+BOOL NSString_inst_hasPrefix_(id self, NSString* aString) {
+    return (BOOL)[(NSString*)self hasPrefix: (NSString*) aString ];
+}
+
+instancetype NSString_inst_initWithFormat_arguments_(id self, NSString* format, va_list argList) {
+    return (instancetype)[(NSString*)self initWithFormat: (NSString*) format arguments: (va_list) argList ];
+}
+
+instancetype NSString_inst_initWithFormat_locale_(id self, NSString* format, NSDictionary* locale) {
+    return (instancetype)[(NSString*)self initWithFormat: (NSString*) format locale: (NSDictionary*) locale ];
+}
+
+instancetype NSString_inst_initWithBytesNoCopy_length_encoding_freeWhenDone_(id self, void* bytes, NSUInteger length, NSStringEncoding encoding, BOOL flag) {
+    return (instancetype)[(NSString*)self initWithBytesNoCopy: (void*) bytes length: (NSUInteger) length encoding: (NSStringEncoding) encoding freeWhenDone: (BOOL) flag ];
+}
+
+BOOL NSString_inst_writeToFile_atomically_(id self, NSString* filename, BOOL useAuxiliaryFile) {
+    return (BOOL)[(NSString*)self writeToFile: (NSString*) filename atomically: (BOOL) useAuxiliaryFile ];
+}
+
 const char* NSString_inst_UTF8String(id self) {
     return (const char*)[(NSString*)self UTF8String];
-}
-
-unsigned long long NSString_inst_cStringLength(id self) {
-    return (unsigned long long)[(NSString*)self cStringLength];
-}
-
-void NSString_inst_getCString_(char* arg2, id self) {
-    return (void)[(NSString*)self getCString: (char*) arg2 ];
-}
-
-void NSString_inst_getCString_maxLength_(char* arg2, unsigned long long arg3, id self) {
-    return (void)[(NSString*)self getCString: (char*) arg2 maxLength: (unsigned long long) arg3 ];
-}
-
-unsigned char NSString_inst_getCString_maxLength_encoding_(char* arg2, unsigned long long arg3, signed int arg4, id self) {
-    return (unsigned char)[(NSString*)self getCString: (char*) arg2 maxLength: (unsigned long long) arg3 encoding: (signed int) arg4 ];
-}
-
-void NSString_inst_getCString_maxLength_range_remainingRange_(char* arg2, unsigned long long arg3, struct _NSRange arg4, struct _NSRange* arg5, id self) {
-    return (void)[(NSString*)self getCString: (char*) arg2 maxLength: (unsigned long long) arg3 range: (struct _NSRange) arg4 remainingRange: (struct _NSRange*) arg5 ];
-}
-
-unsigned char NSString_inst_boolValue(id self) {
-    return (unsigned char)[(NSString*)self boolValue];
-}
-
-// struct AutoBindingsUnknown173561222 /* {?=cCCC[38C]} */ NSString_inst_decimalValue(id self) {
-//     return (struct AutoBindingsUnknown173561222 /* {?=cCCC[38C]} */)[(NSString*)self decimalValue];
-// }
-
-double NSString_inst_doubleValue(id self) {
-    return (double)[(NSString*)self doubleValue];
 }
 
 float NSString_inst_floatValue(id self) {
     return (float)[(NSString*)self floatValue];
 }
 
-signed int NSString_inst_intValue(id self) {
-    return (signed int)[(NSString*)self intValue];
+NSString* NSString_inst_stringByAppendingFormat_(id self, NSString* format) {
+    return (NSString*)[(NSString*)self stringByAppendingFormat: (NSString*) format ];
 }
 
-signed long long NSString_inst_integerValue(id self) {
-    return (signed long long)[(NSString*)self integerValue];
+instancetype NSString_inst_initWithContentsOfFile_usedEncoding_error_(id self, NSString* path, NSStringEncoding* enc, NSError** error) {
+    return (instancetype)[(NSString*)self initWithContentsOfFile: (NSString*) path usedEncoding: (NSStringEncoding*) enc error: (NSError**) error ];
 }
 
-signed long long NSString_inst_longLongValue(id self) {
-    return (signed long long)[(NSString*)self longLongValue];
+NSComparisonResult NSString_inst_localizedCaseInsensitiveCompare_(id self, NSString* string) {
+    return (NSComparisonResult)[(NSString*)self localizedCaseInsensitiveCompare: (NSString*) string ];
 }
 
-unsigned char NSString_inst_canBeConvertedToEncoding_(signed int arg2, id self) {
-    return (unsigned char)[(NSString*)self canBeConvertedToEncoding: (signed int) arg2 ];
+BOOL NSString_inst_canBeConvertedToEncoding_(id self, NSStringEncoding encoding) {
+    return (BOOL)[(NSString*)self canBeConvertedToEncoding: (NSStringEncoding) encoding ];
 }
 
-id NSString_inst_dataUsingEncoding_(signed int arg2, id self) {
-    return (id)[(NSString*)self dataUsingEncoding: (signed int) arg2 ];
+BOOL NSString_inst_hasSuffix_(id self, NSString* aString) {
+    return (BOOL)[(NSString*)self hasSuffix: (NSString*) aString ];
 }
 
-id NSString_inst_dataUsingEncoding_allowLossyConversion_(signed int arg2, unsigned char arg3, id self) {
-    return (id)[(NSString*)self dataUsingEncoding: (signed int) arg2 allowLossyConversion: (unsigned char) arg3 ];
+instancetype NSString_inst_initWithContentsOfFile_(id self, NSString* path) {
+    return (instancetype)[(NSString*)self initWithContentsOfFile: (NSString*) path ];
 }
 
-signed int NSString_inst_fastestEncoding(id self) {
-    return (signed int)[(NSString*)self fastestEncoding];
+instancetype NSString_inst_initWithContentsOfFile_encoding_error_(id self, NSString* path, NSStringEncoding enc, NSError** error) {
+    return (instancetype)[(NSString*)self initWithContentsOfFile: (NSString*) path encoding: (NSStringEncoding) enc error: (NSError**) error ];
 }
 
-signed int NSString_inst_smallestEncoding(id self) {
-    return (signed int)[(NSString*)self smallestEncoding];
+NSUInteger NSString_inst_lengthOfBytesUsingEncoding_(id self, NSStringEncoding encoding) {
+    return (NSUInteger)[(NSString*)self lengthOfBytesUsingEncoding: (NSStringEncoding) encoding ];
 }
 
-unsigned long long NSString_inst_completePathIntoString_caseSensitive_matchesIntoArray_filterTypes_(id* arg2, unsigned char arg3, id* arg4, id arg5, id self) {
-    return (unsigned long long)[(NSString*)self completePathIntoString: (id*) arg2 caseSensitive: (unsigned char) arg3 matchesIntoArray: (id*) arg4 filterTypes: (id) arg5 ];
+NSArray* NSString_inst_componentsSeparatedByString_(id self, NSString* separator) {
+    return (NSArray*)[(NSString*)self componentsSeparatedByString: (NSString*) separator ];
 }
 
-const char* NSString_inst_fileSystemRepresentation(id self) {
-    return (const char*)[(NSString*)self fileSystemRepresentation];
+NSComparisonResult NSString_inst_localizedCompare_(id self, NSString* string) {
+    return (NSComparisonResult)[(NSString*)self localizedCompare: (NSString*) string ];
 }
 
-unsigned char NSString_inst_getFileSystemRepresentation_maxLength_(char* arg2, unsigned long long arg3, id self) {
-    return (unsigned char)[(NSString*)self getFileSystemRepresentation: (char*) arg2 maxLength: (unsigned long long) arg3 ];
+NSString* NSString_inst_uppercaseString(id self) {
+    return (NSString*)[(NSString*)self uppercaseString];
 }
 
-id NSString_inst_lastPathComponent(id self) {
-    return (id)[(NSString*)self lastPathComponent];
+BOOL NSString_inst_containsString_(id self, NSString* string) {
+    return (BOOL)[(NSString*)self containsString: (NSString*) string ];
 }
 
-struct _NSRange NSString_inst_paragraphRangeForRange_(struct _NSRange arg2, id self) {
-    return (struct _NSRange)[(NSString*)self paragraphRangeForRange: (struct _NSRange) arg2 ];
+instancetype NSString_inst_initWithString_(id self, NSString* string) {
+    return (instancetype)[(NSString*)self initWithString: (NSString*) string ];
 }
 
-id NSString_inst_pathExtension(id self) {
-    return (id)[(NSString*)self pathExtension];
+int NSString_inst__baseLength(id self) {
+    return (int)[(NSString*)self _baseLength];
 }
 
-id NSString_inst_precomposedStringWithCompatibilityMapping(id self) {
-    return (id)[(NSString*)self precomposedStringWithCompatibilityMapping];
+NSString* NSString_inst_stringByPaddingToLength_withString_startingAtIndex_(id self, NSUInteger newLength, NSString* padString, NSUInteger padIndex) {
+    return (NSString*)[(NSString*)self stringByPaddingToLength: (NSUInteger) newLength withString: (NSString*) padString startingAtIndex: (NSUInteger) padIndex ];
 }
 
-id NSString_inst_precomposedStringWithCanonicalMapping(id self) {
-    return (id)[(NSString*)self precomposedStringWithCanonicalMapping];
+instancetype NSString_inst_initWithCString_(id self, const char* byteString) {
+    return (instancetype)[(NSString*)self initWithCString: (const char*) byteString ];
 }
 
-id NSString_inst_stringByAppendingPathComponent_(id arg2, id self) {
-    return (id)[(NSString*)self stringByAppendingPathComponent: (id) arg2 ];
+instancetype NSString_inst_initWithFormat_locale_arguments_(id self, NSString* format, NSDictionary* locale, va_list argList) {
+    return (instancetype)[(NSString*)self initWithFormat: (NSString*) format locale: (NSDictionary*) locale arguments: (va_list) argList ];
 }
 
-id NSString_inst_stringByAppendingPathExtension_(id arg2, id self) {
-    return (id)[(NSString*)self stringByAppendingPathExtension: (id) arg2 ];
+NSString* NSString_inst_stringByAddingPercentEncodingWithAllowedCharacters_(id self, NSCharacterSet* aSet) {
+    return (NSString*)[(NSString*)self stringByAddingPercentEncodingWithAllowedCharacters: (NSCharacterSet*) aSet ];
 }
 
-id NSString_inst_stringByDeletingLastPathComponent(id self) {
-    return (id)[(NSString*)self stringByDeletingLastPathComponent];
+NSString* NSString_inst_decomposedStringWithCompatibilityMapping(id self) {
+    return (NSString*)[(NSString*)self decomposedStringWithCompatibilityMapping];
 }
 
-id NSString_inst_stringByDeletingPathExtension(id self) {
-    return (id)[(NSString*)self stringByDeletingPathExtension];
+long long NSString_inst_longLongValue(id self) {
+    return (long long)[(NSString*)self longLongValue];
 }
 
-id NSString_inst_stringByExpandingTildeInPath(id self) {
-    return (id)[(NSString*)self stringByExpandingTildeInPath];
+NSRange NSString_inst_rangeOfCharacterFromSet_options_(id self, NSCharacterSet* aSet, NSUInteger mask) {
+    return (NSRange)[(NSString*)self rangeOfCharacterFromSet: (NSCharacterSet*) aSet options: (NSUInteger) mask ];
 }
 
-id NSString_inst_stringByAbbreviatingWithTildeInPath(id self) {
-    return (id)[(NSString*)self stringByAbbreviatingWithTildeInPath];
+NSArray* NSString_inst_pathComponents(id self) {
+    return (NSArray*)[(NSString*)self pathComponents];
 }
 
-id NSString_inst_stringByPaddingToLength_withString_startingAtIndex_(unsigned long long arg2, id arg3, unsigned long long arg4, id self) {
-    return (id)[(NSString*)self stringByPaddingToLength: (unsigned long long) arg2 withString: (id) arg3 startingAtIndex: (unsigned long long) arg4 ];
+NSString* NSString_inst_substringFromIndex_(id self, NSUInteger index) {
+    return (NSString*)[(NSString*)self substringFromIndex: (NSUInteger) index ];
 }
 
-id NSString_inst_stringByReplacingPercentEscapesUsingEncoding_(signed int arg2, id self) {
-    return (id)[(NSString*)self stringByReplacingPercentEscapesUsingEncoding: (signed int) arg2 ];
+void NSString_inst_getLineStart_end_contentsEnd_forRange_(id self, NSUInteger* startIndex, NSUInteger* lineEndIndex, NSUInteger* contentsEndIndex, NSRange aRange) {
+    return (void)[(NSString*)self getLineStart: (NSUInteger*) startIndex end: (NSUInteger*) lineEndIndex contentsEnd: (NSUInteger*) contentsEndIndex forRange: (NSRange) aRange ];
 }
 
-id NSString_inst_stringByResolvingSymlinksInPath(id self) {
-    return (id)[(NSString*)self stringByResolvingSymlinksInPath];
+NSString* NSString_inst_stringByResolvingSymlinksInPath(id self) {
+    return (NSString*)[(NSString*)self stringByResolvingSymlinksInPath];
 }
 
-id NSString_inst_stringByStandardizingPath(id self) {
-    return (id)[(NSString*)self stringByStandardizingPath];
+NSString* NSString_inst_stringByAddingPercentEscapesUsingEncoding_(id self, NSStringEncoding e) {
+    return (NSString*)[(NSString*)self stringByAddingPercentEscapesUsingEncoding: (NSStringEncoding) e ];
 }
 
-id NSString_inst_stringByTrimmingCharactersInSet_(id arg2, id self) {
-    return (id)[(NSString*)self stringByTrimmingCharactersInSet: (id) arg2 ];
+instancetype NSString_inst_initWithUTF8String_(id self, const char* bytes) {
+    return (instancetype)[(NSString*)self initWithUTF8String: (const char*) bytes ];
 }
 
-signed int NSString_inst__baseLength(id self) {
-    return (signed int)[(NSString*)self _baseLength];
+NSComparisonResult NSString_inst_compare_options_(id self, NSString* aString, NSUInteger mask) {
+    return (NSComparisonResult)[(NSString*)self compare: (NSString*) aString options: (NSUInteger) mask ];
 }
 
-unsigned char NSString_inst_isAbsolutePath(id self) {
-    return (unsigned char)[(NSString*)self isAbsolutePath];
+BOOL NSString_inst_writeToURL_atomically_encoding_error_(id self, NSURL* url, BOOL atomically, NSStringEncoding enc, NSError** error) {
+    return (BOOL)[(NSString*)self writeToURL: (NSURL*) url atomically: (BOOL) atomically encoding: (NSStringEncoding) enc error: (NSError**) error ];
 }
 
-id NSString_inst_pathComponents(id self) {
-    return (id)[(NSString*)self pathComponents];
+BOOL NSString_inst_isEqual_(id self, id anObject) {
+    return (BOOL)[(NSString*)self isEqual: (id) anObject ];
 }
 
-id NSString_inst_stringsByAppendingPaths_(id arg2, id self) {
-    return (id)[(NSString*)self stringsByAppendingPaths: (id) arg2 ];
+NSComparisonResult NSString_inst_compare_options_range_(id self, NSString* aString, NSUInteger mask, NSRange aRange) {
+    return (NSComparisonResult)[(NSString*)self compare: (NSString*) aString options: (NSUInteger) mask range: (NSRange) aRange ];
 }
 
-signed long long NSString_inst_caseInsensitiveCompare_(id arg2, id self) {
-    return (signed long long)[(NSString*)self caseInsensitiveCompare: (id) arg2 ];
+NSRange NSString_inst_rangeOfCharacterFromSet_(id self, NSCharacterSet* aSet) {
+    return (NSRange)[(NSString*)self rangeOfCharacterFromSet: (NSCharacterSet*) aSet ];
 }
 
-signed long long NSString_inst_compare_options_range_locale_(id arg2, unsigned long long arg3, struct _NSRange arg4, id arg5, id self) {
-    return (signed long long)[(NSString*)self compare: (id) arg2 options: (unsigned long long) arg3 range: (struct _NSRange) arg4 locale: (id) arg5 ];
+NSString* NSString_inst_stringByReplacingPercentEscapesUsingEncoding_(id self, NSStringEncoding e) {
+    return (NSString*)[(NSString*)self stringByReplacingPercentEscapesUsingEncoding: (NSStringEncoding) e ];
 }
 
-signed long long NSString_inst_localizedCompare_(id arg2, id self) {
-    return (signed long long)[(NSString*)self localizedCompare: (id) arg2 ];
+instancetype NSString_inst_initWithContentsOfURL_(id self, NSURL* url) {
+    return (instancetype)[(NSString*)self initWithContentsOfURL: (NSURL*) url ];
 }
 
-signed long long NSString_inst_localizedCaseInsensitiveCompare_(id arg2, id self) {
-    return (signed long long)[(NSString*)self localizedCaseInsensitiveCompare: (id) arg2 ];
+void NSString_inst_getParagraphStart_end_contentsEnd_forRange_(id self, NSUInteger* startIndex, NSUInteger* parEndIndex, NSUInteger* contentsEndIndex, NSRange range) {
+    return (void)[(NSString*)self getParagraphStart: (NSUInteger*) startIndex end: (NSUInteger*) parEndIndex contentsEnd: (NSUInteger*) contentsEndIndex forRange: (NSRange) range ];
 }
 
-unsigned char NSString_inst_writeToFile_atomically_(id arg2, unsigned char arg3, id self) {
-    return (unsigned char)[(NSString*)self writeToFile: (id) arg2 atomically: (unsigned char) arg3 ];
+NSRange NSString_inst_lineRangeForRange_(id self, NSRange aRange) {
+    return (NSRange)[(NSString*)self lineRangeForRange: (NSRange) aRange ];
 }
 
-unsigned char NSString_inst_writeToFile_atomically_encoding_error_(id arg2, unsigned char arg3, signed int arg4, id* arg5, id self) {
-    return (unsigned char)[(NSString*)self writeToFile: (id) arg2 atomically: (unsigned char) arg3 encoding: (signed int) arg4 error: (id*) arg5 ];
+BOOL NSString_inst_getCString_maxLength_encoding_(id self, char* buffer, NSUInteger maxLength, NSStringEncoding encoding) {
+    return (BOOL)[(NSString*)self getCString: (char*) buffer maxLength: (NSUInteger) maxLength encoding: (NSStringEncoding) encoding ];
 }
 
-unsigned char NSString_inst_writeToURL_atomically_encoding_error_(id arg2, unsigned char arg3, signed int arg4, id* arg5, id self) {
-    return (unsigned char)[(NSString*)self writeToURL: (id) arg2 atomically: (unsigned char) arg3 encoding: (signed int) arg4 error: (id*) arg5 ];
+BOOL NSString_inst_writeToURL_atomically_(id self, NSURL* url, BOOL atomically) {
+    return (BOOL)[(NSString*)self writeToURL: (NSURL*) url atomically: (BOOL) atomically ];
 }
 
-unsigned char NSString_inst_writeToURL_atomically_(id arg2, unsigned char arg3, id self) {
-    return (unsigned char)[(NSString*)self writeToURL: (id) arg2 atomically: (unsigned char) arg3 ];
+NSUInteger NSString_inst_hash(id self) {
+    return (NSUInteger)[(NSString*)self hash];
 }
 
-id NSString_inst_copyWithZone_(struct _NSZone* arg2, id self) {
-    return (id)[(NSString*)self copyWithZone: (struct _NSZone*) arg2 ];
+instancetype NSString_inst_init(id self) {
+    return (instancetype)[(NSString*)self init];
 }
 
-id NSString_inst_mutableCopyWithZone_(struct _NSZone* arg2, id self) {
-    return (id)[(NSString*)self mutableCopyWithZone: (struct _NSZone*) arg2 ];
+instancetype NSString_inst_initWithFormat_(id self, NSString* format) {
+    return (instancetype)[(NSString*)self initWithFormat: (NSString*) format ];
 }
 
-void NSString_inst_encodeWithCoder_(id arg2, id self) {
-    return (void)[(NSString*)self encodeWithCoder: (id) arg2 ];
+NSComparisonResult NSString_inst_compare_(id self, NSString* aString) {
+    return (NSComparisonResult)[(NSString*)self compare: (NSString*) aString ];
 }
 
-id NSString_inst_initWithCoder_(id arg2, id self) {
-    return (id)[(NSString*)self initWithCoder: (id) arg2 ];
+instancetype NSString_inst_initWithContentsOfURL_usedEncoding_error_(id self, NSURL* url, NSStringEncoding* enc, NSError** error) {
+    return (instancetype)[(NSString*)self initWithContentsOfURL: (NSURL*) url usedEncoding: (NSStringEncoding*) enc error: (NSError**) error ];
 }
 
-Class NSString_inst_classForCoder(id self) {
-    return (Class)[(NSString*)self classForCoder];
+void NSString_inst_getCharacters_(id self, unichar* buffer) {
+    return (void)[(NSString*)self getCharacters: (unichar*) buffer ];
 }
 
-id NSString_inst_replacementObjectForPortCoder_(id arg2, id self) {
-    return (id)[(NSString*)self replacementObjectForPortCoder: (id) arg2 ];
+const char* NSString_inst_cString(id self) {
+    return (const char*)[(NSString*)self cString];
+}
+
+BOOL NSString_inst_boolValue(id self) {
+    return (BOOL)[(NSString*)self boolValue];
+}
+
+NSData* NSString_inst_dataUsingEncoding_(id self, NSStringEncoding encoding) {
+    return (NSData*)[(NSString*)self dataUsingEncoding: (NSStringEncoding) encoding ];
+}
+
+NSString* NSString_inst_decomposedStringWithCanonicalMapping(id self) {
+    return (NSString*)[(NSString*)self decomposedStringWithCanonicalMapping];
+}
+
+NSRange NSString_inst_rangeOfComposedCharacterSequenceAtIndex_(id self, NSUInteger anIndex) {
+    return (NSRange)[(NSString*)self rangeOfComposedCharacterSequenceAtIndex: (NSUInteger) anIndex ];
+}
+
+NSString* NSString_inst_stringByDeletingPathExtension(id self) {
+    return (NSString*)[(NSString*)self stringByDeletingPathExtension];
+}
+
+BOOL NSString_inst_getFileSystemRepresentation_maxLength_(id self, GSNativeChar* buffer, NSUInteger size) {
+    return (BOOL)[(NSString*)self getFileSystemRepresentation: (GSNativeChar*) buffer maxLength: (NSUInteger) size ];
+}
+
+NSString* NSString_inst_stringByAppendingPathComponent_(id self, NSString* aString) {
+    return (NSString*)[(NSString*)self stringByAppendingPathComponent: (NSString*) aString ];
+}
+
+const GSNativeChar* NSString_inst_fileSystemRepresentation(id self) {
+    return (const GSNativeChar*)[(NSString*)self fileSystemRepresentation];
+}
+
+void NSString_inst_enumerateSubstringsInRange_options_usingBlock_(id self, NSRange range, NSStringEnumerationOptions opts, GSNSStringEnumerationBlock block) {
+    return (void)[(NSString*)self enumerateSubstringsInRange: (NSRange) range options: (NSStringEnumerationOptions) opts usingBlock: (GSNSStringEnumerationBlock) block ];
+}
+
+void NSString_inst_getCString_(id self, char* buffer) {
+    return (void)[(NSString*)self getCString: (char*) buffer ];
+}
+
+NSString* NSString_inst_pathExtension(id self) {
+    return (NSString*)[(NSString*)self pathExtension];
+}
+
+NSString* NSString_inst_lowercaseString(id self) {
+    return (NSString*)[(NSString*)self lowercaseString];
+}
+
+NSString* NSString_inst_stringByStandardizingPath(id self) {
+    return (NSString*)[(NSString*)self stringByStandardizingPath];
+}
+
+NSString* NSString_inst_stringByReplacingOccurrencesOfString_withString_(id self, NSString* replace, NSString* by) {
+    return (NSString*)[(NSString*)self stringByReplacingOccurrencesOfString: (NSString*) replace withString: (NSString*) by ];
+}
+
+NSString* NSString_inst_substringToIndex_(id self, NSUInteger index) {
+    return (NSString*)[(NSString*)self substringToIndex: (NSUInteger) index ];
 }
 
 id NSString_inst_propertyList(id self) {
     return (id)[(NSString*)self propertyList];
 }
 
-id NSString_inst_propertyListFromStringsFileFormat(id self) {
-    return (id)[(NSString*)self propertyListFromStringsFileFormat];
+NSString* NSString_inst_precomposedStringWithCanonicalMapping(id self) {
+    return (NSString*)[(NSString*)self precomposedStringWithCanonicalMapping];
 }
 
-unsigned char NSString_inst_containsString_(id arg2, id self) {
-    return (unsigned char)[(NSString*)self containsString: (id) arg2 ];
+NSUInteger NSString_inst_length(id self) {
+    return (NSUInteger)[(NSString*)self length];
 }
 
-void NSString_inst_enumerateSubstringsInRange_options_usingBlock_(struct _NSRange arg2, unsigned long long arg3, id arg4, id self) {
-    return (void)[(NSString*)self enumerateSubstringsInRange: (struct _NSRange) arg2 options: (unsigned long long) arg3 usingBlock: (id) arg4 ];
+BOOL NSString_inst_isEqualToString_(id self, NSString* aString) {
+    return (BOOL)[(NSString*)self isEqualToString: (NSString*) aString ];
+}
+
+void NSString_inst_getCString_maxLength_range_remainingRange_(id self, char* buffer, NSUInteger maxLength, NSRange aRange, NSRange* leftoverRange) {
+    return (void)[(NSString*)self getCString: (char*) buffer maxLength: (NSUInteger) maxLength range: (NSRange) aRange remainingRange: (NSRange*) leftoverRange ];
+}
+
+NSString* NSString_inst_stringByReplacingCharactersInRange_withString_(id self, NSRange aRange, NSString* by) {
+    return (NSString*)[(NSString*)self stringByReplacingCharactersInRange: (NSRange) aRange withString: (NSString*) by ];
+}
+
+NSString* NSString_inst_stringByExpandingTildeInPath(id self) {
+    return (NSString*)[(NSString*)self stringByExpandingTildeInPath];
 }
 
 
-// id NSString_cls_stringWithFormat_arguments_(id arg2, va_list arg3, id self) {
-//     return (id)[(Class)self stringWithFormat: (id) arg2 arguments: (va_list) arg3 ];
-// }
-
-void NSString_cls_atExit(id self) {
-    return (void)[(Class)self atExit];
+NSString* NSString_cls_localizedNameOfStringEncoding_(id self, NSStringEncoding encoding) {
+    return (NSString*)[(Class)self localizedNameOfStringEncoding: (NSStringEncoding) encoding ];
 }
 
-void NSString_cls_initialize(id self) {
-    return (void)[(Class)self initialize];
+instancetype NSString_cls_stringWithContentsOfURL_encoding_error_(id self, NSURL* url, NSStringEncoding enc, NSError** error) {
+    return (instancetype)[(Class)self stringWithContentsOfURL: (NSURL*) url encoding: (NSStringEncoding) enc error: (NSError**) error ];
 }
 
-id NSString_cls_allocWithZone_(struct _NSZone* arg2, id self) {
-    return (id)[(Class)self allocWithZone: (struct _NSZone*) arg2 ];
+instancetype NSString_cls_stringWithContentsOfURL_(id self, NSURL* url) {
+    return (instancetype)[(Class)self stringWithContentsOfURL: (NSURL*) url ];
+}
+
+NSString* NSString_cls_pathWithComponents_(id self, NSArray* components) {
+    return (NSString*)[(Class)self pathWithComponents: (NSArray*) components ];
+}
+
+NSStringEncoding* NSString_cls_availableStringEncodings(id self) {
+    return (NSStringEncoding*)[(Class)self availableStringEncodings];
+}
+
+instancetype NSString_cls_stringWithCharacters_length_(id self, const unichar* chars, NSUInteger length) {
+    return (instancetype)[(Class)self stringWithCharacters: (const unichar*) chars length: (NSUInteger) length ];
+}
+
+instancetype NSString_cls_stringWithContentsOfFile_encoding_error_(id self, NSString* path, NSStringEncoding enc, NSError** error) {
+    return (instancetype)[(Class)self stringWithContentsOfFile: (NSString*) path encoding: (NSStringEncoding) enc error: (NSError**) error ];
+}
+
+instancetype NSString_cls_stringWithCString_encoding_(id self, const char* byteString, NSStringEncoding encoding) {
+    return (instancetype)[(Class)self stringWithCString: (const char*) byteString encoding: (NSStringEncoding) encoding ];
+}
+
+instancetype NSString_cls_stringWithCString_length_(id self, const char* byteString, NSUInteger length) {
+    return (instancetype)[(Class)self stringWithCString: (const char*) byteString length: (NSUInteger) length ];
+}
+
+instancetype NSString_cls_stringWithFormat_(id self, NSString* format) {
+    return (instancetype)[(Class)self stringWithFormat: (NSString*) format ];
+}
+
+instancetype NSString_cls_string(id self) {
+    return (instancetype)[(Class)self string];
+}
+
+NSString* NSString_cls_localizedStringWithFormat_(id self, NSString* format) {
+    return (NSString*)[(Class)self localizedStringWithFormat: (NSString*) format ];
+}
+
+instancetype NSString_cls_stringWithContentsOfFile_(id self, NSString* path) {
+    return (instancetype)[(Class)self stringWithContentsOfFile: (NSString*) path ];
+}
+
+instancetype NSString_cls_stringWithUTF8String_(id self, const char* bytes) {
+    return (instancetype)[(Class)self stringWithUTF8String: (const char*) bytes ];
+}
+
+NSStringEncoding NSString_cls_defaultCStringEncoding(id self) {
+    return (NSStringEncoding)[(Class)self defaultCStringEncoding];
+}
+
+instancetype NSString_cls_stringWithString_(id self, NSString* aString) {
+    return (instancetype)[(Class)self stringWithString: (NSString*) aString ];
 }
 
 Class NSString_cls_constantStringClass(id self) {
     return (Class)[(Class)self constantStringClass];
 }
 
-id NSString_cls_string(id self) {
-    return (id)[(Class)self string];
+instancetype NSString_cls_stringWithContentsOfFile_usedEncoding_error_(id self, NSString* path, NSStringEncoding* enc, NSError** error) {
+    return (instancetype)[(Class)self stringWithContentsOfFile: (NSString*) path usedEncoding: (NSStringEncoding*) enc error: (NSError**) error ];
 }
 
-id NSString_cls_stringWithString_(id arg2, id self) {
-    return (id)[(Class)self stringWithString: (id) arg2 ];
+instancetype NSString_cls_stringWithContentsOfURL_usedEncoding_error_(id self, NSURL* url, NSStringEncoding* enc, NSError** error) {
+    return (instancetype)[(Class)self stringWithContentsOfURL: (NSURL*) url usedEncoding: (NSStringEncoding*) enc error: (NSError**) error ];
 }
 
-id NSString_cls_stringWithCharacters_length_(unsigned short* const arg2, unsigned long long arg3, id self) {
-    return (id)[(Class)self stringWithCharacters: (unsigned short* const) arg2 length: (unsigned long long) arg3 ];
-}
-
-id NSString_cls_stringWithCString_(const char* arg2, id self) {
-    return (id)[(Class)self stringWithCString: (const char*) arg2 ];
-}
-
-id NSString_cls_stringWithCString_encoding_(const char* arg2, signed int arg3, id self) {
-    return (id)[(Class)self stringWithCString: (const char*) arg2 encoding: (signed int) arg3 ];
-}
-
-id NSString_cls_stringWithCString_length_(const char* arg2, unsigned long long arg3, id self) {
-    return (id)[(Class)self stringWithCString: (const char*) arg2 length: (unsigned long long) arg3 ];
-}
-
-id NSString_cls_stringWithUTF8String_(const char* arg2, id self) {
-    return (id)[(Class)self stringWithUTF8String: (const char*) arg2 ];
-}
-
-id NSString_cls_stringWithContentsOfFile_(id arg2, id self) {
-    return (id)[(Class)self stringWithContentsOfFile: (id) arg2 ];
-}
-
-id NSString_cls_stringWithContentsOfFile_usedEncoding_error_(id arg2, signed int* arg3, id* arg4, id self) {
-    return (id)[(Class)self stringWithContentsOfFile: (id) arg2 usedEncoding: (signed int*) arg3 error: (id*) arg4 ];
-}
-
-id NSString_cls_stringWithContentsOfFile_encoding_error_(id arg2, signed int arg3, id* arg4, id self) {
-    return (id)[(Class)self stringWithContentsOfFile: (id) arg2 encoding: (signed int) arg3 error: (id*) arg4 ];
-}
-
-id NSString_cls_stringWithContentsOfURL_(id arg2, id self) {
-    return (id)[(Class)self stringWithContentsOfURL: (id) arg2 ];
-}
-
-id NSString_cls_stringWithContentsOfURL_usedEncoding_error_(id arg2, signed int* arg3, id* arg4, id self) {
-    return (id)[(Class)self stringWithContentsOfURL: (id) arg2 usedEncoding: (signed int*) arg3 error: (id*) arg4 ];
-}
-
-id NSString_cls_stringWithContentsOfURL_encoding_error_(id arg2, signed int arg3, id* arg4, id self) {
-    return (id)[(Class)self stringWithContentsOfURL: (id) arg2 encoding: (signed int) arg3 error: (id*) arg4 ];
-}
-
-id NSString_cls_stringWithFormat_(id arg2, id self) {
-    return (id)[(Class)self stringWithFormat: (id) arg2 ];
-}
-
-signed int NSString_cls_defaultCStringEncoding(id self) {
-    return (signed int)[(Class)self defaultCStringEncoding];
-}
-
-signed int* NSString_cls_availableStringEncodings(id self) {
-    return (signed int*)[(Class)self availableStringEncodings];
-}
-
-id NSString_cls_localizedNameOfStringEncoding_(signed int arg2, id self) {
-    return (id)[(Class)self localizedNameOfStringEncoding: (signed int) arg2 ];
-}
-
-id NSString_cls_pathWithComponents_(id arg2, id self) {
-    return (id)[(Class)self pathWithComponents: (id) arg2 ];
-}
-
-id NSString_cls_localizedStringWithFormat_(id arg2, id self) {
-    return (id)[(Class)self localizedStringWithFormat: (id) arg2 ];
+instancetype NSString_cls_stringWithCString_(id self, const char* byteString) {
+    return (instancetype)[(Class)self stringWithCString: (const char*) byteString ];
 }
 // End C bindings to class NSString

@@ -1,3 +1,4 @@
+#import "common.autogen.h"
 @interface NSString
 - (NSString*) stringByReplacingOccurrencesOfString: (NSString*) replace withString: (NSString*) by options: (NSStringCompareOptions) opts range: (NSRange) searchRange ;
 - (NSComparisonResult) compare: (NSString*) string options: (NSUInteger) mask range: (NSRange) compareRange locale: (id) locale ;

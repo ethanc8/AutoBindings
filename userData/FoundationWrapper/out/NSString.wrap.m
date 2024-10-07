@@ -1,3 +1,4 @@
+#import "common.wrap.m"
 // C bindings to class NSString
 
 NSString* NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(id self, NSString* replace, NSString* by, NSStringCompareOptions opts, NSRange searchRange) {

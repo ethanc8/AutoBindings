@@ -1,3 +1,4 @@
+#import "common.wrap.h"
 // C interface to class NSString
 NSString* NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(id self, NSString* replace, NSString* by, NSStringCompareOptions opts, NSRange searchRange);
 NSComparisonResult NSString_inst_compare_options_range_locale_(id self, NSString* string, NSUInteger mask, NSRange compareRange, id locale);

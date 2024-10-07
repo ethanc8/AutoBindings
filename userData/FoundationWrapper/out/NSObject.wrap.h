@@ -1,3 +1,4 @@
+#import "common.wrap.h"
 // C interface to class NSObject
 Class NSObject_inst_classForCoder(id self);
 void NSObject_inst_forwardInvocation_(id self, NSInvocation* anInvocation);

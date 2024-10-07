@@ -1,3 +1,4 @@
+#import "common.autogen.h"
 @interface NSObject
 - (Class) classForCoder;
 - (void) forwardInvocation: (NSInvocation*) anInvocation ;
