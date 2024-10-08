@@ -8,7 +8,8 @@ AutoBindings_OBJC_FILES = main.m \
 	ECRuntimeClass.m ECRuntimeMethod.m ECRuntimeMethodArgument.m ECRuntimeType.m \
 	ECMethod+AutoBindings.m ECClass+AutoBindings.m \
 	ECGSDocDocument.m ECGSDocClass.m ECGSDocMethod.m ECGSDocMethodArgument.m \
-	ECTypenameType.m
+	ECTypenameType.m \
+	ECRegistry.m
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make

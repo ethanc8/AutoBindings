@@ -1,4 +1,4 @@
-class NSObject {
+class NSObject: ObjCObject {
     static let _objc_class = objc_lookUpClass("NSObject")
 
 func classForCoder() -> AutoBindingsUnknown218975734 {
@@ -13,15 +13,15 @@ func dealloc() -> AutoBindingsUnknown159276594 {
     return NSObject_inst_dealloc(self._objc_self);
 }
 
-func awakeAfterUsingCoder(_ aDecoder: AutoBindingsUnknown64573304) -> AutoBindingsUnknown3776685 {
+func awakeAfterUsingCoder(_ aDecoder: AutoBindingsUnknown64573304) -> ObjCObject {
     return NSObject_inst_awakeAfterUsingCoder_(self._objc_self, aDecoder);
 }
 
-func replacementObjectForArchiver(_ anArchiver: AutoBindingsUnknown196460063) -> AutoBindingsUnknown3776685 {
+func replacementObjectForArchiver(_ anArchiver: AutoBindingsUnknown196460063) -> ObjCObject {
     return NSObject_inst_replacementObjectForArchiver_(self._objc_self, anArchiver);
 }
 
-func autoContentAccessingProxy() -> AutoBindingsUnknown3776685 {
+func autoContentAccessingProxy() -> ObjCObject {
     return NSObject_inst_autoContentAccessingProxy(self._objc_self);
 }
 
@@ -29,7 +29,7 @@ func className() -> AutoBindingsUnknown144151490 {
     return NSObject_inst_className(self._objc_self);
 }
 
-func replacementObjectForCoder(_ anEncoder: AutoBindingsUnknown64573304) -> AutoBindingsUnknown3776685 {
+func replacementObjectForCoder(_ anEncoder: AutoBindingsUnknown64573304) -> ObjCObject {
     return NSObject_inst_replacementObjectForCoder_(self._objc_self, anEncoder);
 }
 
@@ -45,7 +45,7 @@ func methodSignatureForSelector(_ aSelector: AutoBindingsUnknown29494308) -> Aut
     return NSObject_inst_methodSignatureForSelector_(self._objc_self, aSelector);
 }
 
-func forwardingTargetForSelector(_ aSelector: AutoBindingsUnknown29494308) -> AutoBindingsUnknown3776685 {
+func forwardingTargetForSelector(_ aSelector: AutoBindingsUnknown29494308) -> ObjCObject {
     return NSObject_inst_forwardingTargetForSelector_(self._objc_self, aSelector);
 }
 
@@ -65,11 +65,11 @@ func superclass() -> AutoBindingsUnknown218975734 {
     return NSObject_inst_superclass(self._objc_self);
 }
 
-func mutableCopy() -> AutoBindingsUnknown3776685 {
+func mutableCopy() -> ObjCObject {
     return NSObject_inst_mutableCopy(self._objc_self);
 }
 
-func copy() -> AutoBindingsUnknown3776685 {
+func copy() -> ObjCObject {
     return NSObject_inst_copy(self._objc_self);
 }
 
@@ -86,11 +86,11 @@ class func setVersion(_ aVersion: AutoBindingsUnknown152684047) -> AutoBindingsU
     return NSObject_cls_setVersion_(self._objc_self, aVersion);
 }
 
-class func allocWithZone(_ z: AutoBindingsUnknown160040327) -> AutoBindingsUnknown3776685 {
+class func allocWithZone(_ z: AutoBindingsUnknown160040327) -> ObjCObject {
     return NSObject_cls_allocWithZone_(self._objc_self, z);
 }
 
-class func new() -> AutoBindingsUnknown3776685 {
+class func new() -> ObjCObject {
     return NSObject_cls_new(self._objc_self);
 }
 
@@ -102,7 +102,7 @@ class func poseAsClass(_ aClassObject: AutoBindingsUnknown218975734) -> AutoBind
     return NSObject_cls_poseAsClass_(self._objc_self, aClassObject);
 }
 
-class func alloc() -> AutoBindingsUnknown3776685 {
+class func alloc() -> ObjCObject {
     return NSObject_cls_alloc(self._objc_self);
 }
 

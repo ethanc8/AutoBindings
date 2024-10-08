@@ -49,13 +49,6 @@ else
 
 // Swift wrapper
 - (NSString*) SwiftWrapperImplementation {
-    // NSString* returnStr = [NSString string];
-    // returnStr = [returnStr plus:
-    //                 [NSString stringWithFormat:
-    //     [self superclassName] ? @"class %1$@ : %2$@ {" : @"class %1$@ {"
-    //     , [self name], [self superclassName]]
-    //                        plus: @"\n"];
-    
     NSString* returnStr;
     if([self superclassName]) {
         returnStr = [NSString stringWithFormat:
@@ -65,7 +58,7 @@ else
             ];
     } else {
         returnStr = [NSString stringWithFormat:
-            @"class %1$@ {\n"
+            @"class %1$@: ObjCObject {\n"
             @"    static let _objc_class = objc_lookUpClass(\"%1$@\")\n"
             , [self name]
             ];
@@ -73,7 +66,7 @@ else
 
     for (ECMethod* method in [self instanceMethods]) {
         if([method isInitMethod]) {
-            NSLog(@"Init method found: +[%@ %@]", self.name, method.name);
+            // NSLog(@"Init method found: +[%@ %@]", self.name, method.name);
             returnStr = [returnStr plus: @"\n"
                                    plus: [method SwiftInitWrapperImplementation]
                                    plus: @"\n"];

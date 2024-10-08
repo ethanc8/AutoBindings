@@ -1,11 +1,11 @@
 class NSString : NSObject {
     static let _objc_class = objc_lookUpClass("NSString")
 
-func stringByReplacingOccurrencesOfString(_ replace: AutoBindingsUnknown144151490, withString by: AutoBindingsUnknown144151490, options opts: AutoBindingsUnknown57556523, range searchRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown144151490 {
+func stringByReplacingOccurrencesOfString(_ replace: NSString, withString by: NSString, options opts: AutoBindingsUnknown57556523, range searchRange: AutoBindingsUnknown228391054) -> NSString {
     return NSString_inst_stringByReplacingOccurrencesOfString_withString_options_range_(self._objc_self, replace, by, opts, searchRange);
 }
 
-func compare(_ string: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348, range compareRange: AutoBindingsUnknown228391054, locale locale: AutoBindingsUnknown3776685) -> AutoBindingsUnknown69873819 {
+func compare(_ string: NSString, options mask: AutoBindingsUnknown199417348, range compareRange: AutoBindingsUnknown228391054, locale locale: ObjCObject) -> AutoBindingsUnknown69873819 {
     return NSString_inst_compare_options_range_locale_(self._objc_self, string, mask, compareRange, locale);
 }
 
@@ -37,7 +37,7 @@ init(data data: AutoBindingsUnknown50637477, encoding encoding: AutoBindingsUnkn
     self._objc_self = NSString_inst_initWithData_encoding_(NSObject_alloc(Self._objc_class), data, encoding);
 }
 
-func description() -> AutoBindingsUnknown144151490 {
+func description() -> NSString {
     return NSString_inst_description(self._objc_self);
 }
 
@@ -45,11 +45,11 @@ func isAbsolutePath() -> AutoBindingsUnknown23840620 {
     return NSString_inst_isAbsolutePath(self._objc_self);
 }
 
-func stringByAppendingPathExtension(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByAppendingPathExtension(_ aString: NSString) -> NSString {
     return NSString_inst_stringByAppendingPathExtension_(self._objc_self, aString);
 }
 
-func capitalizedString() -> AutoBindingsUnknown144151490 {
+func capitalizedString() -> NSString {
     return NSString_inst_capitalizedString(self._objc_self);
 }
 
@@ -61,11 +61,11 @@ func dataUsingEncoding(_ encoding: AutoBindingsUnknown29686751, allowLossyConver
     return NSString_inst_dataUsingEncoding_allowLossyConversion_(self._objc_self, encoding, flag);
 }
 
-func stringByDeletingLastPathComponent() -> AutoBindingsUnknown144151490 {
+func stringByDeletingLastPathComponent() -> NSString {
     return NSString_inst_stringByDeletingLastPathComponent(self._objc_self);
 }
 
-func stringByRemovingPercentEncoding() -> AutoBindingsUnknown144151490 {
+func stringByRemovingPercentEncoding() -> NSString {
     return NSString_inst_stringByRemovingPercentEncoding(self._objc_self);
 }
 
@@ -73,7 +73,7 @@ init(characters chars: AutoBindingsUnknown229063035, length length: AutoBindings
     self._objc_self = NSString_inst_initWithCharacters_length_(NSObject_alloc(Self._objc_class), chars, length);
 }
 
-func caseInsensitiveCompare(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
+func caseInsensitiveCompare(_ aString: NSString) -> AutoBindingsUnknown69873819 {
     return NSString_inst_caseInsensitiveCompare_(self._objc_self, aString);
 }
 
@@ -81,7 +81,7 @@ func paragraphRangeForRange(_ range: AutoBindingsUnknown228391054) -> AutoBindin
     return NSString_inst_paragraphRangeForRange_(self._objc_self, range);
 }
 
-func rangeOfString(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown57556523, range searchRange: AutoBindingsUnknown228391054, locale locale: AutoBindingsUnknown29137787) -> AutoBindingsUnknown228391054 {
+func rangeOfString(_ aString: NSString, options mask: AutoBindingsUnknown57556523, range searchRange: AutoBindingsUnknown228391054, locale locale: AutoBindingsUnknown29137787) -> AutoBindingsUnknown228391054 {
     return NSString_inst_rangeOfString_options_range_locale_(self._objc_self, aString, mask, searchRange, locale);
 }
 
@@ -97,7 +97,7 @@ init(bytes bytes: AutoBindingsUnknown18163651, length length: AutoBindingsUnknow
     self._objc_self = NSString_inst_initWithBytes_length_encoding_(NSObject_alloc(Self._objc_class), bytes, length, encoding);
 }
 
-func rangeOfString(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown228391054 {
+func rangeOfString(_ string: NSString) -> AutoBindingsUnknown228391054 {
     return NSString_inst_rangeOfString_(self._objc_self, string);
 }
 
@@ -121,27 +121,27 @@ func cStringUsingEncoding(_ encoding: AutoBindingsUnknown29686751) -> AutoBindin
     return NSString_inst_cStringUsingEncoding_(self._objc_self, encoding);
 }
 
-func commonPrefixWithString(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown144151490 {
+func commonPrefixWithString(_ aString: NSString, options mask: AutoBindingsUnknown199417348) -> NSString {
     return NSString_inst_commonPrefixWithString_options_(self._objc_self, aString, mask);
 }
 
-func stringByAbbreviatingWithTildeInPath() -> AutoBindingsUnknown144151490 {
+func stringByAbbreviatingWithTildeInPath() -> NSString {
     return NSString_inst_stringByAbbreviatingWithTildeInPath(self._objc_self);
 }
 
-func writeToFile(_ path: AutoBindingsUnknown144151490, atomically atomically: AutoBindingsUnknown23840620, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> AutoBindingsUnknown23840620 {
+func writeToFile(_ path: NSString, atomically atomically: AutoBindingsUnknown23840620, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> AutoBindingsUnknown23840620 {
     return NSString_inst_writeToFile_atomically_encoding_error_(self._objc_self, path, atomically, enc, error);
 }
 
-func stringByTrimmingCharactersInSet(_ aSet: AutoBindingsUnknown15313412) -> AutoBindingsUnknown144151490 {
+func stringByTrimmingCharactersInSet(_ aSet: AutoBindingsUnknown15313412) -> NSString {
     return NSString_inst_stringByTrimmingCharactersInSet_(self._objc_self, aSet);
 }
 
-func rangeOfString(_ string: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown228391054 {
+func rangeOfString(_ string: NSString, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown228391054 {
     return NSString_inst_rangeOfString_options_(self._objc_self, string, mask);
 }
 
-func precomposedStringWithCompatibilityMapping() -> AutoBindingsUnknown144151490 {
+func precomposedStringWithCompatibilityMapping() -> NSString {
     return NSString_inst_precomposedStringWithCompatibilityMapping(self._objc_self);
 }
 
@@ -153,7 +153,7 @@ func componentsSeparatedByCharactersInSet(_ separator: AutoBindingsUnknown153134
     return NSString_inst_componentsSeparatedByCharactersInSet_(self._objc_self, separator);
 }
 
-func lastPathComponent() -> AutoBindingsUnknown144151490 {
+func lastPathComponent() -> NSString {
     return NSString_inst_lastPathComponent(self._objc_self);
 }
 
@@ -161,11 +161,11 @@ func cStringLength() -> AutoBindingsUnknown199417348 {
     return NSString_inst_cStringLength(self._objc_self);
 }
 
-func substringWithRange(_ aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown144151490 {
+func substringWithRange(_ aRange: AutoBindingsUnknown228391054) -> NSString {
     return NSString_inst_substringWithRange_(self._objc_self, aRange);
 }
 
-func stringByAppendingString(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByAppendingString(_ aString: NSString) -> NSString {
     return NSString_inst_stringByAppendingString_(self._objc_self, aString);
 }
 
@@ -177,7 +177,7 @@ init(cStringNoCopy byteString: AutoBindingsUnknown223840456, length length: Auto
     self._objc_self = NSString_inst_initWithCStringNoCopy_length_freeWhenDone_(NSObject_alloc(Self._objc_class), byteString, length, flag);
 }
 
-func rangeOfString(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348, range aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown228391054 {
+func rangeOfString(_ aString: NSString, options mask: AutoBindingsUnknown199417348, range aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown228391054 {
     return NSString_inst_rangeOfString_options_range_(self._objc_self, aString, mask, aRange);
 }
 
@@ -197,15 +197,15 @@ func lossyCString() -> AutoBindingsUnknown199096431 {
     return NSString_inst_lossyCString(self._objc_self);
 }
 
-func hasPrefix(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23840620 {
+func hasPrefix(_ aString: NSString) -> AutoBindingsUnknown23840620 {
     return NSString_inst_hasPrefix_(self._objc_self, aString);
 }
 
-init(format format: AutoBindingsUnknown144151490, arguments argList: AutoBindingsUnknown212821170) {
+init(format format: NSString, arguments argList: AutoBindingsUnknown212821170) {
     self._objc_self = NSString_inst_initWithFormat_arguments_(NSObject_alloc(Self._objc_class), format, argList);
 }
 
-init(format format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833) {
+init(format format: NSString, locale locale: AutoBindingsUnknown21360833) {
     self._objc_self = NSString_inst_initWithFormat_locale_(NSObject_alloc(Self._objc_class), format, locale);
 }
 
@@ -213,7 +213,7 @@ init(bytesNoCopy bytes: AutoBindingsUnknown42907676, length length: AutoBindings
     self._objc_self = NSString_inst_initWithBytesNoCopy_length_encoding_freeWhenDone_(NSObject_alloc(Self._objc_class), bytes, length, encoding, flag);
 }
 
-func writeToFile(_ filename: AutoBindingsUnknown144151490, atomically useAuxiliaryFile: AutoBindingsUnknown23840620) -> AutoBindingsUnknown23840620 {
+func writeToFile(_ filename: NSString, atomically useAuxiliaryFile: AutoBindingsUnknown23840620) -> AutoBindingsUnknown23840620 {
     return NSString_inst_writeToFile_atomically_(self._objc_self, filename, useAuxiliaryFile);
 }
 
@@ -225,15 +225,15 @@ func floatValue() -> AutoBindingsUnknown186482582 {
     return NSString_inst_floatValue(self._objc_self);
 }
 
-func stringByAppendingFormat(_ format: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByAppendingFormat(_ format: NSString) -> NSString {
     return NSString_inst_stringByAppendingFormat_(self._objc_self, format);
 }
 
-init(contentsOfFile path: AutoBindingsUnknown144151490, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) {
+init(contentsOfFile path: NSString, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) {
     self._objc_self = NSString_inst_initWithContentsOfFile_usedEncoding_error_(NSObject_alloc(Self._objc_class), path, enc, error);
 }
 
-func localizedCaseInsensitiveCompare(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
+func localizedCaseInsensitiveCompare(_ string: NSString) -> AutoBindingsUnknown69873819 {
     return NSString_inst_localizedCaseInsensitiveCompare_(self._objc_self, string);
 }
 
@@ -241,15 +241,15 @@ func canBeConvertedToEncoding(_ encoding: AutoBindingsUnknown29686751) -> AutoBi
     return NSString_inst_canBeConvertedToEncoding_(self._objc_self, encoding);
 }
 
-func hasSuffix(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23840620 {
+func hasSuffix(_ aString: NSString) -> AutoBindingsUnknown23840620 {
     return NSString_inst_hasSuffix_(self._objc_self, aString);
 }
 
-init(contentsOfFile path: AutoBindingsUnknown144151490) {
+init(contentsOfFile path: NSString) {
     self._objc_self = NSString_inst_initWithContentsOfFile_(NSObject_alloc(Self._objc_class), path);
 }
 
-init(contentsOfFile path: AutoBindingsUnknown144151490, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) {
+init(contentsOfFile path: NSString, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) {
     self._objc_self = NSString_inst_initWithContentsOfFile_encoding_error_(NSObject_alloc(Self._objc_class), path, enc, error);
 }
 
@@ -257,23 +257,23 @@ func lengthOfBytesUsingEncoding(_ encoding: AutoBindingsUnknown29686751) -> Auto
     return NSString_inst_lengthOfBytesUsingEncoding_(self._objc_self, encoding);
 }
 
-func componentsSeparatedByString(_ separator: AutoBindingsUnknown144151490) -> AutoBindingsUnknown5972106 {
+func componentsSeparatedByString(_ separator: NSString) -> AutoBindingsUnknown5972106 {
     return NSString_inst_componentsSeparatedByString_(self._objc_self, separator);
 }
 
-func localizedCompare(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
+func localizedCompare(_ string: NSString) -> AutoBindingsUnknown69873819 {
     return NSString_inst_localizedCompare_(self._objc_self, string);
 }
 
-func uppercaseString() -> AutoBindingsUnknown144151490 {
+func uppercaseString() -> NSString {
     return NSString_inst_uppercaseString(self._objc_self);
 }
 
-func containsString(_ string: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23840620 {
+func containsString(_ string: NSString) -> AutoBindingsUnknown23840620 {
     return NSString_inst_containsString_(self._objc_self, string);
 }
 
-init(string string: AutoBindingsUnknown144151490) {
+init(string string: NSString) {
     self._objc_self = NSString_inst_initWithString_(NSObject_alloc(Self._objc_class), string);
 }
 
@@ -281,7 +281,7 @@ func _baseLength() -> AutoBindingsUnknown86641323 {
     return NSString_inst__baseLength(self._objc_self);
 }
 
-func stringByPaddingToLength(_ newLength: AutoBindingsUnknown199417348, withString padString: AutoBindingsUnknown144151490, startingAtIndex padIndex: AutoBindingsUnknown199417348) -> AutoBindingsUnknown144151490 {
+func stringByPaddingToLength(_ newLength: AutoBindingsUnknown199417348, withString padString: NSString, startingAtIndex padIndex: AutoBindingsUnknown199417348) -> NSString {
     return NSString_inst_stringByPaddingToLength_withString_startingAtIndex_(self._objc_self, newLength, padString, padIndex);
 }
 
@@ -289,15 +289,15 @@ init(cString byteString: AutoBindingsUnknown199096431) {
     self._objc_self = NSString_inst_initWithCString_(NSObject_alloc(Self._objc_class), byteString);
 }
 
-init(format format: AutoBindingsUnknown144151490, locale locale: AutoBindingsUnknown21360833, arguments argList: AutoBindingsUnknown212821170) {
+init(format format: NSString, locale locale: AutoBindingsUnknown21360833, arguments argList: AutoBindingsUnknown212821170) {
     self._objc_self = NSString_inst_initWithFormat_locale_arguments_(NSObject_alloc(Self._objc_class), format, locale, argList);
 }
 
-func stringByAddingPercentEncodingWithAllowedCharacters(_ aSet: AutoBindingsUnknown15313412) -> AutoBindingsUnknown144151490 {
+func stringByAddingPercentEncodingWithAllowedCharacters(_ aSet: AutoBindingsUnknown15313412) -> NSString {
     return NSString_inst_stringByAddingPercentEncodingWithAllowedCharacters_(self._objc_self, aSet);
 }
 
-func decomposedStringWithCompatibilityMapping() -> AutoBindingsUnknown144151490 {
+func decomposedStringWithCompatibilityMapping() -> NSString {
     return NSString_inst_decomposedStringWithCompatibilityMapping(self._objc_self);
 }
 
@@ -313,7 +313,7 @@ func pathComponents() -> AutoBindingsUnknown5972106 {
     return NSString_inst_pathComponents(self._objc_self);
 }
 
-func substringFromIndex(_ index: AutoBindingsUnknown199417348) -> AutoBindingsUnknown144151490 {
+func substringFromIndex(_ index: AutoBindingsUnknown199417348) -> NSString {
     return NSString_inst_substringFromIndex_(self._objc_self, index);
 }
 
@@ -321,11 +321,11 @@ func getLineStart(_ startIndex: AutoBindingsUnknown1209454, end lineEndIndex: Au
     return NSString_inst_getLineStart_end_contentsEnd_forRange_(self._objc_self, startIndex, lineEndIndex, contentsEndIndex, aRange);
 }
 
-func stringByResolvingSymlinksInPath() -> AutoBindingsUnknown144151490 {
+func stringByResolvingSymlinksInPath() -> NSString {
     return NSString_inst_stringByResolvingSymlinksInPath(self._objc_self);
 }
 
-func stringByAddingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown29686751) -> AutoBindingsUnknown144151490 {
+func stringByAddingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown29686751) -> NSString {
     return NSString_inst_stringByAddingPercentEscapesUsingEncoding_(self._objc_self, e);
 }
 
@@ -333,7 +333,7 @@ init(uTF8String bytes: AutoBindingsUnknown199096431) {
     self._objc_self = NSString_inst_initWithUTF8String_(NSObject_alloc(Self._objc_class), bytes);
 }
 
-func compare(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown69873819 {
+func compare(_ aString: NSString, options mask: AutoBindingsUnknown199417348) -> AutoBindingsUnknown69873819 {
     return NSString_inst_compare_options_(self._objc_self, aString, mask);
 }
 
@@ -341,11 +341,11 @@ func writeToURL(_ url: AutoBindingsUnknown182445502, atomically atomically: Auto
     return NSString_inst_writeToURL_atomically_encoding_error_(self._objc_self, url, atomically, enc, error);
 }
 
-func isEqual(_ anObject: AutoBindingsUnknown3776685) -> AutoBindingsUnknown23840620 {
+func isEqual(_ anObject: ObjCObject) -> AutoBindingsUnknown23840620 {
     return NSString_inst_isEqual_(self._objc_self, anObject);
 }
 
-func compare(_ aString: AutoBindingsUnknown144151490, options mask: AutoBindingsUnknown199417348, range aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown69873819 {
+func compare(_ aString: NSString, options mask: AutoBindingsUnknown199417348, range aRange: AutoBindingsUnknown228391054) -> AutoBindingsUnknown69873819 {
     return NSString_inst_compare_options_range_(self._objc_self, aString, mask, aRange);
 }
 
@@ -353,7 +353,7 @@ func rangeOfCharacterFromSet(_ aSet: AutoBindingsUnknown15313412) -> AutoBinding
     return NSString_inst_rangeOfCharacterFromSet_(self._objc_self, aSet);
 }
 
-func stringByReplacingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown29686751) -> AutoBindingsUnknown144151490 {
+func stringByReplacingPercentEscapesUsingEncoding(_ e: AutoBindingsUnknown29686751) -> NSString {
     return NSString_inst_stringByReplacingPercentEscapesUsingEncoding_(self._objc_self, e);
 }
 
@@ -385,11 +385,11 @@ init() {
     self._objc_self = NSString_inst_init(NSObject_alloc(Self._objc_class));
 }
 
-init(format format: AutoBindingsUnknown144151490) {
+init(format format: NSString) {
     self._objc_self = NSString_inst_initWithFormat_(NSObject_alloc(Self._objc_class), format);
 }
 
-func compare(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown69873819 {
+func compare(_ aString: NSString) -> AutoBindingsUnknown69873819 {
     return NSString_inst_compare_(self._objc_self, aString);
 }
 
@@ -413,7 +413,7 @@ func dataUsingEncoding(_ encoding: AutoBindingsUnknown29686751) -> AutoBindingsU
     return NSString_inst_dataUsingEncoding_(self._objc_self, encoding);
 }
 
-func decomposedStringWithCanonicalMapping() -> AutoBindingsUnknown144151490 {
+func decomposedStringWithCanonicalMapping() -> NSString {
     return NSString_inst_decomposedStringWithCanonicalMapping(self._objc_self);
 }
 
@@ -421,7 +421,7 @@ func rangeOfComposedCharacterSequenceAtIndex(_ anIndex: AutoBindingsUnknown19941
     return NSString_inst_rangeOfComposedCharacterSequenceAtIndex_(self._objc_self, anIndex);
 }
 
-func stringByDeletingPathExtension() -> AutoBindingsUnknown144151490 {
+func stringByDeletingPathExtension() -> NSString {
     return NSString_inst_stringByDeletingPathExtension(self._objc_self);
 }
 
@@ -429,7 +429,7 @@ func getFileSystemRepresentation(_ buffer: AutoBindingsUnknown52450633, maxLengt
     return NSString_inst_getFileSystemRepresentation_maxLength_(self._objc_self, buffer, size);
 }
 
-func stringByAppendingPathComponent(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByAppendingPathComponent(_ aString: NSString) -> NSString {
     return NSString_inst_stringByAppendingPathComponent_(self._objc_self, aString);
 }
 
@@ -445,31 +445,31 @@ func getCString(_ buffer: AutoBindingsUnknown223840456) -> AutoBindingsUnknown15
     return NSString_inst_getCString_(self._objc_self, buffer);
 }
 
-func pathExtension() -> AutoBindingsUnknown144151490 {
+func pathExtension() -> NSString {
     return NSString_inst_pathExtension(self._objc_self);
 }
 
-func lowercaseString() -> AutoBindingsUnknown144151490 {
+func lowercaseString() -> NSString {
     return NSString_inst_lowercaseString(self._objc_self);
 }
 
-func stringByStandardizingPath() -> AutoBindingsUnknown144151490 {
+func stringByStandardizingPath() -> NSString {
     return NSString_inst_stringByStandardizingPath(self._objc_self);
 }
 
-func stringByReplacingOccurrencesOfString(_ replace: AutoBindingsUnknown144151490, withString by: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByReplacingOccurrencesOfString(_ replace: NSString, withString by: NSString) -> NSString {
     return NSString_inst_stringByReplacingOccurrencesOfString_withString_(self._objc_self, replace, by);
 }
 
-func substringToIndex(_ index: AutoBindingsUnknown199417348) -> AutoBindingsUnknown144151490 {
+func substringToIndex(_ index: AutoBindingsUnknown199417348) -> NSString {
     return NSString_inst_substringToIndex_(self._objc_self, index);
 }
 
-func propertyList() -> AutoBindingsUnknown3776685 {
+func propertyList() -> ObjCObject {
     return NSString_inst_propertyList(self._objc_self);
 }
 
-func precomposedStringWithCanonicalMapping() -> AutoBindingsUnknown144151490 {
+func precomposedStringWithCanonicalMapping() -> NSString {
     return NSString_inst_precomposedStringWithCanonicalMapping(self._objc_self);
 }
 
@@ -477,7 +477,7 @@ func length() -> AutoBindingsUnknown199417348 {
     return NSString_inst_length(self._objc_self);
 }
 
-func isEqualToString(_ aString: AutoBindingsUnknown144151490) -> AutoBindingsUnknown23840620 {
+func isEqualToString(_ aString: NSString) -> AutoBindingsUnknown23840620 {
     return NSString_inst_isEqualToString_(self._objc_self, aString);
 }
 
@@ -485,16 +485,16 @@ func getCString(_ buffer: AutoBindingsUnknown223840456, maxLength maxLength: Aut
     return NSString_inst_getCString_maxLength_range_remainingRange_(self._objc_self, buffer, maxLength, aRange, leftoverRange);
 }
 
-func stringByReplacingCharactersInRange(_ aRange: AutoBindingsUnknown228391054, withString by: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+func stringByReplacingCharactersInRange(_ aRange: AutoBindingsUnknown228391054, withString by: NSString) -> NSString {
     return NSString_inst_stringByReplacingCharactersInRange_withString_(self._objc_self, aRange, by);
 }
 
-func stringByExpandingTildeInPath() -> AutoBindingsUnknown144151490 {
+func stringByExpandingTildeInPath() -> NSString {
     return NSString_inst_stringByExpandingTildeInPath(self._objc_self);
 }
 
 
-class func localizedNameOfStringEncoding(_ encoding: AutoBindingsUnknown29686751) -> AutoBindingsUnknown144151490 {
+class func localizedNameOfStringEncoding(_ encoding: AutoBindingsUnknown29686751) -> NSString {
     return NSString_cls_localizedNameOfStringEncoding_(self._objc_self, encoding);
 }
 
@@ -506,7 +506,7 @@ class func stringWithContentsOfURL(_ url: AutoBindingsUnknown182445502) -> Self 
     return NSString_cls_stringWithContentsOfURL_(self._objc_self, url);
 }
 
-class func pathWithComponents(_ components: AutoBindingsUnknown5972106) -> AutoBindingsUnknown144151490 {
+class func pathWithComponents(_ components: AutoBindingsUnknown5972106) -> NSString {
     return NSString_cls_pathWithComponents_(self._objc_self, components);
 }
 
@@ -518,7 +518,7 @@ class func stringWithCharacters(_ chars: AutoBindingsUnknown229063035, length le
     return NSString_cls_stringWithCharacters_length_(self._objc_self, chars, length);
 }
 
-class func stringWithContentsOfFile(_ path: AutoBindingsUnknown144151490, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> Self {
+class func stringWithContentsOfFile(_ path: NSString, encoding enc: AutoBindingsUnknown29686751, error error: AutoBindingsUnknown200007391) -> Self {
     return NSString_cls_stringWithContentsOfFile_encoding_error_(self._objc_self, path, enc, error);
 }
 
@@ -530,7 +530,7 @@ class func stringWithCString(_ byteString: AutoBindingsUnknown199096431, length 
     return NSString_cls_stringWithCString_length_(self._objc_self, byteString, length);
 }
 
-class func stringWithFormat(_ format: AutoBindingsUnknown144151490) -> Self {
+class func stringWithFormat(_ format: NSString) -> Self {
     return NSString_cls_stringWithFormat_(self._objc_self, format);
 }
 
@@ -538,11 +538,11 @@ class func string() -> Self {
     return NSString_cls_string(self._objc_self);
 }
 
-class func localizedStringWithFormat(_ format: AutoBindingsUnknown144151490) -> AutoBindingsUnknown144151490 {
+class func localizedStringWithFormat(_ format: NSString) -> NSString {
     return NSString_cls_localizedStringWithFormat_(self._objc_self, format);
 }
 
-class func stringWithContentsOfFile(_ path: AutoBindingsUnknown144151490) -> Self {
+class func stringWithContentsOfFile(_ path: NSString) -> Self {
     return NSString_cls_stringWithContentsOfFile_(self._objc_self, path);
 }
 
@@ -554,7 +554,7 @@ class func defaultCStringEncoding() -> AutoBindingsUnknown29686751 {
     return NSString_cls_defaultCStringEncoding(self._objc_self);
 }
 
-class func stringWithString(_ aString: AutoBindingsUnknown144151490) -> Self {
+class func stringWithString(_ aString: NSString) -> Self {
     return NSString_cls_stringWithString_(self._objc_self, aString);
 }
 
@@ -562,7 +562,7 @@ class func constantStringClass() -> AutoBindingsUnknown218975734 {
     return NSString_cls_constantStringClass(self._objc_self);
 }
 
-class func stringWithContentsOfFile(_ path: AutoBindingsUnknown144151490, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) -> Self {
+class func stringWithContentsOfFile(_ path: NSString, usedEncoding enc: AutoBindingsUnknown116618505, error error: AutoBindingsUnknown200007391) -> Self {
     return NSString_cls_stringWithContentsOfFile_usedEncoding_error_(self._objc_self, path, enc, error);
 }
 

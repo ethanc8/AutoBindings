@@ -1,5 +1,6 @@
 #import "ECGSDocDocument.h"
 #import "ECGSDocClass.h"
+#import "ECRegistry.h"
 
 @implementation ECGSDocDocument {
     GSXMLDocument* document;
@@ -15,6 +16,7 @@
     return self->document;
 }
 - (void) parse {
+    NSMutableDictionary* registryClasses = ECRegistry.sharedRegistry.classes;
     GSXMLNode* root = self->document.root;
     GSXMLNode* element = root.firstChildElement;
     while((element = [element next])) {
@@ -27,8 +29,10 @@
                     GSXMLNode* element = parent.firstChildElement;
                     while((element = [element next])) {
                         if([element.name isEqual: @"class"]) {
-                            classes[[element objectForKey: @"name"]] = 
-                                [[ECGSDocClass alloc] initWithXMLNode: element];                  
+                            ECGSDocClass* class = 
+                                [[ECGSDocClass alloc] initWithXMLNode: element];
+                            classes[[element objectForKey: @"name"]] = class;  
+                            registryClasses[[element objectForKey: @"name"]] = class;
                         }
                     }
                 }
